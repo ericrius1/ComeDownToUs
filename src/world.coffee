@@ -79,7 +79,7 @@ FW.World = class World
       textureWidth: 512
       textureHeight: 512
       waterNormals: waterNormals
-      alpha: 0.9
+      alpha: 1.0
       distortionScale: 20
 
     aMeshMirror = new THREE.Mesh(
