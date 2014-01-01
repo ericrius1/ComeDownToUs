@@ -17,7 +17,7 @@
 
   FW.globalTick = 0.16;
 
-  FW.development = true;
+  FW.development = false;
 
   window.soundOn = !FW.development;
 
@@ -30,12 +30,12 @@
 
   FW.Main = Main = (function() {
     function Main() {
+      var track;
       if (soundOn) {
-        SC.stream("/tracks/come-down-to-us", function(sound) {
-          if (soundOn) {
-            return sound.play();
-          }
-        });
+        track = "https://api.soundcloud.com/tracks/come-down-to-us/stream?oauth_consumer_key=7da24ca214bf72b66ed2494117d05480";
+        if (soundOn) {
+          FW.Audio.init(track);
+        }
       }
     }
 
