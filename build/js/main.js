@@ -22,20 +22,24 @@
   window.soundOn = !FW.development;
 
   window.onload = function() {
+    FW.main = new FW.Main();
     FW.myWorld = new FW.World();
     FW.myWorld.animate();
-    FW.main = new FW.Main();
     return document.addEventListener('keydown', FW.main.onKeyDown, false);
   };
 
   FW.Main = Main = (function() {
     function Main() {
-      var track;
       if (soundOn) {
-        track = "https://api.soundcloud.com/tracks/come-down-to-us/stream?oauth_consumer_key=7da24ca214bf72b66ed2494117d05480";
-        if (soundOn) {
-          FW.Audio.init(track);
-        }
+        SC.stream("/tracks/come-down-to-us", function(sound) {
+          var _this = this;
+          if (soundOn) {
+            setTimeout(function() {
+              return sound.setPosition(150000);
+            }, 2000);
+          }
+          return sound.play();
+        });
       }
     }
 

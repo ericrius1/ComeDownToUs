@@ -42,7 +42,6 @@ FW.Director = class Director
   updateScene2: ->
     FW.fireflies.tick()
 
-
   changeScene: ->
     @currentScene++
     FW.fireflies.activate()
@@ -54,6 +53,7 @@ FW.Director = class Director
     @frozen = !@frozen
     @controls.enabled = !@controls.enabled
     @controls.target.z = FW.camera.position.z - 30    
+
 
 
 
