@@ -8,8 +8,7 @@ FW.Fireflies = class Fireflies
       maxAge: 1
     });
 
-    for i in [0..@numEmitters]
-      @generateFireflies()
+    @generateFireflies()
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
    
@@ -27,10 +26,13 @@ FW.Fireflies = class Fireflies
       opacityEnd: 1
 
     @firefliesGroup.addEmitter @firefliesEmitter
+    @firefliesEmitter.disable()
 
   
 
   activate : ->
+    @firefliesEmitter.enable()
+
     @firefliesEmitter.position.set FW.camera.position.x, 10, FW.camera.position.z
 
     

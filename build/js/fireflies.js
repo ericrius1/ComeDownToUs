@@ -7,16 +7,13 @@
     rnd = FW.rnd;
 
     function Fireflies() {
-      var i, _i, _ref;
       this.tickTime = .008;
       this.numEmitters = 4;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 1
       });
-      for (i = _i = 0, _ref = this.numEmitters; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-        this.generateFireflies();
-      }
+      this.generateFireflies();
       this.firefliesGroup.mesh.renderDepth = -3;
       FW.scene.add(this.firefliesGroup.mesh);
     }
@@ -34,10 +31,12 @@
         velocitySpread: new THREE.Vector3(5, 5, 5),
         opacityEnd: 1
       });
-      return this.firefliesGroup.addEmitter(this.firefliesEmitter);
+      this.firefliesGroup.addEmitter(this.firefliesEmitter);
+      return this.firefliesEmitter.disable();
     };
 
     Fireflies.prototype.activate = function() {
+      this.firefliesEmitter.enable();
       return this.firefliesEmitter.position.set(FW.camera.position.x, 10, FW.camera.position.z);
     };
 
