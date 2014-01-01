@@ -7,11 +7,11 @@
     rnd = FW.rnd;
 
     function Fireflies() {
-      this.tickTime = .008;
+      this.tickTime = .004;
       this.numEmitters = 4;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 1
+        maxAge: .5
       });
       this.generateFireflies();
       this.firefliesGroup.mesh.renderDepth = -3;
@@ -22,7 +22,7 @@
       var color;
       color = new THREE.Color();
       this.firefliesEmitter = new ShaderParticleEmitter({
-        particlesPerSecond: 1000,
+        particlesPerSecond: 100,
         size: 10,
         sizeEnd: 0,
         colorStart: color,

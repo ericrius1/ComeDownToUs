@@ -1,11 +1,11 @@
 FW.Fireflies = class Fireflies
   rnd = FW.rnd
   constructor: ()->
-    @tickTime = .008
+    @tickTime = .004
     @numEmitters = 4
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 1
+      maxAge: .5
     });
 
     @generateFireflies()
@@ -16,7 +16,7 @@ FW.Fireflies = class Fireflies
   generateFireflies: ->
     color = new THREE.Color()
     @firefliesEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 1000
+      particlesPerSecond: 100
       size: 10
       sizeEnd: 0
       colorStart: color
