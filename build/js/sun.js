@@ -3,7 +3,7 @@
 
   FW.Sun = Sun = (function() {
     function Sun() {
-      FW.sunsetSpeed = 2;
+      FW.sunsetSpeed = 300;
       FW.sunStartingHeight = 12000;
       FW.sunFinalHeight = -FW.sunStartingHeight;
       this.initialScale = 2400;
@@ -14,7 +14,7 @@
       this.scaleFactor = 0.0001;
       FW.endMapNum = FW.sunFinalHeight / 2;
       FW.sunLight = new THREE.SpotLight(0xff0000, this.startingIntensity, FW.width * 10);
-      FW.sunLight.position = new THREE.Vector3(FW.width * 0.8, FW.sunStartingHeight, -FW.width * 0.1);
+      FW.sunLight.position = new THREE.Vector3(FW.width * 0.7, FW.sunStartingHeight, -FW.width * 0.1);
       FW.scene.add(FW.sunLight);
       this.sunGeo = new THREE.SphereGeometry(1, 100, 100);
       this.material = new THREE.MeshBasicMaterial();
@@ -35,7 +35,7 @@
       this.sunMesh.material.color = this.sunColor;
       FW.sunLight.color = this.sunColor;
       if (FW.sunLight.position.y > 0) {
-        FW.sunLight.position.z += FW.sunsetSpeed * 1.8;
+        FW.sunLight.position.z += FW.sunsetSpeed * 1.2;
       }
       if (this.sunMesh.scale.y < this.maxScale) {
         scale = this.sunMesh.scale.multiplyScalar(1 + FW.sunsetSpeed * this.scaleFactor);

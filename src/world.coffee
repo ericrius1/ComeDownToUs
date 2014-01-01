@@ -15,8 +15,7 @@ FW.World = class World
   
 
 
-    # @controls.zoomSpeed = 0.1
-    # @controls.rotateSpeed = 0.1
+
 
     # SCENE 
     FW.scene = new THREE.Scene()
@@ -30,6 +29,9 @@ FW.World = class World
 
     #SUN
     FW.mySun = new FW.Sun()
+
+    #FIREFLIES
+    FW.fireflies = new FW.Fireflies()
 
 
     #LIGHT
@@ -77,7 +79,7 @@ FW.World = class World
       textureWidth: 512
       textureHeight: 512
       waterNormals: waterNormals
-      alpha: 1.0
+      alpha: 0.9
       distortionScale: 20
 
     aMeshMirror = new THREE.Mesh(

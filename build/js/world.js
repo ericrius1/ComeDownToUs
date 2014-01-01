@@ -21,6 +21,7 @@
       document.body.appendChild(FW.renderer.domElement);
       this.terrain = new FW.Terrain();
       FW.mySun = new FW.Sun();
+      FW.fireflies = new FW.Fireflies();
       FW.moonLight = new THREE.DirectionalLight(0xffffff, 0.2);
       FW.scene.add(FW.moonLight);
       this.loadWater();
@@ -59,7 +60,7 @@
         textureWidth: 512,
         textureHeight: 512,
         waterNormals: waterNormals,
-        alpha: 1.0,
+        alpha: 0.9,
         distortionScale: 20
       });
       aMeshMirror = new THREE.Mesh(new THREE.PlaneGeometry(FW.width, FW.width, 50, 50), this.water.material);

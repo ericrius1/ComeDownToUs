@@ -4,12 +4,14 @@
   FW.Director = Director = (function() {
     function Director() {
       var _this = this;
-      this.timeTillSceneChange = 100000;
+      this.timeTillSceneChange = 2000;
       this.colorChangeTime = 50;
       this.skyColor = new THREE.Color();
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
       this.controls.enabled = false;
+      this.controls.zoomSpeed = 0.5;
+      this.controls.rotateSpeed = 0.5;
       this.skyLagFactor = 1.7;
       this.currentScene = 1;
       setTimeout(function() {
@@ -18,10 +20,14 @@
     }
 
     Director.prototype.update = function() {
-      if (this.currentScene === 1) {
-        return this.updateScene1();
+      if (!this.frozen) {
+        if (this.currentScene === 1) {
+          return this.updateScene1();
+        } else {
+          return this.updateScene2();
+        }
       } else {
-        return this.updateScene2();
+        return this.controls.update();
       }
     };
 
@@ -31,25 +37,21 @@
       light = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum * this.skyLagFactor, 0.5, 0.1);
       this.skyColor.setHSL(hue, 0.86, light);
       FW.renderer.setClearColor(this.skyColor);
-      if (!this.frozen) {
-        if (FW.sunLight.position.y > FW.sunFinalHeight) {
-          FW.mySun.update();
-        }
-        if (FW.camera.position.z > FW.terrainPosition.z) {
-          return FW.myCamera.update();
-        }
-      } else {
-        return this.controls.update();
+      if (FW.sunLight.position.y > FW.sunFinalHeight) {
+        FW.mySun.update();
+      }
+      if (FW.camera.position.z > FW.terrainPosition.z) {
+        return FW.myCamera.update();
       }
     };
 
     Director.prototype.updateScene2 = function() {
-      return console.log('yo');
+      return FW.fireflies.tick();
     };
 
     Director.prototype.changeScene = function() {
       this.currentScene++;
-      FW.scene.remove(FW.sunLight);
+      FW.fireflies.activate();
       return FW.scene.remove(FW.mySun.sunMesh);
     };
 

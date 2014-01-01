@@ -3,7 +3,7 @@
 FW.Sun = class Sun
   constructor: ()->
 
-    FW.sunsetSpeed = 2
+    FW.sunsetSpeed = 300
     # FW.sunsetSpeed = 2
     FW.sunStartingHeight = 12000
     FW.sunFinalHeight = -FW.sunStartingHeight
@@ -18,7 +18,7 @@ FW.Sun = class Sun
     
     #LIGHT
     FW.sunLight = new THREE.SpotLight(0xff0000, @startingIntensity, FW.width * 10)
-    FW.sunLight.position = new THREE.Vector3 FW.width * 0.8, FW.sunStartingHeight, -FW.width * 0.1 
+    FW.sunLight.position = new THREE.Vector3 FW.width * 0.7 , FW.sunStartingHeight, -FW.width * 0.1 
     FW.scene.add FW.sunLight
 
     @sunGeo = new THREE.SphereGeometry(1, 100, 100)
@@ -27,7 +27,6 @@ FW.Sun = class Sun
     @sunMesh.position = FW.sunLight.position
     @sunMesh.scale.set @initialScale, @initialScale, @initialScale
     FW.scene.add @sunMesh
-
 
 
   update : ->
@@ -41,7 +40,7 @@ FW.Sun = class Sun
     @sunMesh.material.color = @sunColor
     FW.sunLight.color = @sunColor
     if FW.sunLight.position.y > 0
-      FW.sunLight.position.z += FW.sunsetSpeed * 1.8
+      FW.sunLight.position.z += FW.sunsetSpeed * 1.2
     if @sunMesh.scale.y < @maxScale
      scale =  @sunMesh.scale.multiplyScalar 1 + FW.sunsetSpeed * @scaleFactor
      @sunMesh.scale =  scale
