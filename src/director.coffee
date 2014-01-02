@@ -1,5 +1,7 @@
 FW.Director = class Director
   constructor: ->
+    # @scene1TotalTime  = 154600
+    @scene1TotalTime = 4000
 
     @colorChangeTime = 50
     @skyColor = new THREE.Color()
@@ -14,6 +16,8 @@ FW.Director = class Director
     @endSkyHue = -0.18
     @startSkyLight = 0.5
     @endSkyLight = 0.15
+
+
 
    
 
@@ -33,7 +37,7 @@ FW.Director = class Director
   triggerScene2: ->
     FW.song.setPosition FW.scene2.songPoint
     @currentScene = FW.scene2
-    FW.fireflies.awaken()
+    FW.fireflies.run()
     FW.scene.remove FW.mySun.sunMesh
 
     
@@ -45,12 +49,10 @@ FW.Director = class Director
 
   beginShow: (showStartTime)->
     #Inititalize Scenes
-    # scene1TotalTime = 155450
-    scene1TotalTime = 2000
     FW.scene1 =
       startTime: showStartTime
-      totalTime: scene1TotalTime
-      endTime: showStartTime + scene1TotalTime
+      totalTime: @scene1TotalTime
+      endTime: showStartTime + @scene1TotalTime
     #BEWARE of overwriting total time!!
     scene2TotalTime = 101000
     FW.scene2 = 

@@ -3,6 +3,7 @@
 
   FW.Director = Director = (function() {
     function Director() {
+      this.scene1TotalTime = 4000;
       this.colorChangeTime = 50;
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -32,7 +33,7 @@
     Director.prototype.triggerScene2 = function() {
       FW.song.setPosition(FW.scene2.songPoint);
       this.currentScene = FW.scene2;
-      FW.fireflies.awaken();
+      FW.fireflies.run();
       return FW.scene.remove(FW.mySun.sunMesh);
     };
 
@@ -43,13 +44,12 @@
     };
 
     Director.prototype.beginShow = function(showStartTime) {
-      var scene1TotalTime, scene2TotalTime,
+      var scene2TotalTime,
         _this = this;
-      scene1TotalTime = 2000;
       FW.scene1 = {
         startTime: showStartTime,
-        totalTime: scene1TotalTime,
-        endTime: showStartTime + scene1TotalTime
+        totalTime: this.scene1TotalTime,
+        endTime: showStartTime + this.scene1TotalTime
       };
       scene2TotalTime = 101000;
       FW.scene2 = {
