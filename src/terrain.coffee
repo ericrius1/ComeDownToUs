@@ -7,9 +7,9 @@ FW.Terrain = class Terrain
       generator: PN_GENERATOR,
       width: FW.width
       height: FW.terrainLength
-      widthSegments: 100
-      heightSegments: 100
-      depth: 2000
+      widthSegments: 150
+      heightSegments: 150
+      depth: 1700
       param: 4,
       filterparam: 1
       filter: [ CIRCLE_FILTER ]

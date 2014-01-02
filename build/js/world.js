@@ -6,7 +6,6 @@
     function World() {
       this.animate = __bind(this.animate, this);
       var _this = this;
-      this.camStartPosition;
       FW.clock = new THREE.Clock();
       FW.SCREEN_WIDTH = window.innerWidth;
       FW.SCREEN_HEIGHT = window.innerHeight;
@@ -19,6 +18,7 @@
       });
       FW.renderer.setSize(FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT);
       document.body.appendChild(FW.renderer.domElement);
+      FW.myDirector = new FW.Director();
       this.terrain = new FW.Terrain();
       FW.mySun = new FW.Sun();
       FW.fireflies = new FW.Fireflies();
@@ -28,7 +28,6 @@
       window.addEventListener("resize", (function() {
         return _this.onWindowResize();
       }), false);
-      FW.myDirector = new FW.Director();
     }
 
     World.prototype.onWindowResize = function(event) {

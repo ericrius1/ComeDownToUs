@@ -13,17 +13,17 @@ FW.Fireflies = class Fireflies
       @generateFireflies(i)
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
-   
+
 
   generateFireflies: (currentIndex)->
     color = new THREE.Color()
     firefliesEmitter = new ShaderParticleEmitter
       particlesPerSecond: 100 * (1+currentIndex * currentIndex * 10)
       size: 10
-      sizeEnd: 0
+      sizeEnd: 5
       colorStart: color
       colorEnd: color
-      positionSpread: new THREE.Vector3 1000, 50, 1000
+      positionSpread: new THREE.Vector3 1000, 100, 1000
       velocitySpread: new THREE.Vector3 5, 5, 5
       opacityStart: 0.8
       opacityEnd: 0.5
@@ -47,7 +47,9 @@ FW.Fireflies = class Fireflies
 
   enableEmitters : ->
     for emitter in @emitters
-      emitter.position = FW.camera.position
+      emitter.position = new THREE.Vector3().copy FW.camera.position
+      emitter.position.x += 10
+
       emitter.enable()
   
   disableEmitters : ->

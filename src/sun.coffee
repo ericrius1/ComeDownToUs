@@ -3,8 +3,10 @@
 FW.Sun = class Sun
   constructor: ()->
 
-    FW.sunsetSpeed = 20
-    # FW.sunsetSpeed = 0.2
+    # FW.sunsetSpeed = 20
+    @startHue = 0.08
+    @startLight = 0.6
+    FW.sunsetSpeed = 0.2
     FW.sunStartingHeight = 1200
     FW.sunFinalHeight = -FW.sunStartingHeight
     @initialScale = 240
@@ -17,7 +19,7 @@ FW.Sun = class Sun
 
     
     #LIGHT
-    FW.sunLight = new THREE.SpotLight(0xff0000, @startingIntensity, FW.width * 10)
+    FW.sunLight = new THREE.SpotLight(0xffffff, @startingIntensity, FW.width * 10)
     FW.sunLight.position = new THREE.Vector3 FW.width * 0.7 , FW.sunStartingHeight, -FW.width * 0.1 
     FW.scene.add FW.sunLight
 
@@ -28,11 +30,13 @@ FW.Sun = class Sun
     @sunMesh.scale.set @initialScale, @initialScale, @initialScale
     FW.scene.add @sunMesh
 
+    @sunColor.setHSL @startHue, 0.86, @startLight
+
 
   update : ->
     FW.sunLight.position.y -= FW.sunsetSpeed
     sunPosY = FW.sunLight.position.y
-    FW.sunLight.intensity = map(sunPosY, FW.sunStartingHeight, FW.endMapNum,  @startingIntensity, @endIntensity)
+    # FW.sunLight.intensity = map(sunPosY, FW.sunStartingHeight, FW.endMapNum,  @startingIntensity, @endIntensity)
     hue = map(sunPosY, FW.sunStartingHeight, FW.endMapNum * 0.01,  0.08, .001 )
     light = map(sunPosY, FW.sunStartingHeight, FW.endMapNum,  0.6, 0.3 )
     @sunColor.setHSL hue, 0.86, light

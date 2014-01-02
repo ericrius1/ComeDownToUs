@@ -1,21 +1,14 @@
 
 FW.World = class World
   constructor : ->
-
-    @camStartPosition
     FW.clock = new THREE.Clock()
     FW.SCREEN_WIDTH = window.innerWidth
     FW.SCREEN_HEIGHT = window.innerHeight
     FW.width = 6000
     @rippleFactor = 120
-    
 
     # CAMERA
     FW.myCamera = new FW.Camera()
-  
-
-
-
 
     # SCENE 
     FW.scene = new THREE.Scene()
@@ -24,15 +17,18 @@ FW.World = class World
     FW.renderer = new THREE.WebGLRenderer(antialias: true)
     FW.renderer.setSize FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT
     document.body.appendChild FW.renderer.domElement
+    
+    #DIRECTOR
+    FW.myDirector = new FW.Director()
+
     #TERRAIN
     @terrain = new FW.Terrain()
-
+    
     #SUN
     FW.mySun = new FW.Sun()
 
     #FIREFLIES
     FW.fireflies = new FW.Fireflies()
-
 
     #LIGHT
     FW.moonLight = new THREE.DirectionalLight 0xffffff, 0.2
@@ -41,16 +37,10 @@ FW.World = class World
     #WATER
     @loadWater()
 
-
-
     # EVENTS
     window.addEventListener "resize", (=>
       @onWindowResize()
     ), false
-
-    #DIRECTOR
-    FW.myDirector = new FW.Director()
-
   
   onWindowResize : (event) ->
     FW.SCREEN_WIDTH = window.innerWidth
@@ -62,15 +52,12 @@ FW.World = class World
     requestAnimationFrame @animate
     time = Date.now()
     FW.myDirector.update()
-    
     @water.material.uniforms.time.value += 1.0 / @rippleFactor
     @render()
 
   render : ->
     @water.render()
     FW.renderer.render( FW.scene, FW.camera );
-
-   
 
   loadWater:   ->
     waterNormals = new THREE.ImageUtils.loadTexture 'assets/waternormals.jpg'
@@ -89,7 +76,3 @@ FW.World = class World
     aMeshMirror.add @water
     aMeshMirror.rotation.x = -Math.PI * 0.5
     FW.scene.add aMeshMirror    
-
-
- 
-

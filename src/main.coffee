@@ -30,6 +30,7 @@ FW.Main = class Main
         if soundOn
           FW.song = song
           FW.song.play()
+          FW.myDirector.beginShow()
 
   onKeyDown: (event)->
     if event.keyCode is 32

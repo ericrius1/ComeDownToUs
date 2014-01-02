@@ -1,5 +1,7 @@
 FW.Director = class Director
   constructor: ->
+    @showHasBegun = false
+
     @colorChangeTime = 50
     @skyColor = new THREE.Color()
     @frozen = false
@@ -11,9 +13,10 @@ FW.Director = class Director
 
     #SCENES
     startTime = Date.now()
-    # totalTime = 154600
-    totalTime = 3000
+    totalTime = 154700
     FW.scene1 =
+      startSkyHue: 0.12
+      startSkyLight: 0.5
       startTime: startTime
       totalTime: totalTime
       endTime: startTime + totalTime
@@ -22,18 +25,20 @@ FW.Director = class Director
       songPoint: 154700
       endTime: FW.scene1.endTime + 101000
       totalTime: 101000
-      camSpeed: 0.2
-      camAcceleration: 0.00012
+      camSpeed: 0.0
+      camAcceleration: 0.0002
       beatInterval: 3540
     #first beat: 154700
     #second beat: 158260
 
     @currentScene = FW.scene1
+    @skyColor.setHSL FW.scene1.startSkyHue, 0.86, FW.scene1.startSkyLight
+    FW.renderer.setClearColor @skyColor
     
     @skyLagFactor = 1.7
     FW.scene1.update = =>
-      @hue = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  0.12, 0 )
-      @light = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  0.5, 0.2 )
+      @hue = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  FW.scene1.startSkyHue, 0 )
+      @light = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  FW.scene1.startSkyLight, 0.2 )
       @skyColor.setHSL @hue, 0.86, @light
       FW.renderer.setClearColor @skyColor
       if FW.sunLight.position.y > FW.sunFinalHeight
@@ -51,10 +56,13 @@ FW.Director = class Director
     @currentScene = FW.scene1
 
 
+  beginShow: ->
+    @showHasBegun = true
   update: ->
     @currentTime = Date.now()
     if !@frozen
-      @currentScene.update()
+      if @showHasBegun
+        @currentScene.update()
     else
       @controls.update()
 

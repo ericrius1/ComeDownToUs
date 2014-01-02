@@ -3,7 +3,9 @@
 
   FW.Sun = Sun = (function() {
     function Sun() {
-      FW.sunsetSpeed = 20;
+      this.startHue = 0.08;
+      this.startLight = 0.6;
+      FW.sunsetSpeed = 0.2;
       FW.sunStartingHeight = 1200;
       FW.sunFinalHeight = -FW.sunStartingHeight;
       this.initialScale = 240;
@@ -13,7 +15,7 @@
       this.sunColor = new THREE.Color();
       this.scaleFactor = 0.001;
       FW.endMapNum = FW.sunFinalHeight / 2;
-      FW.sunLight = new THREE.SpotLight(0xff0000, this.startingIntensity, FW.width * 10);
+      FW.sunLight = new THREE.SpotLight(0xffffff, this.startingIntensity, FW.width * 10);
       FW.sunLight.position = new THREE.Vector3(FW.width * 0.7, FW.sunStartingHeight, -FW.width * 0.1);
       FW.scene.add(FW.sunLight);
       this.sunGeo = new THREE.SphereGeometry(1, 100, 100);
@@ -22,13 +24,13 @@
       this.sunMesh.position = FW.sunLight.position;
       this.sunMesh.scale.set(this.initialScale, this.initialScale, this.initialScale);
       FW.scene.add(this.sunMesh);
+      this.sunColor.setHSL(this.startHue, 0.86, this.startLight);
     }
 
     Sun.prototype.update = function() {
       var hue, light, scale, sunPosY;
       FW.sunLight.position.y -= FW.sunsetSpeed;
       sunPosY = FW.sunLight.position.y;
-      FW.sunLight.intensity = map(sunPosY, FW.sunStartingHeight, FW.endMapNum, this.startingIntensity, this.endIntensity);
       hue = map(sunPosY, FW.sunStartingHeight, FW.endMapNum * 0.01, 0.08, .001);
       light = map(sunPosY, FW.sunStartingHeight, FW.endMapNum, 0.6, 0.3);
       this.sunColor.setHSL(hue, 0.86, light);

@@ -34,7 +34,8 @@
         SC.stream("/tracks/come-down-to-us", function(song) {
           if (soundOn) {
             FW.song = song;
-            return FW.song.play();
+            FW.song.play();
+            return FW.myDirector.beginShow();
           }
         });
       }

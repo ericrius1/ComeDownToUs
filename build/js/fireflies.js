@@ -29,10 +29,10 @@
       firefliesEmitter = new ShaderParticleEmitter({
         particlesPerSecond: 100 * (1 + currentIndex * currentIndex * 10),
         size: 10,
-        sizeEnd: 0,
+        sizeEnd: 5,
         colorStart: color,
         colorEnd: color,
-        positionSpread: new THREE.Vector3(1000, 50, 1000),
+        positionSpread: new THREE.Vector3(1000, 100, 1000),
         velocitySpread: new THREE.Vector3(5, 5, 5),
         opacityStart: 0.8,
         opacityEnd: 0.5
@@ -59,7 +59,8 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         emitter = _ref[_i];
-        emitter.position = FW.camera.position;
+        emitter.position = new THREE.Vector3().copy(FW.camera.position);
+        emitter.position.x += 10;
         _results.push(emitter.enable());
       }
       return _results;
