@@ -13,7 +13,7 @@
       this.controls.zoomSpeed = 0.5;
       this.controls.rotateSpeed = 0.5;
       startTime = Date.now();
-      totalTime = 1000;
+      totalTime = 3000;
       FW.scene1 = {
         startTime: startTime,
         totalTime: totalTime,
@@ -21,11 +21,12 @@
       };
       FW.scene2 = {
         startTime: FW.scene1.endTime,
+        songPoint: 154700,
         endTime: FW.scene1.endTime + 101000,
         totalTime: 101000,
         camSpeed: 0.2,
         camAcceleration: 0.00012,
-        beatInterval: 3558
+        beatInterval: 3540
       };
       this.currentScene = FW.scene1;
       this.skyLagFactor = 1.7;
@@ -63,6 +64,7 @@
     };
 
     Director.prototype.triggerScene2 = function() {
+      FW.song.setPosition(FW.scene2.songPoint);
       this.currentScene = FW.scene2;
       FW.fireflies.activate();
       return FW.scene.remove(FW.mySun.sunMesh);

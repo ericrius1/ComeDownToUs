@@ -31,13 +31,10 @@
   FW.Main = Main = (function() {
     function Main() {
       if (soundOn) {
-        SC.stream("/tracks/come-down-to-us", function(sound) {
-          var _this = this;
+        SC.stream("/tracks/come-down-to-us", function(song) {
           if (soundOn) {
-            setTimeout(function() {
-              return sound.setPosition(154600);
-            }, 2000);
-            return sound.play();
+            FW.song = song;
+            return FW.song.play();
           }
         });
       }

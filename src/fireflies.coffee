@@ -38,7 +38,7 @@ FW.Fireflies = class Fireflies
     @enableEmitters()
     setTimeout(()=>
       @disableEmitters()
-    1000)
+    FW.scene2.beatInterval/2)
     #Spawn more flies everytime
     setTimeout(()=>
       @activate()

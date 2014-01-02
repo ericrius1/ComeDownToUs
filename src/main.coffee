@@ -26,12 +26,10 @@ FW.Main = class Main
   constructor: ->
     if soundOn
       #Put a sound you want from soundcloud here
-      SC.stream "/tracks/come-down-to-us", (sound)->
+      SC.stream "/tracks/come-down-to-us", (song)->
         if soundOn
-          setTimeout(()=>
-            sound.setPosition 154600
-          2000)
-          sound.play()
+          FW.song = song
+          FW.song.play()
 
   onKeyDown: (event)->
     if event.keyCode is 32
