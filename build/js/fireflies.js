@@ -33,7 +33,7 @@
         sizeEnd: 0,
         colorStart: color,
         colorEnd: color,
-        positionSpread: new THREE.Vector3(FW.width, 50, FW.width),
+        positionSpread: new THREE.Vector3(1000, 50, 1000),
         velocitySpread: new THREE.Vector3(5, 5, 5),
         opacityStart: 0.8,
         opacityEnd: 0.5

@@ -12,6 +12,9 @@
       this.controls.enabled = false;
       this.controls.zoomSpeed = 0.5;
       this.controls.rotateSpeed = 0.5;
+      FW.scene2 = {
+        totalTime: 100000
+      };
       this.skyLagFactor = 1.7;
       this.currentScene = 1;
       setTimeout(function() {
@@ -32,25 +35,29 @@
     };
 
     Director.prototype.updateScene1 = function() {
-      var hue, light;
-      hue = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum, 0.12, 0);
-      light = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum * this.skyLagFactor, 0.5, 0.1);
-      this.skyColor.setHSL(hue, 0.86, light);
+      this.hue = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum, 0.12, 0);
+      this.light = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum * this.skyLagFactor, 0.5, 0.2);
+      this.skyColor.setHSL(this.hue, 0.86, this.light);
       FW.renderer.setClearColor(this.skyColor);
       if (FW.sunLight.position.y > FW.sunFinalHeight) {
         FW.mySun.update();
       }
-      if (FW.camera.position.z > FW.terrainPosition.z) {
-        return FW.myCamera.scene1Update();
-      }
+      return FW.myCamera.scene1Update();
     };
 
     Director.prototype.updateScene2 = function() {
+      var currentTime, light;
+      currentTime = Date.now();
       FW.fireflies.tick();
-      return FW.myCamera.scene2Update();
+      FW.myCamera.scene2Update();
+      light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, 0.2, 0);
+      this.skyColor.setHSL(this.hue, 0.86, light);
+      return FW.renderer.setClearColor(this.skyColor);
     };
 
     Director.prototype.changeScene = function() {
+      FW.scene2.startTime = Date.now();
+      FW.scene2.endTime = FW.scene2.startTime + FW.scene2.totalTime;
       this.currentScene++;
       FW.fireflies.activate();
       return FW.scene.remove(FW.mySun.sunMesh);

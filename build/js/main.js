@@ -17,7 +17,7 @@
 
   FW.globalTick = 0.16;
 
-  FW.development = false;
+  FW.development = true;
 
   window.soundOn = !FW.development;
 

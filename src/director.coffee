@@ -11,6 +11,12 @@ FW.Director = class Director
     @controls.zoomSpeed = 0.5
     @controls.rotateSpeed = 0.5
 
+    #SCENE2
+
+    FW.scene2 = 
+      totalTime: 100000
+
+
     
 
     @skyLagFactor = 1.7
@@ -29,23 +35,27 @@ FW.Director = class Director
       @controls.update()
 
   updateScene1: ->
-    hue = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum,  0.12, 0 )
-    light = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum * @skyLagFactor,  0.5, 0.1 )
-    @skyColor.setHSL hue, 0.86, light
+    @hue = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum,  0.12, 0 )
+    @light = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum * @skyLagFactor,  0.5, 0.2 )
+    @skyColor.setHSL @hue, 0.86, @light
     FW.renderer.setClearColor @skyColor
     if FW.sunLight.position.y > FW.sunFinalHeight
-      FW.mySun.update()
-      
-    if FW.camera.position.z > FW.terrainPosition.z
-      FW.myCamera.scene1Update()
+      FW.mySun.update()  
+    FW.myCamera.scene1Update()
 
 
   updateScene2: ->
+    currentTime = Date.now()
     FW.fireflies.tick()
     FW.myCamera.scene2Update()
+    light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime,  0.2, 0 )
+    @skyColor.setHSL @hue, 0.86, light
+    FW.renderer.setClearColor @skyColor
 
 
   changeScene: ->
+    FW.scene2.startTime = Date.now()
+    FW.scene2.endTime = FW.scene2.startTime + FW.scene2.totalTime
     @currentScene++
     FW.fireflies.activate()
     FW.scene.remove FW.mySun.sunMesh
