@@ -45,6 +45,9 @@
     Fireflies.prototype.activate = function() {
       var _this = this;
       this.enableEmitters();
+      setTimeout(function() {
+        return _this.disableEmitters();
+      }, 1000);
       return setTimeout(function() {
         return _this.activate();
       }, FW.scene2.beatInterval);

@@ -36,7 +36,9 @@ FW.Fireflies = class Fireflies
 
   activate : ->
     @enableEmitters()
-    # @disableEmitters()
+    setTimeout(()=>
+      @disableEmitters()
+    1000)
     #Spawn more flies everytime
     setTimeout(()=>
       @activate()

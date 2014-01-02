@@ -27,50 +27,43 @@
         camAcceleration: 0.00012,
         beatInterval: 3558
       };
+      this.currentScene = FW.scene1;
       this.skyLagFactor = 1.7;
-      this.currentScene = 1;
-      setTimeout(function() {
-        return _this.changeScene();
-      }, FW.scene1.totalTime);
+      FW.scene1.update = function() {
+        _this.hue = map(_this.currentTime, FW.scene1.startTime, FW.scene1.endTime, 0.12, 0);
+        _this.light = map(_this.currentTime, FW.scene1.startTime, FW.scene1.endTime, 0.5, 0.2);
+        _this.skyColor.setHSL(_this.hue, 0.86, _this.light);
+        FW.renderer.setClearColor(_this.skyColor);
+        if (FW.sunLight.position.y > FW.sunFinalHeight) {
+          FW.mySun.update();
+        }
+        FW.myCamera.scene1Update();
+        if (_this.currentTime > FW.scene1.endTime) {
+          return _this.triggerScene2();
+        }
+      };
+      FW.scene2.update = function() {
+        var light;
+        FW.fireflies.tick();
+        FW.myCamera.scene2Update();
+        light = map(_this.currentTime, FW.scene2.startTime, FW.scene2.endTime, 0.2, 0);
+        _this.skyColor.setHSL(_this.hue, 0.86, light);
+        return FW.renderer.setClearColor(_this.skyColor);
+      };
+      this.currentScene = FW.scene1;
     }
 
     Director.prototype.update = function() {
       this.currentTime = Date.now();
       if (!this.frozen) {
-        if (this.currentScene === 1) {
-          return this.updateScene1();
-        } else {
-          return this.updateScene2();
-        }
+        return this.currentScene.update();
       } else {
         return this.controls.update();
       }
     };
 
-    Director.prototype.updateScene1 = function() {
-      this.hue = map(this.currentTime, FW.scene1.startTime, FW.scene1.endTime, 0.12, 0);
-      this.light = map(this.currentTime, FW.scene1.startTime, FW.scene1.endTime, 0.5, 0.2);
-      this.skyColor.setHSL(this.hue, 0.86, this.light);
-      FW.renderer.setClearColor(this.skyColor);
-      if (FW.sunLight.position.y > FW.sunFinalHeight) {
-        FW.mySun.update();
-      }
-      return FW.myCamera.scene1Update();
-    };
-
-    Director.prototype.updateScene2 = function() {
-      var light;
-      FW.fireflies.tick();
-      FW.myCamera.scene2Update();
-      light = map(this.currentTime, FW.scene2.startTime, FW.scene2.endTime, 0.2, 0);
-      this.skyColor.setHSL(this.hue, 0.86, light);
-      return FW.renderer.setClearColor(this.skyColor);
-    };
-
-    Director.prototype.changeScene = function() {
-      FW.scene2.startingCamPosX = FW.camera.positionX;
-      FW.scene2.endingCamPosX = FW.width / 2;
-      this.currentScene++;
+    Director.prototype.triggerScene2 = function() {
+      this.currentScene = FW.scene2;
       FW.fireflies.activate();
       return FW.scene.remove(FW.mySun.sunMesh);
     };
