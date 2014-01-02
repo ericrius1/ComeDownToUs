@@ -35,17 +35,24 @@ FW.Fireflies = class Fireflies
   
 
   activate : ->
-    emitter = @emitters[@currentEmitterIndex++]
-    emitter.position = FW.camera.position
-    emitter.enable()
+    @enableEmitters()
+    # @disableEmitters()
     #Spawn more flies everytime
-    if @currentEmitterIndex < @emitters.length
-      setTimeout(()=>
-        @activate()
-      FW.scene2.beatInterval)
+    setTimeout(()=>
+      @activate()
+    FW.scene2.beatInterval)
 
 
-    
+  enableEmitters : ->
+    for emitter in @emitters
+      emitter.position = FW.camera.position
+      emitter.enable()
+  
+  disableEmitters : ->
+    for emitter in @emitters
+      emitter.disable()
+
+
   tick: ->
     @firefliesGroup.tick(@tickTime)
     

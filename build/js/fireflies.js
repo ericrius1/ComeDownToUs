@@ -43,16 +43,34 @@
     };
 
     Fireflies.prototype.activate = function() {
-      var emitter,
-        _this = this;
-      emitter = this.emitters[this.currentEmitterIndex++];
-      emitter.position = FW.camera.position;
-      emitter.enable();
-      if (this.currentEmitterIndex < this.emitters.length) {
-        return setTimeout(function() {
-          return _this.activate();
-        }, FW.scene2.beatInterval);
+      var _this = this;
+      this.enableEmitters();
+      return setTimeout(function() {
+        return _this.activate();
+      }, FW.scene2.beatInterval);
+    };
+
+    Fireflies.prototype.enableEmitters = function() {
+      var emitter, _i, _len, _ref, _results;
+      _ref = this.emitters;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        emitter = _ref[_i];
+        emitter.position = FW.camera.position;
+        _results.push(emitter.enable());
       }
+      return _results;
+    };
+
+    Fireflies.prototype.disableEmitters = function() {
+      var emitter, _i, _len, _ref, _results;
+      _ref = this.emitters;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        emitter = _ref[_i];
+        _results.push(emitter.disable());
+      }
+      return _results;
     };
 
     Fireflies.prototype.tick = function() {
