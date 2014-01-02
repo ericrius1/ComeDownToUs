@@ -13,7 +13,9 @@
       this.controls.zoomSpeed = 0.5;
       this.controls.rotateSpeed = 0.5;
       FW.scene2 = {
-        totalTime: 100000
+        totalTime: 100000,
+        camSpeed: 0.1,
+        camAcceleration: 0.02
       };
       this.skyLagFactor = 1.7;
       this.currentScene = 1;
@@ -58,6 +60,8 @@
     Director.prototype.changeScene = function() {
       FW.scene2.startTime = Date.now();
       FW.scene2.endTime = FW.scene2.startTime + FW.scene2.totalTime;
+      FW.scene2.startingCamPosX = FW.camera.positionX;
+      FW.scene2.endingCamPosX = FW.width / 2;
       this.currentScene++;
       FW.fireflies.activate();
       return FW.scene.remove(FW.mySun.sunMesh);

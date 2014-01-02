@@ -15,6 +15,8 @@ FW.Director = class Director
 
     FW.scene2 = 
       totalTime: 100000
+      camSpeed: 0.1
+      camAcceleration: 0.02
 
 
     
@@ -56,6 +58,8 @@ FW.Director = class Director
   changeScene: ->
     FW.scene2.startTime = Date.now()
     FW.scene2.endTime = FW.scene2.startTime + FW.scene2.totalTime
+    FW.scene2.startingCamPosX = FW.camera.positionX
+    FW.scene2.endingCamPosX = FW.width/2
     @currentScene++
     FW.fireflies.activate()
     FW.scene.remove FW.mySun.sunMesh

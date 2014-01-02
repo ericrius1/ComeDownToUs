@@ -6,8 +6,6 @@
       this.camFar = 2000000;
       this.camSpeedFactor = 0.8;
       this.camStartingY = 8;
-      this.scene2camSpeed = .1;
-      this.scene2camAccel = .01;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
       FW.camera.position.set(0, this.camStartingY, FW.width / 2);
     }
@@ -25,8 +23,8 @@
     };
 
     Camera.prototype.scene2Update = function() {
-      FW.camera.translateZ(-this.scene2camSpeed);
-      return this.scene2camSpeed += this.scene2camAccel;
+      FW.camera.translateZ(-FW.scene2.camSpeed);
+      return this.scene2camSpeed += FW.scene2.camAcceleration;
     };
 
     return Camera;

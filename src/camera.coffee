@@ -3,9 +3,6 @@ FW.Camera = class Camera
     @camFar = 2000000
     @camSpeedFactor = 0.8
     @camStartingY = 8
-
-    @scene2camSpeed = .1
-    @scene2camAccel = .01
     
     FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
     FW.camera.position.set  0, @camStartingY, FW.width/2
@@ -24,6 +21,6 @@ FW.Camera = class Camera
     FW.camera.rotation.y = @yRotation
 
   scene2Update: ->
-    FW.camera.translateZ -@scene2camSpeed
-    @scene2camSpeed += @scene2camAccel
+    FW.camera.translateZ -FW.scene2.camSpeed
+    @scene2camSpeed += FW.scene2.camAcceleration
 
