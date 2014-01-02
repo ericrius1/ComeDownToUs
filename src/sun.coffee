@@ -31,6 +31,8 @@ FW.Sun = class Sun
     FW.scene.add @sunMesh
 
     @sunColor.setHSL @startHue, 0.86, @startLight
+    @sunMesh.material.color = @sunColor
+    FW.sunLight.color = @sunColor
 
 
   update : ->

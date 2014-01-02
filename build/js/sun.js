@@ -25,6 +25,8 @@
       this.sunMesh.scale.set(this.initialScale, this.initialScale, this.initialScale);
       FW.scene.add(this.sunMesh);
       this.sunColor.setHSL(this.startHue, 0.86, this.startLight);
+      this.sunMesh.material.color = this.sunColor;
+      FW.sunLight.color = this.sunColor;
     }
 
     Sun.prototype.update = function() {
