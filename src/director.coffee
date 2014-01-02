@@ -11,20 +11,20 @@ FW.Director = class Director
 
     #SCENES
     startTime = Date.now()
+    # totalTime = 154600
+    totalTime = 1000
     FW.scene1 =
       startTime: startTime
-      totalTime: 155000
-      endTime: startTime + 155000
+      totalTime: totalTime
+      endTime: startTime + totalTime
     FW.scene2 = 
       startTime: FW.scene1.endTime
-      totalTime: 100000
-      endTime: FW.scene1.endTime + 100000
+      endTime: FW.scene1.endTime + 101000
+      totalTime: 101000
       camSpeed: 0.2
       camAcceleration: 0.00012
-
-
+      beatInterval: 3558
     
-
     @skyLagFactor = 1.7
     @currentScene = 1
     setTimeout(()=>

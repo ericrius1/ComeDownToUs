@@ -28,9 +28,9 @@ FW.Main = class Main
       #Put a sound you want from soundcloud here
       SC.stream "/tracks/come-down-to-us", (sound)->
         if soundOn
-          # setTimeout(()=>
-          #   sound.setPosition 150000
-          # 2000)
+          setTimeout(()=>
+            sound.setPosition 154600
+          2000)
           sound.play()
 
   onKeyDown: (event)->

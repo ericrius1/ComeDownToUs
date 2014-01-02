@@ -3,7 +3,6 @@ FW.Fireflies = class Fireflies
   constructor: ()->
     @tickTime = .016
     @numEmitters = 4
-    @newGroupSpawnInterval = 500
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
       maxAge: 1
@@ -39,11 +38,11 @@ FW.Fireflies = class Fireflies
     emitter = @emitters[@currentEmitterIndex++]
     emitter.position = FW.camera.position
     emitter.enable()
+    #Spawn more flies everytime
     if @currentEmitterIndex < @emitters.length
       setTimeout(()=>
         @activate()
-        console.log "NEW!"
-      @newGroupSpawnInterval)
+      FW.scene2.beatInterval)
 
 
     

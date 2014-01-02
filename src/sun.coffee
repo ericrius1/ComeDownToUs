@@ -3,8 +3,8 @@
 FW.Sun = class Sun
   constructor: ()->
 
-    # FW.sunsetSpeed = 20
-    FW.sunsetSpeed = 0.2
+    FW.sunsetSpeed = 20
+    # FW.sunsetSpeed = 0.2
     FW.sunStartingHeight = 1200
     FW.sunFinalHeight = -FW.sunStartingHeight
     @initialScale = 240

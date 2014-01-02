@@ -32,7 +32,11 @@
     function Main() {
       if (soundOn) {
         SC.stream("/tracks/come-down-to-us", function(sound) {
+          var _this = this;
           if (soundOn) {
+            setTimeout(function() {
+              return sound.setPosition(154600);
+            }, 2000);
             return sound.play();
           }
         });

@@ -10,7 +10,6 @@
       var i, _i, _ref;
       this.tickTime = .016;
       this.numEmitters = 4;
-      this.newGroupSpawnInterval = 500;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 1
@@ -51,9 +50,8 @@
       emitter.enable();
       if (this.currentEmitterIndex < this.emitters.length) {
         return setTimeout(function() {
-          _this.activate();
-          return console.log("NEW!");
-        }, this.newGroupSpawnInterval);
+          return _this.activate();
+        }, FW.scene2.beatInterval);
       }
     };
 
