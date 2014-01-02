@@ -24,7 +24,7 @@
 
     Camera.prototype.scene2Update = function() {
       FW.camera.translateZ(-FW.scene2.camSpeed);
-      return this.scene2camSpeed += FW.scene2.camAcceleration;
+      return FW.scene2.camSpeed += FW.scene2.camAcceleration;
     };
 
     return Camera;

@@ -1,3 +1,5 @@
+#Meteors fly over everytime she says "come down to us"
+
 
 if !Detector.webgl
    Detector.addGetWebGLMessage()
@@ -9,7 +11,7 @@ SC?.initialize({
 
 FW.sfxVolume = 0.2
 FW.globalTick = 0.16
-FW.development = true 
+FW.development = false
 window.soundOn = !FW.development
 
 window.onload = ->
@@ -26,10 +28,10 @@ FW.Main = class Main
       #Put a sound you want from soundcloud here
       SC.stream "/tracks/come-down-to-us", (sound)->
         if soundOn
-          setTimeout(()=>
-            sound.setPosition 150000
-          2000)
-        sound.play()
+          # setTimeout(()=>
+          #   sound.setPosition 150000
+          # 2000)
+          sound.play()
 
   onKeyDown: (event)->
     if event.keyCode is 32

@@ -1,7 +1,5 @@
 FW.Director = class Director
   constructor: ->
-    # @timeTillSceneChange = 155000
-    @timeTillSceneChange = 2000
     @colorChangeTime = 50
     @skyColor = new THREE.Color()
     @frozen = false
@@ -11,12 +9,18 @@ FW.Director = class Director
     @controls.zoomSpeed = 0.5
     @controls.rotateSpeed = 0.5
 
-    #SCENE2
-
+    #SCENES
+    startTime = Date.now()
+    FW.scene1 =
+      startTime: startTime
+      totalTime: 155000
+      endTime: startTime + 155000
     FW.scene2 = 
+      startTime: FW.scene1.endTime
       totalTime: 100000
-      camSpeed: 0.1
-      camAcceleration: 0.02
+      endTime: FW.scene1.endTime + 100000
+      camSpeed: 0.2
+      camAcceleration: 0.00012
 
 
     
@@ -25,9 +29,10 @@ FW.Director = class Director
     @currentScene = 1
     setTimeout(()=>
       @changeScene()
-    @timeTillSceneChange)
+    FW.scene1.totalTime)
 
   update: ->
+    @currentTime = Date.now()
     if !@frozen
       if @currentScene is 1
           @updateScene1()
@@ -37,8 +42,8 @@ FW.Director = class Director
       @controls.update()
 
   updateScene1: ->
-    @hue = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum,  0.12, 0 )
-    @light = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum * @skyLagFactor,  0.5, 0.2 )
+    @hue = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  0.12, 0 )
+    @light = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  0.5, 0.2 )
     @skyColor.setHSL @hue, 0.86, @light
     FW.renderer.setClearColor @skyColor
     if FW.sunLight.position.y > FW.sunFinalHeight
@@ -47,17 +52,14 @@ FW.Director = class Director
 
 
   updateScene2: ->
-    currentTime = Date.now()
     FW.fireflies.tick()
     FW.myCamera.scene2Update()
-    light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime,  0.2, 0 )
+    light = map(@currentTime, FW.scene2.startTime, FW.scene2.endTime,  0.2, 0 )
     @skyColor.setHSL @hue, 0.86, light
     FW.renderer.setClearColor @skyColor
 
 
   changeScene: ->
-    FW.scene2.startTime = Date.now()
-    FW.scene2.endTime = FW.scene2.startTime + FW.scene2.totalTime
     FW.scene2.startingCamPosX = FW.camera.positionX
     FW.scene2.endingCamPosX = FW.width/2
     @currentScene++

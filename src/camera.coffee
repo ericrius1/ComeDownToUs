@@ -22,5 +22,5 @@ FW.Camera = class Camera
 
   scene2Update: ->
     FW.camera.translateZ -FW.scene2.camSpeed
-    @scene2camSpeed += FW.scene2.camAcceleration
+    FW.scene2.camSpeed += FW.scene2.camAcceleration
 

@@ -17,7 +17,7 @@
 
   FW.globalTick = 0.16;
 
-  FW.development = true;
+  FW.development = false;
 
   window.soundOn = !FW.development;
 
@@ -32,13 +32,9 @@
     function Main() {
       if (soundOn) {
         SC.stream("/tracks/come-down-to-us", function(sound) {
-          var _this = this;
           if (soundOn) {
-            setTimeout(function() {
-              return sound.setPosition(150000);
-            }, 2000);
+            return sound.play();
           }
-          return sound.play();
         });
       }
     }
