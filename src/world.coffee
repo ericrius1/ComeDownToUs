@@ -6,7 +6,7 @@ FW.World = class World
     FW.clock = new THREE.Clock()
     FW.SCREEN_WIDTH = window.innerWidth
     FW.SCREEN_HEIGHT = window.innerHeight
-    FW.width = 60000
+    FW.width = 6000
     @rippleFactor = 120
     
 

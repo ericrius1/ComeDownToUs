@@ -41,12 +41,13 @@
         FW.mySun.update();
       }
       if (FW.camera.position.z > FW.terrainPosition.z) {
-        return FW.myCamera.update();
+        return FW.myCamera.scene1Update();
       }
     };
 
     Director.prototype.updateScene2 = function() {
-      return FW.fireflies.tick();
+      FW.fireflies.tick();
+      return FW.myCamera.scene2Update();
     };
 
     Director.prototype.changeScene = function() {

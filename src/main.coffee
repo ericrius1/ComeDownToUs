@@ -9,7 +9,7 @@ SC?.initialize({
 
 FW.sfxVolume = 0.2
 FW.globalTick = 0.16
-FW.development = false
+FW.development = false  
 window.soundOn = !FW.development
 
 window.onload = ->

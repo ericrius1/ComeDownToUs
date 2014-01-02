@@ -10,6 +10,7 @@ FW.Director = class Director
     @controls.enabled = false
     @controls.zoomSpeed = 0.5
     @controls.rotateSpeed = 0.5
+
     
 
     @skyLagFactor = 1.7
@@ -36,16 +37,17 @@ FW.Director = class Director
       FW.mySun.update()
       
     if FW.camera.position.z > FW.terrainPosition.z
-      FW.myCamera.update()
+      FW.myCamera.scene1Update()
 
 
   updateScene2: ->
     FW.fireflies.tick()
+    FW.myCamera.scene2Update()
+
 
   changeScene: ->
     @currentScene++
     FW.fireflies.activate()
-    # FW.scene.remove FW.sunLight
     FW.scene.remove FW.mySun.sunMesh
 
     

@@ -9,7 +9,7 @@ FW.Terrain = class Terrain
       height: FW.terrainLength
       widthSegments: 100
       heightSegments: 100
-      depth: FW.width * 0.1
+      depth: 2000
       param: 4,
       filterparam: 1
       filter: [ CIRCLE_FILTER ]

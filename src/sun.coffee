@@ -3,16 +3,16 @@
 FW.Sun = class Sun
   constructor: ()->
 
-    FW.sunsetSpeed = 300
+    FW.sunsetSpeed = 20
     # FW.sunsetSpeed = 2
-    FW.sunStartingHeight = 12000
+    FW.sunStartingHeight = 1200
     FW.sunFinalHeight = -FW.sunStartingHeight
-    @initialScale = 2400
+    @initialScale = 240
     @startingIntensity = 20
     @endIntensity = 5
-    @maxScale = 7000
+    @maxScale = 700
     @sunColor = new THREE.Color()
-    @scaleFactor = 0.0001
+    @scaleFactor = 0.001
     FW.endMapNum = FW.sunFinalHeight/2
 
     
@@ -30,7 +30,6 @@ FW.Sun = class Sun
 
 
   update : ->
-    # FW.sunsetSpeed += FW.sunsetAccel
     FW.sunLight.position.y -= FW.sunsetSpeed
     sunPosY = FW.sunLight.position.y
     FW.sunLight.intensity = map(sunPosY, FW.sunStartingHeight, FW.endMapNum,  @startingIntensity, @endIntensity)
@@ -40,7 +39,7 @@ FW.Sun = class Sun
     @sunMesh.material.color = @sunColor
     FW.sunLight.color = @sunColor
     if FW.sunLight.position.y > 0
-      FW.sunLight.position.z += FW.sunsetSpeed * 1.2
+      FW.sunLight.position.z += FW.sunsetSpeed * 0.12
     if @sunMesh.scale.y < @maxScale
      scale =  @sunMesh.scale.multiplyScalar 1 + FW.sunsetSpeed * @scaleFactor
      @sunMesh.scale =  scale
