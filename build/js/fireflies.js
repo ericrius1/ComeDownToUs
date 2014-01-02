@@ -12,7 +12,7 @@
       this.numEmitters = 4;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 1
+        maxAge: 1.5
       });
       this.emitters = [];
       this.currentEmitterIndex = 0;
@@ -34,7 +34,8 @@
         colorEnd: color,
         positionSpread: new THREE.Vector3(1000, 100, 1000),
         velocitySpread: new THREE.Vector3(5, 5, 5),
-        opacityStart: 0.8,
+        opacityStart: 0.5,
+        opacityMiddle: 0.8,
         opacityEnd: 0.5
       });
       this.firefliesGroup.addEmitter(firefliesEmitter);

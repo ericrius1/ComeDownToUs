@@ -1,7 +1,6 @@
 FW.Camera = class Camera
   constructor: ()->
     @camFar = 2000000
-    @camSpeedFactor = 0.9
     @camStartingY = 8
     @startingRotation = -Math.PI/8
     
@@ -17,7 +16,7 @@ FW.Camera = class Camera
     FW.camera.updateProjectionMatrix()
 
   scene1Update:->
-    @camSpeed = FW.sunsetSpeed * @camSpeedFactor
+    @camSpeed = FW.sunsetSpeed
     FW.camera.position.z -= @camSpeed
     FW.camera.rotation.y = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum, @startingRotation, -Math.PI/3)
 

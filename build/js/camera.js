@@ -4,7 +4,6 @@
   FW.Camera = Camera = (function() {
     function Camera() {
       this.camFar = 2000000;
-      this.camSpeedFactor = 0.9;
       this.camStartingY = 8;
       this.startingRotation = -Math.PI / 8;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
@@ -18,7 +17,7 @@
     };
 
     Camera.prototype.scene1Update = function() {
-      this.camSpeed = FW.sunsetSpeed * this.camSpeedFactor;
+      this.camSpeed = FW.sunsetSpeed;
       FW.camera.position.z -= this.camSpeed;
       return FW.camera.rotation.y = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum, this.startingRotation, -Math.PI / 3);
     };

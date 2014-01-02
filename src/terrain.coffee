@@ -1,7 +1,7 @@
 FW.Terrain = class Terrain
   constructor: ->
     FW.terrainLength = FW.width * 0.5
-    FW.terrainPosition =  new THREE.Vector3 FW.width * 0.2, -700, -FW.terrainLength * 0.5
+    FW.terrainPosition =  new THREE.Vector3 FW.width * 0.2, -100, -FW.terrainLength * 0.5
     parameters = 
       alea: RAND_MT,
       generator: PN_GENERATOR,
@@ -9,7 +9,7 @@ FW.Terrain = class Terrain
       height: FW.terrainLength
       widthSegments: 150
       heightSegments: 150
-      depth: 1700
+      depth: 1100
       param: 4,
       filterparam: 1
       filter: [ CIRCLE_FILTER ]
@@ -20,5 +20,4 @@ FW.Terrain = class Terrain
     terrainMaterial = new THREE.MeshPhongMaterial vertexColors: THREE.VertexColors, shading: THREE.FlatShading, side: THREE.DoubleSide 
     terrain = new THREE.Mesh terrainGeo, terrainMaterial
     terrain.position = FW.terrainPosition
-    terrain.position.y= - 550
     FW.scene.add terrain

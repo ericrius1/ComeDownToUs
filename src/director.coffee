@@ -14,7 +14,7 @@ FW.Director = class Director
     @startSkyHue = 0.12
     @endSkyHue = -0.18
     @startSkyLight = 0.5
-    @endSkyLight = 0.2
+    @endSkyLight = 0.15
 
    
 

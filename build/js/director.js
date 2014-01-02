@@ -14,7 +14,7 @@
       this.startSkyHue = 0.12;
       this.endSkyHue = -0.18;
       this.startSkyLight = 0.5;
-      this.endSkyLight = 0.2;
+      this.endSkyLight = 0.15;
       this.currentScene = FW.scene1;
       this.skyColor.setHSL(this.startSkyHue, 0.86, this.startSkyLight);
       FW.renderer.setClearColor(this.skyColor);
