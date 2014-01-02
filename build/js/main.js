@@ -32,10 +32,12 @@
     function Main() {
       if (soundOn) {
         SC.stream("/tracks/come-down-to-us", function(song) {
+          var songStartTime;
           if (soundOn) {
             FW.song = song;
+            songStartTime = Date.now();
             FW.song.play();
-            return FW.myDirector.beginShow();
+            return FW.myDirector.beginShow(songStartTime);
           }
         });
       }

@@ -1,5 +1,5 @@
 #Meteors fly over everytime she says "come down to us"
-
+#When step off cliff, rotate camera facing down and fly downwards
 
 if !Detector.webgl
    Detector.addGetWebGLMessage()
@@ -29,8 +29,9 @@ FW.Main = class Main
       SC.stream "/tracks/come-down-to-us", (song)->
         if soundOn
           FW.song = song
+          songStartTime = Date.now()
           FW.song.play()
-          FW.myDirector.beginShow()
+          FW.myDirector.beginShow songStartTime
 
   onKeyDown: (event)->
     if event.keyCode is 32

@@ -5,16 +5,20 @@
     function Sun() {
       this.startHue = 0.08;
       this.startLight = 0.6;
-      FW.sunsetSpeed = 0.2;
+      FW.sunsetSpeed = 0.225;
       FW.sunStartingHeight = 1200;
       FW.sunFinalHeight = -FW.sunStartingHeight;
-      this.initialScale = 240;
+      this.initialScale = 380;
       this.startingIntensity = 20;
       this.endIntensity = 5;
-      this.maxScale = 700;
+      this.maxScale = 800;
       this.sunColor = new THREE.Color();
       this.scaleFactor = 0.001;
       FW.endMapNum = FW.sunFinalHeight / 2;
+      this.startHue = 0.08;
+      this.endHue = -0.02;
+      this.startLight = 0.6;
+      this.endLight = 0.2;
       FW.sunLight = new THREE.SpotLight(0xffffff, this.startingIntensity, FW.width * 10);
       FW.sunLight.position = new THREE.Vector3(FW.width * 0.7, FW.sunStartingHeight, -FW.width * 0.1);
       FW.scene.add(FW.sunLight);
@@ -33,8 +37,8 @@
       var hue, light, scale, sunPosY;
       FW.sunLight.position.y -= FW.sunsetSpeed;
       sunPosY = FW.sunLight.position.y;
-      hue = map(sunPosY, FW.sunStartingHeight, FW.endMapNum * 0.01, 0.08, .001);
-      light = map(sunPosY, FW.sunStartingHeight, FW.endMapNum, 0.6, 0.3);
+      hue = map(sunPosY, FW.sunStartingHeight, FW.endMapNum * 0.01, this.startHue, this.endHue);
+      light = map(sunPosY, FW.sunStartingHeight, FW.endMapNum, this.startLight, this.endLight);
       this.sunColor.setHSL(hue, 0.86, light);
       this.sunMesh.material.color = this.sunColor;
       FW.sunLight.color = this.sunColor;

@@ -12,7 +12,9 @@ FW.Director = class Director
     @controls.rotateSpeed = 0.5
 
     @startSkyHue = 0.12
+    @endSkyHue = -0.18
     @startSkyLight = 0.5
+    @endSkyLight = 0.2
 
    
 
@@ -24,15 +26,13 @@ FW.Director = class Director
     
   update: ->
     if !@frozen
-      if @showHasBegun
-        #only update time if we are running the show!
-        @currentTime = Date.now()
-        @currentScene.update()
+      #only update time if we are running the show!
+      @currentScene?.update()
     else
       @controls.update()
 
   triggerScene2: ->
-    FW.song.setPosition FW.scene2.songPoint
+    # FW.song.setPosition FW.scene2.songPoint
     @currentScene = FW.scene2
     FW.fireflies.activate()
     FW.scene.remove FW.mySun.sunMesh
@@ -44,43 +44,44 @@ FW.Director = class Director
     @controls.target.z = FW.camera.position.z - 30    
 
 
-  beginShow: ->
+  beginShow: (showStartTime)->
     #Inititalize Scenes
-    startTime = Date.now()
-    totalTime = 154700
+    scene1TotalTime = 155450
     FW.scene1 =
-      startTime: startTime
-      totalTime: totalTime
-      endTime: startTime + totalTime
-    totalTime = 101000
+      startTime: showStartTime
+      totalTime: scene1TotalTime
+      endTime: showStartTime + scene1TotalTime
     #BEWARE of overwriting total time!!
+    scene2TotalTime = 101000
     FW.scene2 = 
       startTime: FW.scene1.endTime
-      songPoint: 154700
-      endTime: FW.scene1.endTime + totalTime
-      totalTime: totalTime
+      songPoint: 155450
+      endTime: FW.scene1.endTime + scene2TotalTime
+      totalTime: scene2TotalTime
       camSpeed: 0.0
-      camAcceleration: 0.0002
+      camAcceleration: 0.000184
       beatInterval: 3540
     #first beat: 154700
     #second beat: 158260
     @showHasBegun = true
 
     FW.scene1.update = =>
-      @hue = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyHue, 0 )
-      @light = map(@currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyLight, 0.2 )
-      @skyColor.setHSL @hue, 0.86, @light
+      currentTime = Date.now()
+      hue = map(currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyHue, @endSkyHue )
+      light = map(currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyLight, @endSkyLight )
+      @skyColor.setHSL hue, 0.86, light
       FW.renderer.setClearColor @skyColor
       if FW.sunLight.position.y > FW.sunFinalHeight
         FW.mySun.update()  
       FW.myCamera.scene1Update()
-      if @currentTime > FW.scene1.endTime
+      if currentTime > FW.scene1.endTime
         @triggerScene2()
     FW.scene2.update = =>
+      currentTime = Date.now()
       FW.fireflies.tick()
       FW.myCamera.scene2Update()
-      light = map(@currentTime, FW.scene2.startTime, FW.scene2.endTime,  0.2, 0 )
-      @skyColor.setHSL @hue, 0.86, light
+      light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime,  @endSkyLight, 0 )
+      @skyColor.setHSL @endSkyHue, 0.86, light
       FW.renderer.setClearColor @skyColor
 
     @currentScene = FW.scene1

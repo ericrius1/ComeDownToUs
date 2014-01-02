@@ -4,7 +4,7 @@
   FW.Camera = Camera = (function() {
     function Camera() {
       this.camFar = 2000000;
-      this.camSpeedFactor = 0.8;
+      this.camSpeedFactor = 0.9;
       this.camStartingY = 8;
       this.startingRotation = -Math.PI / 8;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);

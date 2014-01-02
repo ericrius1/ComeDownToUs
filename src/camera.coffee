@@ -1,7 +1,7 @@
 FW.Camera = class Camera
   constructor: ()->
     @camFar = 2000000
-    @camSpeedFactor = 0.8
+    @camSpeedFactor = 0.9
     @camStartingY = 8
     @startingRotation = -Math.PI/8
     

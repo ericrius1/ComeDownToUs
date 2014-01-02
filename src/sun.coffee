@@ -6,16 +6,21 @@ FW.Sun = class Sun
     # FW.sunsetSpeed = 20
     @startHue = 0.08
     @startLight = 0.6
-    FW.sunsetSpeed = 0.2
+    FW.sunsetSpeed = 0.225
     FW.sunStartingHeight = 1200
     FW.sunFinalHeight = -FW.sunStartingHeight
-    @initialScale = 240
+    @initialScale = 380
     @startingIntensity = 20
     @endIntensity = 5
-    @maxScale = 700
+    @maxScale = 800
     @sunColor = new THREE.Color()
     @scaleFactor = 0.001
     FW.endMapNum = FW.sunFinalHeight/2
+
+    @startHue = 0.08
+    @endHue = -0.02
+    @startLight = 0.6
+    @endLight = 0.2
 
     
     #LIGHT
@@ -39,8 +44,8 @@ FW.Sun = class Sun
     FW.sunLight.position.y -= FW.sunsetSpeed
     sunPosY = FW.sunLight.position.y
     # FW.sunLight.intensity = map(sunPosY, FW.sunStartingHeight, FW.endMapNum,  @startingIntensity, @endIntensity)
-    hue = map(sunPosY, FW.sunStartingHeight, FW.endMapNum * 0.01,  0.08, .001 )
-    light = map(sunPosY, FW.sunStartingHeight, FW.endMapNum,  0.6, 0.3 )
+    hue = map(sunPosY, FW.sunStartingHeight, FW.endMapNum * 0.01,  @startHue, @endHue )
+    light = map(sunPosY, FW.sunStartingHeight, FW.endMapNum, @startLight, @endLight )
     @sunColor.setHSL hue, 0.86, light
     @sunMesh.material.color = @sunColor
     FW.sunLight.color = @sunColor
