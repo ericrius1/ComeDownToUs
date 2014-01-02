@@ -58,7 +58,7 @@
         endTime: FW.scene1.endTime + scene2TotalTime,
         totalTime: scene2TotalTime,
         camSpeed: 0.0,
-        camAcceleration: 0.000184,
+        camAcceleration: 0.00018,
         beatInterval: 3540
       };
       this.showHasBegun = true;

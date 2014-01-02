@@ -3,9 +3,9 @@
 
   FW.Sun = Sun = (function() {
     function Sun() {
-      FW.sunsetSpeed = 2;
       this.startHue = 0.08;
       this.startLight = 0.6;
+      FW.sunsetSpeed = 0.22;
       FW.sunStartingHeight = 1200;
       FW.sunFinalHeight = -FW.sunStartingHeight;
       this.initialScale = 380;
@@ -18,7 +18,7 @@
       this.startHue = 0.08;
       this.endHue = 0.00;
       this.startLight = 0.6;
-      this.endLight = 0.45;
+      this.endLight = 0.35;
       FW.sunLight = new THREE.SpotLight(0xffffff, this.startingIntensity, FW.width * 10);
       FW.sunLight.position = new THREE.Vector3(FW.width * 0.7, FW.sunStartingHeight, -FW.width * 0.1);
       FW.scene.add(FW.sunLight);

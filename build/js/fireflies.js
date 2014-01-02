@@ -33,9 +33,10 @@
         colorStart: color,
         colorEnd: color,
         positionSpread: new THREE.Vector3(1000, 100, 1000),
+        velocity: new THREE.Vector3(3, 0, 0),
         velocitySpread: new THREE.Vector3(5, 5, 5),
-        opacityStart: 0.5,
-        opacityMiddle: 0.8,
+        opacityStart: 0.6,
+        opacityMiddle: 0.9,
         opacityEnd: 0.5
       });
       this.firefliesGroup.addEmitter(firefliesEmitter);
