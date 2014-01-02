@@ -3,9 +3,9 @@
 
   FW.Sun = Sun = (function() {
     function Sun() {
+      FW.sunsetSpeed = 10;
       this.startHue = 0.08;
       this.startLight = 0.6;
-      FW.sunsetSpeed = 0.22;
       FW.sunStartingHeight = 1200;
       FW.sunFinalHeight = -FW.sunStartingHeight;
       this.initialScale = 380;
