@@ -32,7 +32,7 @@
     Director.prototype.triggerScene2 = function() {
       FW.song.setPosition(FW.scene2.songPoint);
       this.currentScene = FW.scene2;
-      FW.fireflies.activate();
+      FW.fireflies.awaken();
       return FW.scene.remove(FW.mySun.sunMesh);
     };
 

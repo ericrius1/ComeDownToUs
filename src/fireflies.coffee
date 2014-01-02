@@ -8,7 +8,7 @@ FW.Fireflies = class Fireflies
       maxAge: 1.5
     });
     @emitters = []
-    @currentEmitterIndex = 0
+    @numActiveEmitters = 0
     for i in [0..@numEmitters]
       @generateFireflies(i)
     @firefliesGroup.mesh.renderDepth = -3
@@ -18,7 +18,7 @@ FW.Fireflies = class Fireflies
   generateFireflies: (currentIndex)->
     color = new THREE.Color()
     firefliesEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 100 * (1+currentIndex * currentIndex * 10)
+      particlesPerSecond: 10 * (1+currentIndex * currentIndex * 10)
       size: 10
       sizeEnd: 10
       colorStart: color
@@ -27,36 +27,37 @@ FW.Fireflies = class Fireflies
       velocity: new THREE.Vector3 3, 0, 0
       accelerationSpread: new THREE.Vector3 5, 5, 5
       opacityStart: 0.8
-      opacityEnd: 0.1
+      opacityEnd: 0.2
 
     @firefliesGroup.addEmitter firefliesEmitter
     @emitters.push firefliesEmitter
     firefliesEmitter.disable()
 
-  
-
-  activate : ->
-    @enableEmitters()
+  awaken : ->
+    if @numActiveEmitters < @emitters.length
+      @numActiveEmitters++
+    @toggleActiveEmitters()
     setTimeout(()=>
-      @disableEmitters()
-    FW.scene2.beatInterval/2)
-    #Spawn more flies everytime
-    setTimeout(()=>
-      @activate()
+      @awaken()
     FW.scene2.beatInterval)
 
-
-  enableEmitters : ->
-    for emitter in @emitters
+  toggleActiveEmitters : ->
+    @enableActiveEmitters()
+    setTimeout(()=>
+      @disableActiveEmitters()
+    FW.scene2.beatInterval/2)
+    #Spawn more flies everytime
+  
+  enableActiveEmitters : ->
+    for i in [0...@numActiveEmitters]
+      emitter = @emitters[i]
       emitter.position = new THREE.Vector3().copy FW.camera.position
       emitter.position.x += 10
-
       emitter.enable()
-  
-  disableEmitters : ->
-    for emitter in @emitters
-      emitter.disable()
-
+   
+  disableActiveEmitters : ->
+    for i in [0...@numActiveEmitters]
+      @emitters[i].disable()
 
   tick: ->
     @firefliesGroup.tick(@tickTime)

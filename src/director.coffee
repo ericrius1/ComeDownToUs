@@ -33,7 +33,7 @@ FW.Director = class Director
   triggerScene2: ->
     FW.song.setPosition FW.scene2.songPoint
     @currentScene = FW.scene2
-    FW.fireflies.activate()
+    FW.fireflies.awaken()
     FW.scene.remove FW.mySun.sunMesh
 
     

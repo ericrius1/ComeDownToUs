@@ -17,7 +17,7 @@
 
   FW.globalTick = 0.16;
 
-  FW.development = false;
+  FW.development = true;
 
   window.soundOn = !FW.development;
 
@@ -30,17 +30,15 @@
 
   FW.Main = Main = (function() {
     function Main() {
-      if (soundOn) {
-        SC.stream("/tracks/come-down-to-us", function(song) {
-          var songStartTime;
-          if (soundOn) {
-            FW.song = song;
-            songStartTime = Date.now();
-            FW.song.play();
-            return FW.myDirector.beginShow(songStartTime);
-          }
-        });
-      }
+      SC.stream("/tracks/come-down-to-us", function(song) {
+        var songStartTime;
+        FW.song = song;
+        songStartTime = Date.now();
+        FW.myDirector.beginShow(songStartTime);
+        if (soundOn) {
+          return FW.song.play();
+        }
+      });
     }
 
     Main.prototype.onKeyDown = function(event) {

@@ -11,7 +11,7 @@ SC?.initialize({
 
 FW.sfxVolume = 0.2
 FW.globalTick = 0.16
-FW.development = false
+FW.development = true
 window.soundOn = !FW.development
 
 window.onload = ->
@@ -24,14 +24,13 @@ window.onload = ->
 
 FW.Main = class Main
   constructor: ->
-    if soundOn
-      #Put a sound you want from soundcloud here
-      SC.stream "/tracks/come-down-to-us", (song)->
-        if soundOn
-          FW.song = song
-          songStartTime = Date.now()
-          FW.song.play()
-          FW.myDirector.beginShow songStartTime
+    #Put a sound you want from soundcloud here
+    SC.stream "/tracks/come-down-to-us", (song)->
+      FW.song = song
+      songStartTime = Date.now()
+      FW.myDirector.beginShow songStartTime
+      if soundOn
+        FW.song.play()
 
   onKeyDown: (event)->
     if event.keyCode is 32
