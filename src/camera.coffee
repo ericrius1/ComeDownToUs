@@ -8,6 +8,9 @@ FW.Camera = class Camera
     FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
     FW.camera.position.set  0, @camStartingY, FW.width/2
 
+    @scene1StartZ = FW.width/2
+    @scene1EndZ = 0
+
 
 
 
@@ -19,6 +22,7 @@ FW.Camera = class Camera
 
   scene1Update:->
     currentTime = Date.now()
+    FW.camera.position.z = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @scene1StartZ, @scene1EndZ)
 
   scene2Update: ->
     FW.camera.translateZ -FW.scene2.camSpeed

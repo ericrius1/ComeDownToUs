@@ -8,6 +8,8 @@
       this.camStartingY = 8;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
       FW.camera.position.set(0, this.camStartingY, FW.width / 2);
+      this.scene1StartZ = FW.width / 2;
+      this.scene1EndZ = 0;
     }
 
     Camera.prototype.resize = function() {
@@ -17,7 +19,8 @@
 
     Camera.prototype.scene1Update = function() {
       var currentTime;
-      return currentTime = Date.now();
+      currentTime = Date.now();
+      return FW.camera.position.z = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.scene1StartZ, this.scene1EndZ);
     };
 
     Camera.prototype.scene2Update = function() {
