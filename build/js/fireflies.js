@@ -10,25 +10,28 @@
       this.totalBeats = 20;
       this.numEmitters = this.totalBeats;
       this.xSpreadFactor = 100;
-      this.timeTillDisabled = 100;
+      this.timeTillDisabled = 50;
       this.emitterStats = [];
       this.ffToggledOn = false;
-      this.specialLightIntensityUpChange = 0.2;
-      this.specialLightIntensityDownChange = 0.4;
-      this.specialLightIntensityStart = 0.5;
+      this.specialLightIntensityUpChange = 0.0;
+      this.specialLightIntensityDownChange = 0.0;
+      this.specialLightIntensityStart = 2.0;
       this.specialLightGrowing = false;
       this.specialLightDistance = 2500;
       this.specialLightColor = 0xdf1ed8;
+      this.ffForwardAccel = 50;
       this.initEmitterStats();
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 3
+        maxAge: 5
       });
       this.emitters = [];
       this.numActiveEmitters = 0;
       for (i = _i = 0, _ref = this.numEmitters; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
         this.generateFireflies(i);
       }
+      this.specialLight = new THREE.PointLight(this.specialLightColor, 0, this.specialLightDistance);
+      FW.scene.add(this.specialLight);
       this.firefliesGroup.mesh.renderDepth = -3;
       FW.scene.add(this.firefliesGroup.mesh);
     }
@@ -48,15 +51,15 @@
       defaultSizeEnd = 10;
       sizeEnd = (_ref10 = (_ref11 = this.emitterStats[currentIndex]) != null ? _ref11.sizeEnd : void 0) != null ? _ref10 : defaultSizeEnd;
       positionSpreadFactor = map(currentIndex, 1, this.numEmitters, 0, 500);
-      defaultPositionSpread = new THREE.Vector3(positionSpreadFactor, 0, positionSpreadFactor);
+      defaultPositionSpread = new THREE.Vector3(0, 5, positionSpreadFactor);
       positionSpread = (_ref12 = (_ref13 = this.emitterStats[currentIndex]) != null ? _ref13.positionSpread : void 0) != null ? _ref12 : defaultPositionSpread;
-      defaultVelocity = new THREE.Vector3(10, 0, 0);
+      defaultVelocity = new THREE.Vector3(100, 0, 0);
       velocity = (_ref14 = (_ref15 = this.emitterStats[currentIndex]) != null ? _ref15.velocity : void 0) != null ? _ref14 : defaultVelocity;
       defaultVelocitySpread = new THREE.Vector3(0, 0, 0);
       velocitySpread = (_ref16 = (_ref17 = this.emitterStats[currentIndex]) != null ? _ref17.velocitySpread : void 0) != null ? _ref16 : defaultVelocitySpread;
-      defaultAcceleration = new THREE.Vector3(500, 0, 0);
+      defaultAcceleration = new THREE.Vector3(this.ffForwardAccel, 0, 0);
       acceleration = (_ref18 = (_ref19 = this.emitterStats[currentIndex]) != null ? _ref19.acceleration : void 0) != null ? _ref18 : defaultAcceleration;
-      defaultAccelerationSpread = new THREE.Vector3(0, 0, 0);
+      defaultAccelerationSpread = new THREE.Vector3(0, 0, 100);
       accelerationSpread = (_ref20 = (_ref21 = this.emitterStats[currentIndex]) != null ? _ref21.accelerationSpread : void 0) != null ? _ref20 : defaultAccelerationSpread;
       firefliesEmitter = new ShaderParticleEmitter({
         type: type,
@@ -75,17 +78,13 @@
       });
       this.firefliesGroup.addEmitter(firefliesEmitter);
       this.emitters.push(firefliesEmitter);
-      firefliesEmitter.disable();
-      if (currentIndex === 0) {
-        this.specialLight = new THREE.PointLight(this.specialLightColor, 0, this.specialLightDistance);
-        this.specialLight.position = firefliesEmitter.position;
-        return FW.scene.add(this.specialLight);
-      }
+      return firefliesEmitter.disable();
     };
 
     Fireflies.prototype.runScene2 = function() {
       var emitter, i, _i, _ref,
         _this = this;
+      this.specialLight.position.x = this.distanceFromCam;
       this.specialLight.intensity = this.specialLightIntensityStart;
       this.specialLightGrowing = true;
       this.currentBeatNum++;
@@ -123,7 +122,7 @@
       var emitter, i, _i, _ref, _results;
       this.ffToggledOn = true;
       _results = [];
-      for (i = _i = 0, _ref = this.numActiveEmitters; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      for (i = _i = 1, _ref = this.numActiveEmitters; 1 <= _ref ? _i < _ref : _i > _ref; i = 1 <= _ref ? ++_i : --_i) {
         emitter = this.emitters[i];
         _results.push(emitter.enable());
       }
@@ -141,6 +140,7 @@
     };
 
     Fireflies.prototype.tick = function() {
+      this.specialLight.position.x += 10;
       this.firefliesGroup.tick(this.tickTime);
       if (this.specialLightGrowing) {
         return this.specialLight.intensity += this.specialLightIntensityUpChange;
@@ -153,14 +153,14 @@
       var color, emitterStat;
       color = new THREE.Color();
       emitterStat = {
-        pps: 400,
+        pps: 2000,
         sizeStart: 10,
         sizeEnd: 10,
         colorStart: new THREE.Color(this.specialLightColor),
         colorEnd: new THREE.Color(this.specialLightColor),
-        velocity: new THREE.Vector3(10, 70, 0),
+        velocity: new THREE.Vector3(10, 100, 0),
         velocitySpread: new THREE.Vector3(1, 0, 1),
-        acceleration: new THREE.Vector3(10, -60, 0),
+        acceleration: new THREE.Vector3(10, -100, 0),
         accelerationSpread: new THREE.Vector3(0, 0, 0),
         positionSpread: new THREE.Vector3(1, 1, 1)
       };
