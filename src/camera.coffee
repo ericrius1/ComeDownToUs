@@ -4,12 +4,9 @@ FW.Camera = class Camera
 
     @camFar = 2000000
     @camStartingY = 8
-    @startingRotationScene1 = -Math.PI/8
-    @endingRotationScene1 = -Math.PI/2
     
     FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
     FW.camera.position.set  0, @camStartingY, FW.width/2
-    FW.camera.rotation.y = -Math.PI/8
 
 
 
@@ -24,7 +21,6 @@ FW.Camera = class Camera
     currentTime = Date.now()
     @camSpeed = FW.sunsetSpeed
     FW.camera.position.z -= @camSpeed * @camSpeedupFactor
-    FW.camera.rotation.y = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startingRotationScene1, @endingRotationScene1)
 
   scene2Update: ->
     FW.camera.translateZ -FW.scene2.camSpeed

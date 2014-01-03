@@ -6,11 +6,8 @@
       this.camSpeedupFactor = 1.001;
       this.camFar = 2000000;
       this.camStartingY = 8;
-      this.startingRotationScene1 = -Math.PI / 8;
-      this.endingRotationScene1 = -Math.PI / 2;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
       FW.camera.position.set(0, this.camStartingY, FW.width / 2);
-      FW.camera.rotation.y = -Math.PI / 8;
     }
 
     Camera.prototype.resize = function() {
@@ -22,8 +19,7 @@
       var currentTime;
       currentTime = Date.now();
       this.camSpeed = FW.sunsetSpeed;
-      FW.camera.position.z -= this.camSpeed * this.camSpeedupFactor;
-      return FW.camera.rotation.y = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startingRotationScene1, this.endingRotationScene1);
+      return FW.camera.position.z -= this.camSpeed * this.camSpeedupFactor;
     };
 
     Camera.prototype.scene2Update = function() {
