@@ -4,7 +4,7 @@
   FW.Director = Director = (function() {
     function Director() {
       this.scene1TotalTime = 10000;
-      FW.sunsetSpeed = 5;
+      FW.sunsetSpeed = 1;
       this.setSongPoint = true;
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -68,9 +68,7 @@
         light = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, _this.startSkyLight, _this.endSkyLight);
         _this.skyColor.setHSL(hue, 0.86, light);
         FW.renderer.setClearColor(_this.skyColor);
-        if (FW.sunLight.position.y > FW.sunFinalHeight) {
-          FW.mySun.update();
-        }
+        FW.mySun.update();
         FW.myCamera.scene1Update();
         if (currentTime > FW.scene1.endTime) {
           return _this.initScene2();

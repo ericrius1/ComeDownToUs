@@ -14,7 +14,8 @@
       this.endHue = 0.00;
       this.startLight = 0.6;
       this.endLight = 0.35;
-      FW.endSunMap;
+      this.startScale = 300;
+      this.endScale = 600;
       FW.sunLight = new THREE.PointLight(0xffffff, this.startingIntensity, 10000);
       FW.sunLight.position = new THREE.Vector3(0, FW.sunStartingHeight, FW.width);
       FW.scene.add(FW.sunLight);
@@ -30,10 +31,13 @@
     }
 
     Sun.prototype.update = function() {
-      var sunPosY;
+      var currentTime, scale, sunPosY;
+      currentTime = Date.now();
       FW.sunLight.position.y -= FW.sunsetSpeed;
       this.sunMesh.position.y -= FW.sunsetSpeed;
-      return sunPosY = FW.sunLight.position.y;
+      sunPosY = FW.sunLight.position.y;
+      scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startScale, this.endScale);
+      return this.sunMesh.scale.set(scale, scale, scale);
     };
 
     return Sun;

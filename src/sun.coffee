@@ -17,10 +17,8 @@ FW.Sun = class Sun
     @startLight = 0.6
     @endLight = 0.35
 
-    FW.endSunMap
-
-
-
+    @startScale = 300
+    @endScale = 600
     
     #LIGHT
     FW.sunLight = new THREE.PointLight(0xffffff, @startingIntensity, 10000)
@@ -40,9 +38,12 @@ FW.Sun = class Sun
 
 
   update : ->
+    currentTime = Date.now()
     FW.sunLight.position.y -= FW.sunsetSpeed
     @sunMesh.position.y -=FW.sunsetSpeed
     sunPosY = FW.sunLight.position.y
+    scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startScale, @endScale)
+    @sunMesh.scale.set scale, scale, scale
 
 
 

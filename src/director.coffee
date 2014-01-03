@@ -4,7 +4,7 @@ FW.Director = class Director
     # FW.sunsetSpeed = 0.215
     # @setSongPoint = false
     @scene1TotalTime = 10000
-    FW.sunsetSpeed = 5
+    FW.sunsetSpeed = 1
     @setSongPoint = true
     @skyColor = new THREE.Color()
     @frozen = false
@@ -73,8 +73,7 @@ FW.Director = class Director
       light = map(currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyLight, @endSkyLight )
       @skyColor.setHSL hue, 0.86, light
       FW.renderer.setClearColor @skyColor
-      if FW.sunLight.position.y > FW.sunFinalHeight
-        FW.mySun.update()  
+      FW.mySun.update()  
       FW.myCamera.scene1Update()
       if currentTime > FW.scene1.endTime
         @initScene2()

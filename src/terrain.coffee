@@ -19,7 +19,7 @@ FW.Terrain = class Terrain
     terrainMaterial = new THREE.MeshPhongMaterial vertexColors: THREE.VertexColors, shading: THREE.FlatShading, side: THREE.DoubleSide 
     
     terrain1 = new THREE.Mesh terrainGeo, terrainMaterial
-    terrain1.position = new THREE.Vector3 -FW.width * 0.5, -100, -FW.width * .25
+    terrain1.position = new THREE.Vector3 -FW.width * 0.5, -100, -FW.width * .25  
     terrain1.rotation.y -= Math.PI/3
     FW.scene.add terrain1
 
