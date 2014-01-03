@@ -3,8 +3,8 @@
 
   FW.Director = Director = (function() {
     function Director() {
-      this.scene1TotalTime = 2000;
-      this.setSongPoint = true;
+      this.scene1TotalTime = 4000;
+      this.setSongPoint = false;
       this.skyColor = new THREE.Color();
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
@@ -15,7 +15,6 @@
       this.endSkyLight = 0.15;
       this.currentScene = FW.scene1;
       this.skyColor.setHSL(this.startSkyHue, 0.86, this.startSkyLight);
-      FW.renderer.setClearColor(this.skyColor);
       this.skyLagFactor = 1.7;
       FW.beatInterval = 3540;
     }

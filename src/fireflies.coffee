@@ -1,6 +1,7 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 100
+    @distanceFromCam = 200
+
     @tickTime = .008
     @currentBeatNum = 0
     @totalBeats = 20
@@ -46,10 +47,11 @@ FW.Fireflies = class Fireflies
       particlesPerSecond: 1000
       size: 10
       sizeEnd: 10
-      positionSpread: new THREE.Vector3 10, rnd(2, 5), positionSpreadFactor
-      velocity: new THREE.Vector3 0, 20, -@ffVelocity
-      acceleration: new THREE.Vector3 0, -10, -@ffForwardAccel
-      accelerationSpread: new THREE.Vector3 0, 0, 10
+      # positionSpread: new THREE.Vector3 positionSpreadFactor, rnd(1, 2), 1
+      positionSpread: new THREE.Vector3 500, 0, 0
+      velocity: new THREE.Vector3 0, 0, -@ffVelocity
+      acceleration: new THREE.Vector3 0, 0, -@ffForwardAccel
+      accelerationSpread: new THREE.Vector3 0, 0, -@ffForwardAccel * 1000
       opacityStart: 0.8
       opacityEnd: 0.8
 

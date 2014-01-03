@@ -2,8 +2,10 @@ FW.Director = class Director
   constructor: ->
     # @scene1TotalTime  = 155500
     # @setSongPoint = false
-    @scene1TotalTime = 2000
-    @setSongPoint = true
+    @scene1TotalTime = 4000
+    @setSongPoint = false
+
+
     @skyColor = new THREE.Color()
     @frozen = false
     # CONTROLS
@@ -19,7 +21,7 @@ FW.Director = class Director
 
     @currentScene = FW.scene1
     @skyColor.setHSL @startSkyHue, 0.86, @startSkyLight
-    FW.renderer.setClearColor @skyColor
+  
     
     @skyLagFactor = 1.7
 

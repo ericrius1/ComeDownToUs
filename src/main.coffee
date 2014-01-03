@@ -15,6 +15,7 @@ FW.development = false
 window.soundOn = !FW.development
 
 window.onload = ->
+  FW.myDirector = new FW.Director()
   FW.main = new FW.Main()
   FW.myWorld = new FW.World()
   FW.myWorld.animate()
@@ -25,6 +26,7 @@ window.onload = ->
 FW.Main = class Main
   constructor: ->
     #Put a sound you want from soundcloud here
+    # FW.myDirector.beginShow Date.now()
     SC.stream "/tracks/come-down-to-us", (song)->
       FW.song = song
       songStartTime = Date.now()

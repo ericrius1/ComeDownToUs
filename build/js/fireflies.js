@@ -4,7 +4,7 @@
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
       var i, _i, _ref;
-      this.distanceFromCam = 100;
+      this.distanceFromCam = 200;
       this.tickTime = .008;
       this.currentBeatNum = 0;
       this.totalBeats = 20;
@@ -47,10 +47,10 @@
         particlesPerSecond: 1000,
         size: 10,
         sizeEnd: 10,
-        positionSpread: new THREE.Vector3(10, rnd(2, 5), positionSpreadFactor),
-        velocity: new THREE.Vector3(0, 20, -this.ffVelocity),
-        acceleration: new THREE.Vector3(0, -10, -this.ffForwardAccel),
-        accelerationSpread: new THREE.Vector3(0, 0, 10),
+        positionSpread: new THREE.Vector3(500, 0, 0),
+        velocity: new THREE.Vector3(0, 0, -this.ffVelocity),
+        acceleration: new THREE.Vector3(0, 0, -this.ffForwardAccel),
+        accelerationSpread: new THREE.Vector3(0, 0, -this.ffForwardAccel * 1000),
         opacityStart: 0.8,
         opacityEnd: 0.8
       });

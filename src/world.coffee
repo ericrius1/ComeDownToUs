@@ -18,8 +18,6 @@ FW.World = class World
     FW.renderer.setSize FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT
     document.body.appendChild FW.renderer.domElement
     
-    #DIRECTOR
-    FW.myDirector = new FW.Director()
 
     #TERRAIN
     @terrain = new FW.Terrain()

@@ -10,8 +10,8 @@ FW.Sun = class Sun
     @startLight = 0.6
     @endLight = 0.35
 
-    @startIntensity = 5
-    @endIntensity = 2
+    @startIntensity = 4
+    @endIntensity = 1
 
     @startScale = 300
     @endScale = 600
@@ -19,7 +19,7 @@ FW.Sun = class Sun
     @startHeight = 1200
     @endHeight = -613
     #LIGHT
-    @sunLight = new THREE.PointLight(0xffffff, @startingIntensity, 10000)
+    @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 10000)
     @sunLight.position = new THREE.Vector3 0, @startHeight, FW.width
     FW.scene.add @sunLight
 
@@ -34,6 +34,8 @@ FW.Sun = class Sun
     @sunMesh.material.color = @sunColor
     @sunLight.color = @sunColor
     @sunLight.intensity = @startIntensity
+
+
 
 
   update : ->

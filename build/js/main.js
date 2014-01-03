@@ -22,6 +22,7 @@
   window.soundOn = !FW.development;
 
   window.onload = function() {
+    FW.myDirector = new FW.Director();
     FW.main = new FW.Main();
     FW.myWorld = new FW.World();
     FW.myWorld.animate();

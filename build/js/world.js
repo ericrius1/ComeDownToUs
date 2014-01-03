@@ -18,7 +18,6 @@
       });
       FW.renderer.setSize(FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT);
       document.body.appendChild(FW.renderer.domElement);
-      FW.myDirector = new FW.Director();
       this.terrain = new FW.Terrain();
       FW.mySun = new FW.Sun();
       FW.fireflies = new FW.Fireflies();

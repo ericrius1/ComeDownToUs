@@ -8,13 +8,13 @@
       this.endHue = 0.00;
       this.startLight = 0.6;
       this.endLight = 0.35;
-      this.startIntensity = 5;
-      this.endIntensity = 2;
+      this.startIntensity = 4;
+      this.endIntensity = 1;
       this.startScale = 300;
       this.endScale = 600;
       this.startHeight = 1200;
       this.endHeight = -613;
-      this.sunLight = new THREE.PointLight(0xffffff, this.startingIntensity, 10000);
+      this.sunLight = new THREE.DirectionalLight(0xffffff, this.startingIntensity, 10000);
       this.sunLight.position = new THREE.Vector3(0, this.startHeight, FW.width);
       FW.scene.add(this.sunLight);
       this.sunGeo = new THREE.SphereGeometry(1, 100, 100);
