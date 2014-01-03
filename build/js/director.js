@@ -3,8 +3,8 @@
 
   FW.Director = Director = (function() {
     function Director() {
-      this.scene1TotalTime = 4000;
-      this.setSongPoint = false;
+      this.scene1TotalTime = 2000;
+      this.setSongPoint = true;
       this.skyColor = new THREE.Color();
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
@@ -15,7 +15,6 @@
       this.endSkyLight = 0.15;
       this.currentScene = FW.scene1;
       this.skyColor.setHSL(this.startSkyHue, 0.86, this.startSkyLight);
-      this.skyLagFactor = 1.7;
       FW.beatInterval = 3540;
     }
 
@@ -45,11 +44,9 @@
       scene2TotalTime = 66260;
       FW.scene2 = {
         startTime: FW.scene1.endTime,
-        songPoint: 154800,
+        songPoint: 154600,
         endTime: FW.scene1.endTime + scene2TotalTime,
-        totalTime: scene2TotalTime,
-        camSpeed: 0.0,
-        camAcceleration: 0.000005
+        totalTime: scene2TotalTime
       };
       scene3TotalTime = 33680;
       FW.scene3 = {
@@ -102,9 +99,6 @@
 
     Director.prototype.initScene3 = function() {
       FW.camera.rotation.order = 'YXZ';
-      FW.scene3.camRotStartX = FW.camera.rotation.x;
-      FW.scene3.camRotEndX = Math.PI / 10;
-      FW.scene3.camSpeed = FW.scene2.camSpeed;
       clearTimeout(FW.scene2.fireflyInterval);
       return this.currentScene = FW.scene3;
     };

@@ -5,7 +5,8 @@
   FW.World = World = (function() {
     function World() {
       this.animate = __bind(this.animate, this);
-      var _this = this;
+      var color,
+        _this = this;
       FW.clock = new THREE.Clock();
       FW.SCREEN_WIDTH = window.innerWidth;
       FW.SCREEN_HEIGHT = window.innerHeight;
@@ -18,6 +19,8 @@
       });
       FW.renderer.setSize(FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT);
       document.body.appendChild(FW.renderer.domElement);
+      color = new THREE.Color().setHSL(.12, .86, .5);
+      FW.renderer.setClearColor(color);
       this.terrain = new FW.Terrain();
       FW.mySun = new FW.Sun();
       FW.fireflies = new FW.Fireflies();

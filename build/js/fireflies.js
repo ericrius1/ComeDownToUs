@@ -4,7 +4,7 @@
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
       var i, _i, _ref;
-      this.distanceFromCam = 200;
+      this.distanceFromCam = 50;
       this.tickTime = .008;
       this.currentBeatNum = 0;
       this.totalBeats = 20;
@@ -19,10 +19,7 @@
       this.specialLightGrowing = false;
       this.specialLightDistance = 2500;
       this.specialLightColor = 0xffffff;
-      this.ffVelocity = 200;
-      this.ffForwardAccel = 50;
-      this.specialLightVelocity = this.ffVelocity * .001;
-      this.specialLightAccel = this.ffForwardAccel * .004;
+      this.ffHeight = 20;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 5
@@ -47,10 +44,10 @@
         particlesPerSecond: 1000,
         size: 10,
         sizeEnd: 10,
-        positionSpread: new THREE.Vector3(500, 0, 0),
-        velocity: new THREE.Vector3(0, 0, -this.ffVelocity),
-        acceleration: new THREE.Vector3(0, 0, -this.ffForwardAccel),
-        accelerationSpread: new THREE.Vector3(0, 0, -this.ffForwardAccel * 1000),
+        positionSpread: new THREE.Vector3(100, 20, 10),
+        velocity: new THREE.Vector3(0, 0, -100),
+        acceleration: new THREE.Vector3(0, 0, -1),
+        velocitySpread: new THREE.Vector3(10, 10, 0),
         opacityStart: 0.8,
         opacityEnd: 0.8
       });
@@ -62,8 +59,6 @@
     Fireflies.prototype.runScene2 = function() {
       var emitter, i, _i, _ref,
         _this = this;
-      this.specialLight.position.z = this.emitters[0].position.z - this.distanceFromCam;
-      this.specialLightVelocity = this.ffVelocity * .01;
       this.specialLight.intensity = this.specialLightIntensityStart;
       this.specialLightGrowing = true;
       this.currentBeatNum++;
@@ -79,7 +74,7 @@
         emitter = this.emitters[i];
         emitter.position = new THREE.Vector3().copy(FW.camera.position);
         emitter.position.z -= this.distanceFromCam;
-        emitter.position.y = 1;
+        emitter.position.y = this.ffHeight;
       }
       FW.scene2.fireflyInterval = setTimeout(function() {
         return _this.runScene2();

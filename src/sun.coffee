@@ -18,6 +18,9 @@ FW.Sun = class Sun
     
     @startHeight = 1200
     @endHeight = -613
+
+    @startX = -500
+    @endX = 500
     #LIGHT
     @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 10000)
     @sunLight.position = new THREE.Vector3 0, @startHeight, FW.width
@@ -26,7 +29,7 @@ FW.Sun = class Sun
     @sunGeo = new THREE.SphereGeometry(1, 100, 100)
     @material = new THREE.MeshBasicMaterial()
     @sunMesh = new THREE.Mesh @sunGeo, @material
-    @sunMesh.position = new THREE.Vector3 0, @startHeight, -FW.width
+    @sunMesh.position = new THREE.Vector3 @startX, @startHeight, -FW.width
     @sunMesh.scale.set @startScale, @startScale, @startScale
     FW.scene.add @sunMesh
 
@@ -40,13 +43,16 @@ FW.Sun = class Sun
 
   update : ->
     currentTime = Date.now()
+    yPos =  map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startHeight, @endHeight
+    @sunMesh.position.y = yPos
+    @sunLight.position.y = yPos
 
-    @sunMesh.position.y = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startHeight, @endHeight
+    @sunMesh.position.x = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startX, @endX
     
     scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startScale, @endScale)
     @sunMesh.scale.set scale, scale, scale
 
-    @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startIntensity, @endIntensity)
+    # @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startIntensity, @endIntensity)
 
     hue = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startHue, @endHue
     light = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startLight, @endLight

@@ -17,6 +17,8 @@ FW.World = class World
     FW.renderer = new THREE.WebGLRenderer(antialias: true)
     FW.renderer.setSize FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT
     document.body.appendChild FW.renderer.domElement
+    color = new THREE.Color().setHSL .12, .86, .5
+    FW.renderer.setClearColor  color
     
 
     #TERRAIN

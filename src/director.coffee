@@ -1,9 +1,9 @@
 FW.Director = class Director
   constructor: ->
-    # @scene1TotalTime  = 155500
+    # @scene1TotalTime  = 154600
     # @setSongPoint = false
-    @scene1TotalTime = 4000
-    @setSongPoint = false
+    @scene1TotalTime = 2000
+    @setSongPoint = true
 
 
     @skyColor = new THREE.Color()
@@ -11,8 +11,6 @@ FW.Director = class Director
     # CONTROLS
     @controls = new THREE.OrbitControls(FW.camera)
     @controls.enabled = false
-    # @controls.zoomSpeed = 0.5
-    # @controls.rotateSpeed = 0.5
 
     @startSkyHue = 0.12
     @endSkyHue = -0.18
@@ -21,9 +19,7 @@ FW.Director = class Director
 
     @currentScene = FW.scene1
     @skyColor.setHSL @startSkyHue, 0.86, @startSkyLight
-  
     
-    @skyLagFactor = 1.7
 
     FW.beatInterval = 3540
     
@@ -51,11 +47,9 @@ FW.Director = class Director
     # scene2TotalTime = 1000
     FW.scene2 = 
       startTime: FW.scene1.endTime
-      songPoint: 154800
+      songPoint: 154600
       endTime: FW.scene1.endTime + scene2TotalTime
       totalTime: scene2TotalTime
-      camSpeed: 0.0
-      camAcceleration: 0.000005
 
     scene3TotalTime = 33680
     FW.scene3 = 
@@ -103,9 +97,6 @@ FW.Director = class Director
   initScene3: ->
     # FW.song.setPosition FW.scene3.songPoint
     FW.camera.rotation.order = 'YXZ';
-    FW.scene3.camRotStartX = FW.camera.rotation.x
-    FW.scene3.camRotEndX = Math.PI/10
-    FW.scene3.camSpeed = FW.scene2.camSpeed
     clearTimeout FW.scene2.fireflyInterval
     @currentScene = FW.scene3
 

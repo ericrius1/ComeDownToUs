@@ -1,6 +1,6 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 200
+    @distanceFromCam = 50
 
     @tickTime = .008
     @currentBeatNum = 0
@@ -16,12 +16,7 @@ FW.Fireflies = class Fireflies
     @specialLightGrowing = false
     @specialLightDistance = 2500
     @specialLightColor = 0xffffff
-
-
-    @ffVelocity = 200
-    @ffForwardAccel = 50
-    @specialLightVelocity = @ffVelocity * .001
-    @specialLightAccel = @ffForwardAccel * .004
+    @ffHeight = 20
 
     #For custom emitters each beat!
 
@@ -48,10 +43,10 @@ FW.Fireflies = class Fireflies
       size: 10
       sizeEnd: 10
       # positionSpread: new THREE.Vector3 positionSpreadFactor, rnd(1, 2), 1
-      positionSpread: new THREE.Vector3 500, 0, 0
-      velocity: new THREE.Vector3 0, 0, -@ffVelocity
-      acceleration: new THREE.Vector3 0, 0, -@ffForwardAccel
-      accelerationSpread: new THREE.Vector3 0, 0, -@ffForwardAccel * 1000
+      positionSpread: new THREE.Vector3 100, 20, 10
+      velocity: new THREE.Vector3 0, 0, -100
+      acceleration: new THREE.Vector3 0, 0, -1
+      velocitySpread: new THREE.Vector3 10, 10, 0
       opacityStart: 0.8
       opacityEnd: 0.8
 
@@ -60,8 +55,6 @@ FW.Fireflies = class Fireflies
     firefliesEmitter.disable()
 
   runScene2 : ->
-    @specialLight.position.z = @emitters[0].position.z - @distanceFromCam
-    @specialLightVelocity = @ffVelocity * .01
     #burst of light to get things going
     @specialLight.intensity = @specialLightIntensityStart
     @specialLightGrowing = true
@@ -77,7 +70,7 @@ FW.Fireflies = class Fireflies
       emitter = @emitters[i]
       emitter.position = new THREE.Vector3().copy FW.camera.position
       emitter.position.z -= @distanceFromCam
-      emitter.position.y =  1
+      emitter.position.y = @ffHeight
     FW.scene2.fireflyInterval = setTimeout(()=>
       @runScene2()
     FW.beatInterval)
@@ -122,4 +115,16 @@ FW.Fireflies = class Fireflies
     
     
 
-
+#SPIRIT BEING IN CAVERN
+ # positionSpreadFactor = map currentIndex, 0, @numEmitters, 0, 1000
+ #    colorStart = new THREE.Color()
+ #    colorEnd = new THREE.Color()
+ #    firefliesEmitter = new ShaderParticleEmitter
+ #      particlesPerSecond: 1000
+ #      size: 10
+ #      sizeEnd: 10
+ #      # positionSpread: new THREE.Vector3 positionSpreadFactor, rnd(1, 2), 1
+ #      positionSpread: new THREE.Vector3 10, 10, 10
+ #      velocitySpread: new THREE.Vector3 10, 10, 10
+ #      opacityStart: 0.8
+ #      opacityEnd: 0.8
