@@ -35,9 +35,9 @@ FW.Fireflies = class Fireflies
       # colorEnd: color
       positionSpread: new THREE.Vector3 @xSpread, 0, @xSpread
       velocity: new THREE.Vector3 30, 80, 0
-      velocitySpread: new THREE.Vector3 2, 20, 4
-      acceleration: new THREE.Vector3 5, -70, 0
-      # accelerationSpread: new THREE.Vector3 0, 0, 4
+      velocitySpread: new THREE.Vector3 20, 20, 20
+      acceleration: new THREE.Vector3 10, -70, 10
+      accelerationSpread: new THREE.Vector3 10, 0, 10
       opacityStart: 0.8
       opacityEnd: 0.8
 

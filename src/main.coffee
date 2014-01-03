@@ -1,5 +1,5 @@
 #Meteors fly over everytime she says "come down to us"
-#When step off cliff, rotate camera facing down and fly downwards
+#When step off cliff, rotate camera facing down and fly downwards (or up?)()
 
 if !Detector.webgl
    Detector.addGetWebGLMessage()

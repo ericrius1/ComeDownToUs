@@ -4,7 +4,7 @@
   FW.Director = Director = (function() {
     function Director() {
       this.scene1TotalTime = 155500;
-      FW.sunsetSpeed = 0.22;
+      FW.sunsetSpeed = 0.23;
       this.skyColor = new THREE.Color();
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
@@ -60,7 +60,7 @@
         totalTime: scene3TotalTime,
         endTime: FW.scene2.endTime + scene3TotalTime,
         songPoint: 221760,
-        camAcceleration: FW.scene2.camAcceleration * 2
+        camAcceleration: FW.scene2.camAcceleration * 20
       };
       FW.scene1.update = function() {
         var currentTime, hue, light;
@@ -97,7 +97,6 @@
     };
 
     Director.prototype.initScene2 = function() {
-      FW.song.setPosition(FW.scene2.songPoint);
       this.currentScene = FW.scene2;
       FW.fireflies.runScene2();
       return FW.scene.remove(FW.mySun.sunMesh);
@@ -107,7 +106,6 @@
       FW.camera.rotation.order = 'YXZ';
       FW.scene3.camRotStartX = FW.camera.rotation.x;
       FW.scene3.camRotEndX = Math.PI / 8;
-      FW.song.setPosition(FW.scene3.songPoint);
       FW.scene3.camSpeed = FW.scene2.camSpeed;
       clearTimeout(FW.scene2.fireflyInterval);
       return this.currentScene = FW.scene3;
