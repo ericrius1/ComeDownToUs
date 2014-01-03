@@ -1,5 +1,7 @@
 FW.Camera = class Camera
   constructor: ()->
+    @camSpeedupFactor = 1.001
+
     @camFar = 2000000
     @camStartingY = 8
     @startingRotationScene1 = -Math.PI/8
@@ -21,7 +23,7 @@ FW.Camera = class Camera
   scene1Update:->
     currentTime = Date.now()
     @camSpeed = FW.sunsetSpeed
-    FW.camera.position.z -= @camSpeed
+    FW.camera.position.z -= @camSpeed * @camSpeedupFactor
     FW.camera.rotation.y = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startingRotationScene1, @endingRotationScene1)
 
   scene2Update: ->

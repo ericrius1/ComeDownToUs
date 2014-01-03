@@ -22,7 +22,7 @@
       this.initEmitterStats();
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 2.0
+        maxAge: 3
       });
       this.emitters = [];
       this.numActiveEmitters = 0;
@@ -48,14 +48,13 @@
       defaultSizeEnd = 10;
       sizeEnd = (_ref10 = (_ref11 = this.emitterStats[currentIndex]) != null ? _ref11.sizeEnd : void 0) != null ? _ref10 : defaultSizeEnd;
       positionSpreadFactor = map(currentIndex, 1, this.numEmitters, 0, 500);
-      console.log(positionSpreadFactor);
       defaultPositionSpread = new THREE.Vector3(positionSpreadFactor, 0, positionSpreadFactor);
       positionSpread = (_ref12 = (_ref13 = this.emitterStats[currentIndex]) != null ? _ref13.positionSpread : void 0) != null ? _ref12 : defaultPositionSpread;
-      defaultVelocity = new THREE.Vector3(10, 60, 0);
+      defaultVelocity = new THREE.Vector3(10, 0, 0);
       velocity = (_ref14 = (_ref15 = this.emitterStats[currentIndex]) != null ? _ref15.velocity : void 0) != null ? _ref14 : defaultVelocity;
-      defaultVelocitySpread = new THREE.Vector3(20, 10, 20);
+      defaultVelocitySpread = new THREE.Vector3(0, 0, 0);
       velocitySpread = (_ref16 = (_ref17 = this.emitterStats[currentIndex]) != null ? _ref17.velocitySpread : void 0) != null ? _ref16 : defaultVelocitySpread;
-      defaultAcceleration = new THREE.Vector3(10, -50, 0);
+      defaultAcceleration = new THREE.Vector3(500, 0, 0);
       acceleration = (_ref18 = (_ref19 = this.emitterStats[currentIndex]) != null ? _ref19.acceleration : void 0) != null ? _ref18 : defaultAcceleration;
       defaultAccelerationSpread = new THREE.Vector3(0, 0, 0);
       accelerationSpread = (_ref20 = (_ref21 = this.emitterStats[currentIndex]) != null ? _ref21.accelerationSpread : void 0) != null ? _ref20 : defaultAccelerationSpread;
@@ -102,7 +101,7 @@
         emitter = this.emitters[i];
         emitter.position = new THREE.Vector3().copy(FW.camera.position);
         emitter.position.x += this.distanceFromCam;
-        emitter.position.y = 0;
+        emitter.position.y = 1;
       }
       FW.scene2.fireflyInterval = setTimeout(function() {
         return _this.runScene2();

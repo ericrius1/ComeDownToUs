@@ -21,7 +21,7 @@ FW.Fireflies = class Fireflies
 
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 2.0
+      maxAge: 3
     });
     @emitters = []
     @numActiveEmitters = 0
@@ -53,17 +53,16 @@ FW.Fireflies = class Fireflies
 
 
     positionSpreadFactor =  map currentIndex, 1, @numEmitters, 0, 500
-    console.log positionSpreadFactor
     defaultPositionSpread = new THREE.Vector3 positionSpreadFactor, 0, positionSpreadFactor
     positionSpread = @emitterStats[currentIndex]?.positionSpread ? defaultPositionSpread
 
-    defaultVelocity = new THREE.Vector3 10, 60, 0
+    defaultVelocity = new THREE.Vector3 10, 0, 0
     velocity = @emitterStats[currentIndex]?.velocity ? defaultVelocity
 
-    defaultVelocitySpread = new THREE.Vector3 20, 10, 20
+    defaultVelocitySpread = new THREE.Vector3 0, 0, 0
     velocitySpread = @emitterStats[currentIndex]?.velocitySpread ? defaultVelocitySpread
 
-    defaultAcceleration = new THREE.Vector3 10, -50, 0
+    defaultAcceleration = new THREE.Vector3 500, 0, 0
     acceleration = @emitterStats[currentIndex]?.acceleration ? defaultAcceleration
 
 
@@ -110,7 +109,7 @@ FW.Fireflies = class Fireflies
       emitter = @emitters[i]
       emitter.position = new THREE.Vector3().copy FW.camera.position
       emitter.position.x += @distanceFromCam
-      emitter.position.y = 0
+      emitter.position.y =  1
     FW.scene2.fireflyInterval = setTimeout(()=>
       @runScene2()
     FW.beatInterval)

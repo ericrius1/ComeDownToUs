@@ -3,6 +3,7 @@
 
   FW.Camera = Camera = (function() {
     function Camera() {
+      this.camSpeedupFactor = 1.001;
       this.camFar = 2000000;
       this.camStartingY = 8;
       this.startingRotationScene1 = -Math.PI / 8;
@@ -21,7 +22,7 @@
       var currentTime;
       currentTime = Date.now();
       this.camSpeed = FW.sunsetSpeed;
-      FW.camera.position.z -= this.camSpeed;
+      FW.camera.position.z -= this.camSpeed * this.camSpeedupFactor;
       return FW.camera.rotation.y = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startingRotationScene1, this.endingRotationScene1);
     };
 
