@@ -5,8 +5,8 @@
     function Camera() {
       this.camFar = 2000000;
       this.camStartingY = 8;
-      this.startingRotation = -Math.PI / 8;
-      this.endingRotation = -Math.PI / 2.2;
+      this.startingRotationScene1 = -Math.PI / 8;
+      this.endingRotationScene1 = -Math.PI / 2.2;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
       FW.camera.position.set(0, this.camStartingY, FW.width / 2);
       FW.camera.rotation.y = -Math.PI / 8;
@@ -20,7 +20,7 @@
     Camera.prototype.scene1Update = function() {
       this.camSpeed = FW.sunsetSpeed;
       FW.camera.position.z -= this.camSpeed;
-      return FW.camera.rotation.y = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum, this.startingRotation, this.endingRotation);
+      return FW.camera.rotation.y = map(FW.sunLight.position.y, FW.sunStartingHeight, FW.endMapNum, this.startingRotationScene1, this.endingRotationScene1);
     };
 
     Camera.prototype.scene2Update = function() {
@@ -29,9 +29,11 @@
     };
 
     Camera.prototype.scene3Update = function() {
+      var currentTime;
+      currentTime = Date.now();
       FW.camera.translateZ(-FW.scene3.camSpeed);
       FW.scene3.camSpeed += FW.scene3.camAcceleration;
-      return FW.camera.rotation.x += FW.scene3.camYRotationSpeed;
+      return FW.camera.rotation.x = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, FW.scene3.camRotStartX, FW.scene3.camRotEndX);
     };
 
     return Camera;

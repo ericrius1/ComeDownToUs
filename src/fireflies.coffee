@@ -45,7 +45,7 @@ FW.Fireflies = class Fireflies
     @emitters.push firefliesEmitter
     firefliesEmitter.disable()
 
-  run : ->
+  runScene2 : ->
     @currentBeatNum++
     if @numActiveEmitters < @emitters.length
       @numActiveEmitters++
@@ -59,9 +59,12 @@ FW.Fireflies = class Fireflies
       emitter.position = new THREE.Vector3().copy FW.camera.position
       emitter.position.x += @distanceFromCam
       emitter.position.y = 0
-    setTimeout(()=>
-      @run()
+    FW.scene2.fireflyInterval = setTimeout(()=>
+      @runScene2()
     FW.beatInterval)
+
+
+
 
   toggleActiveEmitters : ->
     @enableActiveEmitters()

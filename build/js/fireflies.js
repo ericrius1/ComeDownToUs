@@ -51,7 +51,7 @@
       return firefliesEmitter.disable();
     };
 
-    Fireflies.prototype.run = function() {
+    Fireflies.prototype.runScene2 = function() {
       var emitter, i, _i, _ref,
         _this = this;
       this.currentBeatNum++;
@@ -69,8 +69,8 @@
         emitter.position.x += this.distanceFromCam;
         emitter.position.y = 0;
       }
-      return setTimeout(function() {
-        return _this.run();
+      return FW.scene2.fireflyInterval = setTimeout(function() {
+        return _this.runScene2();
       }, FW.beatInterval);
     };
 

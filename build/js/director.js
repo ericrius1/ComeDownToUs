@@ -45,7 +45,7 @@
         totalTime: this.scene1TotalTime,
         endTime: showStartTime + this.scene1TotalTime
       };
-      scene2TotalTime = 66260;
+      scene2TotalTime = 1000;
       FW.scene2 = {
         startTime: FW.scene1.endTime,
         songPoint: 154800,
@@ -60,7 +60,6 @@
         totalTime: scene3TotalTime,
         endTime: FW.scene2.endTime + scene3TotalTime,
         songPoint: 221760,
-        camYRotationSpeed: 0.002,
         camAcceleration: FW.scene2.camAcceleration * 2
       };
       FW.scene1.update = function() {
@@ -91,6 +90,7 @@
         }
       };
       FW.scene3.update = function() {
+        FW.fireflies.tick();
         return FW.myCamera.scene3Update();
       };
       return this.currentScene = FW.scene1;
@@ -99,14 +99,17 @@
     Director.prototype.initScene2 = function() {
       FW.song.setPosition(FW.scene2.songPoint);
       this.currentScene = FW.scene2;
-      FW.fireflies.run();
+      FW.fireflies.runScene2();
       return FW.scene.remove(FW.mySun.sunMesh);
     };
 
     Director.prototype.initScene3 = function() {
       FW.camera.rotation.order = 'YXZ';
+      FW.scene3.camRotStartX = FW.camera.rotation.x;
+      FW.scene3.camRotEndX = Math.PI / 8;
       FW.song.setPosition(FW.scene3.songPoint);
       FW.scene3.camSpeed = FW.scene2.camSpeed;
+      clearTimeout(FW.scene2.fireflyInterval);
       return this.currentScene = FW.scene3;
     };
 
