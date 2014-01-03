@@ -14,8 +14,8 @@ FW.Camera = class Camera
     @rotStartX = 0
     @rotEndX = Math.PI / 20
 
-    @startZ = FW.camera.position.z
-    @endZ = -FW.width/2
+    @scene2StartZ = @scene1EndZ
+    @scene2EndZ = -FW.width/2
 
   resize: ->
     FW.camera.aspect = FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT
@@ -27,8 +27,7 @@ FW.Camera = class Camera
 
   scene2Update: ->
     currentTime = Date.now()
-    zPos = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, @startZ, @endZ)
-    FW.camera.position.z = zPos
+    FW.camera.position.z = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, @scene2StartZ, @scene2EndZ)
 
   scene3Update: ->
     currentTime = Date.now()

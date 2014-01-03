@@ -12,8 +12,8 @@
       this.scene1EndZ = 0;
       this.rotStartX = 0;
       this.rotEndX = Math.PI / 20;
-      this.startZ = FW.camera.position.z;
-      this.endZ = -FW.width / 2;
+      this.scene2StartZ = this.scene1EndZ;
+      this.scene2EndZ = -FW.width / 2;
     }
 
     Camera.prototype.resize = function() {
@@ -28,10 +28,9 @@
     };
 
     Camera.prototype.scene2Update = function() {
-      var currentTime, zPos;
+      var currentTime;
       currentTime = Date.now();
-      zPos = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, this.startZ, this.endZ);
-      return FW.camera.position.z = zPos;
+      return FW.camera.position.z = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, this.scene2StartZ, this.scene2EndZ);
     };
 
     Camera.prototype.scene3Update = function() {

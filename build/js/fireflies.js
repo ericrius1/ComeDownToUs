@@ -4,13 +4,13 @@
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
       var i, _i, _ref;
-      this.distanceFromCam = 50;
+      this.distanceFromCam = 30;
+      this.timeTillDisabled = 300;
       this.tickTime = .008;
       this.currentBeatNum = 0;
       this.totalBeats = 20;
       this.numEmitters = this.totalBeats;
       this.xSpreadFactor = 100;
-      this.timeTillDisabled = 50;
       this.emitterStats = [];
       this.ffToggledOn = false;
       this.specialLightIntensityUpChange = 0.0;
@@ -19,10 +19,10 @@
       this.specialLightGrowing = false;
       this.specialLightDistance = 2500;
       this.specialLightColor = 0xffffff;
-      this.ffHeight = 20;
+      this.ffHeight = 8;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 5
+        maxAge: 10
       });
       this.emitters = [];
       this.numActiveEmitters = 0;
@@ -36,20 +36,21 @@
     }
 
     Fireflies.prototype.generateFireflies = function(currentIndex) {
-      var colorEnd, colorStart, firefliesEmitter, positionSpreadFactor;
-      positionSpreadFactor = map(currentIndex, 0, this.numEmitters, 0, 1000);
+      var colorEnd, colorStart, firefliesEmitter;
       colorStart = new THREE.Color();
       colorEnd = new THREE.Color();
       firefliesEmitter = new ShaderParticleEmitter({
-        particlesPerSecond: 1000,
+        particlesPerSecond: 100,
         size: 10,
         sizeEnd: 10,
-        positionSpread: new THREE.Vector3(100, 20, 10),
-        velocity: new THREE.Vector3(0, 0, -100),
-        acceleration: new THREE.Vector3(0, 0, -1),
-        velocitySpread: new THREE.Vector3(10, 10, 0),
-        opacityStart: 0.8,
-        opacityEnd: 0.8
+        positionSpread: new THREE.Vector3(80, 5, 10),
+        velocity: new THREE.Vector3(0, 0, -50),
+        velocitySpread: new THREE.Vector3(1, 1, 1),
+        acceleration: new THREE.Vector3(0, 0, -5),
+        accelerationSpread: 0
+      }, 100, 2, {
+        opacityStart: 1.0,
+        opacityEnd: 1.0
       });
       this.firefliesGroup.addEmitter(firefliesEmitter);
       this.emitters.push(firefliesEmitter);
