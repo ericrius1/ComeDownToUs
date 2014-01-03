@@ -25,7 +25,14 @@
 
     Camera.prototype.scene2Update = function() {
       FW.camera.translateZ(-FW.scene2.camSpeed);
-      return FW.scene2.camSpeed += FW.scene2.camAcceleration;
+      FW.scene2.camSpeed += FW.scene2.camAcceleration;
+      return FW.camera.rotation.x += .001;
+    };
+
+    Camera.prototype.scene3Update = function() {
+      FW.camera.translateZ(-FW.scene3.camSpeed);
+      FW.scene3.camSpeed += FW.scene3.camAcceleration;
+      return FW.camera.rotation.x += FW.scene3.camYRotationSpeed;
     };
 
     return Camera;

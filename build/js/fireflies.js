@@ -14,9 +14,10 @@
       this.xSpread = FW.width / 2;
       this.distanceFromCam = this.xSpread * .2;
       this.numEmitters = this.totalBeats;
+      this.timeTillDisabled = 1000;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 1
+        maxAge: 1.5
       });
       this.emitters = [];
       this.numActiveEmitters = 0;
@@ -39,9 +40,9 @@
         colorStart: color,
         colorSpread: colorSpread,
         positionSpread: new THREE.Vector3(this.xSpread, 0, this.xSpread),
-        velocity: new THREE.Vector3(20, 20, 0),
-        velocitySpread: new THREE.Vector3(2, 0, 4),
-        acceleration: new THREE.Vector3(5, -20, 0),
+        velocity: new THREE.Vector3(30, 80, 0),
+        velocitySpread: new THREE.Vector3(2, 20, 4),
+        acceleration: new THREE.Vector3(5, -70, 0),
         opacityStart: 0.8,
         opacityEnd: 0.8
       });
@@ -70,7 +71,7 @@
       }
       return setTimeout(function() {
         return _this.run();
-      }, FW.scene2.beatInterval);
+      }, FW.beatInterval);
     };
 
     Fireflies.prototype.toggleActiveEmitters = function() {
@@ -78,7 +79,7 @@
       this.enableActiveEmitters();
       return setTimeout(function() {
         return _this.disableActiveEmitters();
-      }, FW.scene2.beatInterval / 2);
+      }, this.timeTillDisabled);
     };
 
     Fireflies.prototype.enableActiveEmitters = function() {

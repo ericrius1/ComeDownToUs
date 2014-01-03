@@ -24,4 +24,10 @@ FW.Camera = class Camera
   scene2Update: ->
     FW.camera.translateZ -FW.scene2.camSpeed
     FW.scene2.camSpeed += FW.scene2.camAcceleration
+    FW.camera.rotation.x +=.001
 
+  scene3Update: ->
+
+    FW.camera.translateZ -FW.scene3.camSpeed
+    FW.scene3.camSpeed += FW.scene3.camAcceleration
+    FW.camera.rotation.x += FW.scene3.camYRotationSpeed

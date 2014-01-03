@@ -7,9 +7,12 @@ FW.Fireflies = class Fireflies
     @xSpread = FW.width/2
     @distanceFromCam = @xSpread * .2
     @numEmitters = @totalBeats
+    @timeTillDisabled = 1000
+
+
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 1
+      maxAge: 1.5
     });
     @emitters = []
     @numActiveEmitters = 0
@@ -31,9 +34,9 @@ FW.Fireflies = class Fireflies
       colorSpread: colorSpread
       # colorEnd: color
       positionSpread: new THREE.Vector3 @xSpread, 0, @xSpread
-      velocity: new THREE.Vector3 20, 20, 0
-      velocitySpread: new THREE.Vector3 2, 0, 4
-      acceleration: new THREE.Vector3 5, -20, 0
+      velocity: new THREE.Vector3 30, 80, 0
+      velocitySpread: new THREE.Vector3 2, 20, 4
+      acceleration: new THREE.Vector3 5, -70, 0
       # accelerationSpread: new THREE.Vector3 0, 0, 4
       opacityStart: 0.8
       opacityEnd: 0.8
@@ -58,13 +61,13 @@ FW.Fireflies = class Fireflies
       emitter.position.y = 0
     setTimeout(()=>
       @run()
-    FW.scene2.beatInterval)
+    FW.beatInterval)
 
   toggleActiveEmitters : ->
     @enableActiveEmitters()
     setTimeout(()=>
       @disableActiveEmitters()
-    FW.scene2.beatInterval/2)
+    @timeTillDisabled)
     #Spawn more flies everytime
   
   enableActiveEmitters : ->

@@ -22,6 +22,8 @@ FW.Director = class Director
     FW.renderer.setClearColor @skyColor
     
     @skyLagFactor = 1.7
+
+    FW.beatInterval = 3540
     
   update: ->
     if !@frozen
@@ -29,13 +31,6 @@ FW.Director = class Director
       @currentScene?.update()
     else
       @controls.update()
-
-  triggerScene2: ->
-    #TRIGGER SONG JUMP HERE ************************
-    FW.song.setPosition FW.scene2.songPoint
-    @currentScene = FW.scene2
-    FW.fireflies.run()
-    FW.scene.remove FW.mySun.sunMesh
 
     
   freeze : -> 
@@ -57,8 +52,14 @@ FW.Director = class Director
       endTime: FW.scene1.endTime + scene2TotalTime
       totalTime: scene2TotalTime
       camSpeed: 0.0
-      camAcceleration: 0.00015
-      beatInterval: 3540
+      camAcceleration: 0.00005
+
+    FW.scene3 = 
+      startTime: FW.scene2.endTime
+      songPoint: 221760
+      camYRotationSpeed: 0.002
+      camAcceleration: FW.scene2.camAcceleration * 2
+
 
     FW.scene1.update = =>
       currentTime = Date.now()
@@ -70,7 +71,7 @@ FW.Director = class Director
         FW.mySun.update()  
       FW.myCamera.scene1Update()
       if currentTime > FW.scene1.endTime
-        @triggerScene2()
+        @initScene2()
     FW.scene2.update = =>
       currentTime = Date.now()
       FW.fireflies.tick()
@@ -78,8 +79,25 @@ FW.Director = class Director
       light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime,  @endSkyLight, 0 )
       @skyColor.setHSL @endSkyHue, 0.86, light
       FW.renderer.setClearColor @skyColor
+      if currentTime > FW.scene2.endTime
+        @initScene3()
+    FW.scene3.update = =>
+      FW.myCamera.scene3Update()
 
     @currentScene = FW.scene1
+
+  initScene2: ->
+    #TRIGGER SONG JUMP HERE ************************
+    FW.song.setPosition FW.scene2.songPoint
+    @currentScene = FW.scene2
+    FW.fireflies.run()
+    FW.scene.remove FW.mySun.sunMesh
+
+  initScene3: ->
+    FW.camera.rotation.order = 'YXZ';
+    FW.song.setPosition FW.scene3.songPoint
+    FW.scene3.camSpeed = FW.scene2.camSpeed
+    @currentScene = FW.scene3
 
 
 

@@ -19,6 +19,7 @@
       this.skyColor.setHSL(this.startSkyHue, 0.86, this.startSkyLight);
       FW.renderer.setClearColor(this.skyColor);
       this.skyLagFactor = 1.7;
+      FW.beatInterval = 3540;
     }
 
     Director.prototype.update = function() {
@@ -28,13 +29,6 @@
       } else {
         return this.controls.update();
       }
-    };
-
-    Director.prototype.triggerScene2 = function() {
-      FW.song.setPosition(FW.scene2.songPoint);
-      this.currentScene = FW.scene2;
-      FW.fireflies.run();
-      return FW.scene.remove(FW.mySun.sunMesh);
     };
 
     Director.prototype.freeze = function() {
@@ -58,8 +52,13 @@
         endTime: FW.scene1.endTime + scene2TotalTime,
         totalTime: scene2TotalTime,
         camSpeed: 0.0,
-        camAcceleration: 0.00015,
-        beatInterval: 3540
+        camAcceleration: 0.00005
+      };
+      FW.scene3 = {
+        startTime: FW.scene2.endTime,
+        songPoint: 221760,
+        camYRotationSpeed: 0.002,
+        camAcceleration: FW.scene2.camAcceleration * 2
       };
       FW.scene1.update = function() {
         var currentTime, hue, light;
@@ -73,7 +72,7 @@
         }
         FW.myCamera.scene1Update();
         if (currentTime > FW.scene1.endTime) {
-          return _this.triggerScene2();
+          return _this.initScene2();
         }
       };
       FW.scene2.update = function() {
@@ -83,9 +82,29 @@
         FW.myCamera.scene2Update();
         light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, _this.endSkyLight, 0);
         _this.skyColor.setHSL(_this.endSkyHue, 0.86, light);
-        return FW.renderer.setClearColor(_this.skyColor);
+        FW.renderer.setClearColor(_this.skyColor);
+        if (currentTime > FW.scene2.endTime) {
+          return _this.initScene3();
+        }
+      };
+      FW.scene3.update = function() {
+        return FW.myCamera.scene3Update();
       };
       return this.currentScene = FW.scene1;
+    };
+
+    Director.prototype.initScene2 = function() {
+      FW.song.setPosition(FW.scene2.songPoint);
+      this.currentScene = FW.scene2;
+      FW.fireflies.run();
+      return FW.scene.remove(FW.mySun.sunMesh);
+    };
+
+    Director.prototype.initScene3 = function() {
+      FW.camera.rotation.order = 'YXZ';
+      FW.song.setPosition(FW.scene3.songPoint);
+      FW.scene3.camSpeed = FW.scene2.camSpeed;
+      return this.currentScene = FW.scene3;
     };
 
     return Director;
