@@ -5,15 +5,15 @@ FW.Fireflies = class Fireflies
     @totalBeats = 20
     @numEmitters = @totalBeats
     @xSpreadFactor = 100
-    @distanceFromCam = 200
-    @timeTillDisabled = 1000
+    @distanceFromCam = 100
+    @timeTillDisabled = 100
     @emitterStats = []
     @initEmitterStats()
 
 
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 1.5
+      maxAge: 2.0
     });
     @emitters = []
     @numActiveEmitters = 0
@@ -24,30 +24,49 @@ FW.Fireflies = class Fireflies
 
 
   generateFireflies: (currentIndex)->
-    defaultColor = new THREE.Color()
-    color = @emitterStats[currentIndex]?.color ? defaultColor
-    colorEnd = new THREE.Color()
-    colorEnd.setHSL 0.527, 0.80, 0.9
+    defaultColorStart = new THREE.Color()
+    colorStart = @emitterStats[currentIndex]?.colorStart ? defaultColorStart
+
+    defaultColorEnd = new THREE.Color()
+    colorEnd = @emitterStats[currentIndex]?.colorEnd ? defaultColorEnd
+  
+
+    defaultType = 'cube'
+    type = @emitterStats[currentIndex]?.type ? defaultType
 
     defaultPps = 500
     pps = @emitterStats[currentIndex]?.pps ? defaultPps
-    defaultSize  = 10
-    size = @emitterStats[currentIndex]?.size ? defaultSize 
+    
+    defaultSizeStart  = 10
+    sizeStart = @emitterStats[currentIndex]?.sizeStart ? defaultSizeStart 
 
-    defaultVelocity = new THREE.Vector3 60, 90, 0
+    defaultSizeEnd  = 10
+    sizeEnd = @emitterStats[currentIndex]?.sizeEnd ? defaultSizeEnd
+
+    defaultVelocity = new THREE.Vector3 30, 60, 0
     velocity = @emitterStats[currentIndex]?.velocity ? defaultVelocity
+
+    defaultVelocitySpread = new THREE.Vector3 10, 10, 20
+    velocitySpread = @emitterStats[currentIndex]?.velocitySpread ? defaultVelocitySpread
+
+    defaultAcceleration = new THREE.Vector3 20, -35, 0
+    acceleration = @emitterStats[currentIndex]?.acceleration ? defaultAcceleration
+
+    defaultPositionSpread = new THREE.Vector3 @xSpreadFactor * currentIndex, 0, @xSpreadFactor * currentIndex
+    positionSpread = @emitterStats[currentIndex]?.positionSpread ? defaultPositionSpread
     
 
     firefliesEmitter = new ShaderParticleEmitter
+      type: type
       particlesPerSecond: pps
-      size: size
-      sizeEnd: size
-      colorStart: color
+      size: sizeStart
+      sizeEnd: sizeEnd
+      colorStart: colorStart
       colorEnd: colorEnd
-      positionSpread: new THREE.Vector3 @xSpreadFactor * currentIndex, 0, @xSpreadFactor * currentIndex
+      positionSpread: positionSpread
       velocity: velocity
-      velocitySpread: new THREE.Vector3 10, 10, 20
-      acceleration: new THREE.Vector3 50, -90, 0
+      velocitySpread: velocitySpread
+      acceleration: acceleration
       accelerationSpread: new THREE.Vector3 10, 0, 10
       opacityStart: 0.8
       opacityEnd: 0.8
@@ -100,10 +119,16 @@ FW.Fireflies = class Fireflies
     #create a mapping of emitter num to stats
     color = new THREE.Color()
     emitterStat =
-      pps: 1
-      size: 40
-      color: new THREE.Color 0xdf1ed8
-      velocity: new THREE.Vector3 60, 120, 0
+      # type: 'sphere'
+      pps: 200
+      sizeStart: 30
+      sizeEnd: 30
+      colorStart: new THREE.Color 0xdf1ed8
+      colorEnd: new THREE.Color 0xdf1ed8
+      velocity: new THREE.Vector3 30, 60, 0
+      velocitySpread: new THREE.Vector3 10, 0, 10
+      acceleration: new THREE.Vector3 20, -35, 0
+      positionSpread: new THREE.Vector3 1, 1, 1
     @emitterStats.push emitterStat
 
     

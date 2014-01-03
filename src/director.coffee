@@ -53,7 +53,7 @@ FW.Director = class Director
       endTime: FW.scene1.endTime + scene2TotalTime
       totalTime: scene2TotalTime
       camSpeed: 0.0
-      camAcceleration: 0.00005
+      camAcceleration: 0.000005
 
     scene3TotalTime = 33680
     FW.scene3 = 
@@ -61,7 +61,7 @@ FW.Director = class Director
       totalTime: scene3TotalTime
       endTime: FW.scene2.endTime + scene3TotalTime
       songPoint: 221760
-      camAcceleration: FW.scene2.camAcceleration * 20
+      camAcceleration: .0001
 
     #endTime: songPoint + endTime
     #221760 + 255440
