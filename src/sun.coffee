@@ -21,7 +21,7 @@ FW.Sun = class Sun
     @startLight = 0.6
     @endLight = 0.35
 
-    @sunZMoveFactor = 1.2
+    @sunZMoveFactor = 1.3
 
 
     

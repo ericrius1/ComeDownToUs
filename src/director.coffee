@@ -1,9 +1,9 @@
 FW.Director = class Director
   constructor: ->
-    @scene1TotalTime  = 155500
-    FW.sunsetSpeed = 0.23
-    # @scene1TotalTime = 4000
-    # FW.sunsetSpeed = 10
+    # @scene1TotalTime  = 155500
+    # FW.sunsetSpeed = 0.22
+    @scene1TotalTime = 4000
+    FW.sunsetSpeed = 10
     @skyColor = new THREE.Color()
     @frozen = false
     # CONTROLS
@@ -93,7 +93,7 @@ FW.Director = class Director
 
   initScene2: ->
     #TRIGGER SONG JUMP HERE ************************
-    # FW.song.setPosition FW.scene2.songPoint
+    FW.song.setPosition FW.scene2.songPoint
     @currentScene = FW.scene2
     FW.fireflies.runScene2()
     FW.scene.remove FW.mySun.sunMesh
@@ -102,7 +102,7 @@ FW.Director = class Director
     # FW.song.setPosition FW.scene3.songPoint
     FW.camera.rotation.order = 'YXZ';
     FW.scene3.camRotStartX = FW.camera.rotation.x
-    FW.scene3.camRotEndX = Math.PI/8
+    FW.scene3.camRotEndX = Math.PI/10
     FW.scene3.camSpeed = FW.scene2.camSpeed
     clearTimeout FW.scene2.fireflyInterval
     @currentScene = FW.scene3

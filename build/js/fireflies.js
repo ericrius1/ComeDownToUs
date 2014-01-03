@@ -2,19 +2,17 @@
   var Fireflies;
 
   FW.Fireflies = Fireflies = (function() {
-    var rnd;
-
-    rnd = FW.rnd;
-
     function Fireflies() {
       var i, _i, _ref;
       this.tickTime = .008;
       this.currentBeatNum = 0;
       this.totalBeats = 20;
-      this.xSpread = FW.width / 2;
-      this.distanceFromCam = this.xSpread * .2;
       this.numEmitters = this.totalBeats;
+      this.xSpreadFactor = 100;
+      this.distanceFromCam = 200;
       this.timeTillDisabled = 1000;
+      this.emitterStats = [];
+      this.initEmitterStats();
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 1.5
@@ -29,23 +27,27 @@
     }
 
     Fireflies.prototype.generateFireflies = function(currentIndex) {
-      var color, colorEnd, colorSpread, firefliesEmitter, pps;
-      color = new THREE.Color();
+      var color, colorEnd, defaultColor, defaultPps, defaultSize, defaultVelocity, firefliesEmitter, pps, size, velocity, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;
+      defaultColor = new THREE.Color();
+      color = (_ref = (_ref1 = this.emitterStats[currentIndex]) != null ? _ref1.color : void 0) != null ? _ref : defaultColor;
       colorEnd = new THREE.Color();
-      colorEnd.setRGB(Math.random(), Math.random(), Math.random());
-      pps = 10000;
-      colorSpread = new THREE.Vector3(0, 0, 0);
+      colorEnd.setHSL(0.527, 0.80, 0.9);
+      defaultPps = 500;
+      pps = (_ref2 = (_ref3 = this.emitterStats[currentIndex]) != null ? _ref3.pps : void 0) != null ? _ref2 : defaultPps;
+      defaultSize = 10;
+      size = (_ref4 = (_ref5 = this.emitterStats[currentIndex]) != null ? _ref5.size : void 0) != null ? _ref4 : defaultSize;
+      defaultVelocity = new THREE.Vector3(60, 90, 0);
+      velocity = (_ref6 = (_ref7 = this.emitterStats[currentIndex]) != null ? _ref7.velocity : void 0) != null ? _ref6 : defaultVelocity;
       firefliesEmitter = new ShaderParticleEmitter({
         particlesPerSecond: pps,
-        size: 10,
-        sizeEnd: 10,
+        size: size,
+        sizeEnd: size,
         colorStart: color,
-        colorSpread: colorSpread,
         colorEnd: colorEnd,
-        positionSpread: new THREE.Vector3(this.xSpread, 0, this.xSpread),
-        velocity: new THREE.Vector3(30, 80, 0),
-        velocitySpread: new THREE.Vector3(20, 20, 20),
-        acceleration: new THREE.Vector3(10, -70, 10),
+        positionSpread: new THREE.Vector3(this.xSpreadFactor * currentIndex, 0, this.xSpreadFactor * currentIndex),
+        velocity: velocity,
+        velocitySpread: new THREE.Vector3(10, 10, 20),
+        acceleration: new THREE.Vector3(50, -90, 0),
         accelerationSpread: new THREE.Vector3(10, 0, 10),
         opacityStart: 0.8,
         opacityEnd: 0.8
@@ -107,6 +109,18 @@
 
     Fireflies.prototype.tick = function() {
       return this.firefliesGroup.tick(this.tickTime);
+    };
+
+    Fireflies.prototype.initEmitterStats = function() {
+      var color, emitterStat;
+      color = new THREE.Color();
+      emitterStat = {
+        pps: 1,
+        size: 40,
+        color: new THREE.Color(0xdf1ed8),
+        velocity: new THREE.Vector3(60, 120, 0)
+      };
+      return this.emitterStats.push(emitterStat);
     };
 
     return Fireflies;

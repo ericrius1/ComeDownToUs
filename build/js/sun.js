@@ -18,7 +18,7 @@
       this.endHue = 0.00;
       this.startLight = 0.6;
       this.endLight = 0.35;
-      this.sunZMoveFactor = 1.2;
+      this.sunZMoveFactor = 1.3;
       FW.sunLight = new THREE.SpotLight(0xffffff, this.startingIntensity, FW.width * 10);
       FW.sunLight.position = new THREE.Vector3(FW.width * 0.7, FW.sunStartingHeight, -FW.width * 0.1);
       FW.scene.add(FW.sunLight);
