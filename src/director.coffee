@@ -11,8 +11,8 @@ FW.Director = class Director
     # CONTROLS
     @controls = new THREE.OrbitControls(FW.camera)
     @controls.enabled = false
-    @controls.zoomSpeed = 0.5
-    @controls.rotateSpeed = 0.5
+    # @controls.zoomSpeed = 0.5
+    # @controls.rotateSpeed = 0.5
 
     @startSkyHue = 0.12
     @endSkyHue = -0.18

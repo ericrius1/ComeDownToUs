@@ -10,8 +10,6 @@
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
       this.controls.enabled = false;
-      this.controls.zoomSpeed = 0.5;
-      this.controls.rotateSpeed = 0.5;
       this.startSkyHue = 0.12;
       this.endSkyHue = -0.18;
       this.startSkyLight = 0.5;

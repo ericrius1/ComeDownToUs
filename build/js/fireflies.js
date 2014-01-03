@@ -22,7 +22,7 @@
       this.ffVelocity = 200;
       this.ffForwardAccel = 50;
       this.specialLightVelocity = this.ffVelocity * .001;
-      this.specialLightAccel = this.ffForwardAccel * .005;
+      this.specialLightAccel = this.ffForwardAccel * .004;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 5
@@ -119,7 +119,6 @@
     };
 
     Fireflies.prototype.tick = function() {
-      console.log(this.specialLightVelocity);
       this.specialLight.position.x += this.specialLightVelocity;
       this.specialLightVelocity += this.specialLightAccel;
       this.firefliesGroup.tick(this.tickTime);

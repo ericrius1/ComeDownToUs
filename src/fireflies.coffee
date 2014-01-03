@@ -20,7 +20,7 @@ FW.Fireflies = class Fireflies
     @ffVelocity = 200
     @ffForwardAccel = 50
     @specialLightVelocity = @ffVelocity * .001
-    @specialLightAccel = @ffForwardAccel * .005
+    @specialLightAccel = @ffForwardAccel * .004
 
     #For custom emitters each beat!
 
@@ -107,7 +107,6 @@ FW.Fireflies = class Fireflies
 
 
   tick: ->
-    console.log @specialLightVelocity
     @specialLight.position.x += @specialLightVelocity
     @specialLightVelocity += @specialLightAccel 
 

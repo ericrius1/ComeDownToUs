@@ -9,7 +9,7 @@
       FW.clock = new THREE.Clock();
       FW.SCREEN_WIDTH = window.innerWidth;
       FW.SCREEN_HEIGHT = window.innerHeight;
-      FW.width = 6000;
+      FW.width = 3000;
       this.rippleFactor = 120;
       FW.myCamera = new FW.Camera();
       FW.scene = new THREE.Scene();
