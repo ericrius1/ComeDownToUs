@@ -54,13 +54,17 @@ FW.Director = class Director
       camSpeed: 0.0
       camAcceleration: 0.00005
 
+    scene3TotalTime = 33680
     FW.scene3 = 
       startTime: FW.scene2.endTime
+      totalTime: scene3TotalTime
+      endTime: FW.scene2.endTime + scene3TotalTime
       songPoint: 221760
       camYRotationSpeed: 0.002
       camAcceleration: FW.scene2.camAcceleration * 2
 
-
+    #endTime: songPoint + endTime
+    #221760 + 255440
     FW.scene1.update = =>
       currentTime = Date.now()
       hue = map(currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyHue, @endSkyHue )
