@@ -1,13 +1,15 @@
 FW.Fireflies = class Fireflies
   rnd = FW.rnd
   constructor: ()->
-    @tickTime = .016
+    @tickTime = .008
     @currentBeatNum = 0
     @totalBeats = 20
+    @xSpread = FW.width/2
+    @distanceFromCam = @xSpread * .2
     @numEmitters = @totalBeats
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 1.5
+      maxAge: 1
     });
     @emitters = []
     @numActiveEmitters = 0
@@ -19,20 +21,22 @@ FW.Fireflies = class Fireflies
 
   generateFireflies: (currentIndex)->
     color = new THREE.Color()
-    # color.setRGB Math.random(), Math.random(), Math.random()
+    pps = 10000
+    colorSpread = new THREE.Vector3 0, 0, 0
     firefliesEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 1000
+      particlesPerSecond: pps
       size: 10
       sizeEnd: 10
       colorStart: color
-      colorEnd: color
-      positionSpread: new THREE.Vector3 1000, 100, 1000
-      velocity: new THREE.Vector3 20, 0, 0
-      velocitySpread: new THREE.Vector3 2, 2, 2
-      acceleration: new THREE.Vector3 5, 0, 0
-      accelerationSpread: new THREE.Vector3 4, 4, 4
+      colorSpread: colorSpread
+      # colorEnd: color
+      positionSpread: new THREE.Vector3 @xSpread, 0, @xSpread
+      velocity: new THREE.Vector3 20, 20, 0
+      velocitySpread: new THREE.Vector3 2, 0, 4
+      acceleration: new THREE.Vector3 5, -20, 0
+      # accelerationSpread: new THREE.Vector3 0, 0, 4
       opacityStart: 0.8
-      opacityEnd: 0.2
+      opacityEnd: 0.8
 
     @firefliesGroup.addEmitter firefliesEmitter
     @emitters.push firefliesEmitter
@@ -50,7 +54,8 @@ FW.Fireflies = class Fireflies
     for i in [0...@numActiveEmitters]
       emitter = @emitters[i]
       emitter.position = new THREE.Vector3().copy FW.camera.position
-      emitter.position.x += 100
+      emitter.position.x += @distanceFromCam
+      emitter.position.y = 0
     setTimeout(()=>
       @run()
     FW.scene2.beatInterval)

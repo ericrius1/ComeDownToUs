@@ -3,10 +3,9 @@
 FW.Sun = class Sun
   constructor: ()->
 
-    FW.sunsetSpeed = 10
+
     @startHue = 0.08
     @startLight = 0.6
-    # FW.sunsetSpeed = 0.22
     FW.sunStartingHeight = 1200
     FW.sunFinalHeight = -FW.sunStartingHeight
     @initialScale = 380
@@ -21,6 +20,8 @@ FW.Sun = class Sun
     @endHue = 0.00
     @startLight = 0.6
     @endLight = 0.35
+
+    @sunZMoveFactor = 1.2
 
 
     
@@ -50,7 +51,7 @@ FW.Sun = class Sun
     @sunColor.setHSL hue, 0.9, light
     @sunMesh.material.color = @sunColor
     FW.sunLight.color = @sunColor
-    FW.sunLight.position.z += FW.sunsetSpeed
+    FW.sunLight.position.z += FW.sunsetSpeed* @sunZMoveFactor
     if @sunMesh.scale.y < @maxScale
      scale =  @sunMesh.scale.multiplyScalar 1 + FW.sunsetSpeed * @scaleFactor
      @sunMesh.scale =  scale
