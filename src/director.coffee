@@ -1,9 +1,9 @@
 FW.Director = class Director
   constructor: ->
-    # @scene1TotalTime  = 155500
-    # FW.sunsetSpeed = 0.22
-    @scene1TotalTime = 4000
-    FW.sunsetSpeed = 10
+    @scene1TotalTime  = 155500
+    FW.sunsetSpeed = 0.22
+    # @scene1TotalTime = 4000
+    # FW.sunsetSpeed = 10
     @skyColor = new THREE.Color()
     @frozen = false
     # CONTROLS
@@ -45,8 +45,8 @@ FW.Director = class Director
       startTime: showStartTime
       totalTime: @scene1TotalTime
       endTime: showStartTime + @scene1TotalTime
-    # scene2TotalTime = 66260
-    scene2TotalTime = 1000
+    scene2TotalTime = 66260
+    # scene2TotalTime = 1000
     FW.scene2 = 
       startTime: FW.scene1.endTime
       songPoint: 154800

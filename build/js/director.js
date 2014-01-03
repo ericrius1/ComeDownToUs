@@ -3,8 +3,8 @@
 
   FW.Director = Director = (function() {
     function Director() {
-      this.scene1TotalTime = 4000;
-      FW.sunsetSpeed = 10;
+      this.scene1TotalTime = 155500;
+      FW.sunsetSpeed = 0.22;
       this.skyColor = new THREE.Color();
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
@@ -45,7 +45,7 @@
         totalTime: this.scene1TotalTime,
         endTime: showStartTime + this.scene1TotalTime
       };
-      scene2TotalTime = 1000;
+      scene2TotalTime = 66260;
       FW.scene2 = {
         startTime: FW.scene1.endTime,
         songPoint: 154800,
