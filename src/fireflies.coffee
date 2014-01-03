@@ -9,6 +9,7 @@ FW.Fireflies = class Fireflies
     @timeTillDisabled = 100
     @emitterStats = []
     @initEmitterStats()
+    @ffToggledOn = false
 
 
     @firefliesGroup = new ShaderParticleGroup({
@@ -43,18 +44,21 @@ FW.Fireflies = class Fireflies
     defaultSizeEnd  = 10
     sizeEnd = @emitterStats[currentIndex]?.sizeEnd ? defaultSizeEnd
 
+    defaultPositionSpread = new THREE.Vector3 @xSpreadFactor * currentIndex, 0, @xSpreadFactor * currentIndex
+    positionSpread = @emitterStats[currentIndex]?.positionSpread ? defaultPositionSpread
+
     defaultVelocity = new THREE.Vector3 30, 60, 0
     velocity = @emitterStats[currentIndex]?.velocity ? defaultVelocity
 
     defaultVelocitySpread = new THREE.Vector3 10, 10, 20
     velocitySpread = @emitterStats[currentIndex]?.velocitySpread ? defaultVelocitySpread
 
-    defaultAcceleration = new THREE.Vector3 20, -35, 0
+    defaultAcceleration = new THREE.Vector3 20, -50, 0
     acceleration = @emitterStats[currentIndex]?.acceleration ? defaultAcceleration
 
-    defaultPositionSpread = new THREE.Vector3 @xSpreadFactor * currentIndex, 0, @xSpreadFactor * currentIndex
-    positionSpread = @emitterStats[currentIndex]?.positionSpread ? defaultPositionSpread
-    
+
+    defaultAccelerationSpread = new THREE.Vector3 10, 0, 10
+    accelerationSpread = @emitterStats[currentIndex]?.accelerationSpread ? defaultAccelerationSpread
 
     firefliesEmitter = new ShaderParticleEmitter
       type: type
@@ -67,7 +71,7 @@ FW.Fireflies = class Fireflies
       velocity: velocity
       velocitySpread: velocitySpread
       acceleration: acceleration
-      accelerationSpread: new THREE.Vector3 10, 0, 10
+      accelerationSpread: accelerationSpread
       opacityStart: 0.8
       opacityEnd: 0.8
 
@@ -75,6 +79,11 @@ FW.Fireflies = class Fireflies
     @emitters.push firefliesEmitter
     firefliesEmitter.disable()
 
+    #add light for first special emitter
+    if currentIndex == 0
+      @specialLight = new THREE.PointLight 0xFF00FF, 0, 5000
+      @specialLight.position = firefliesEmitter.position
+      FW.scene.add @specialLight
   runScene2 : ->
     @currentBeatNum++
     if @numActiveEmitters < @emitters.length
@@ -92,8 +101,8 @@ FW.Fireflies = class Fireflies
     FW.scene2.fireflyInterval = setTimeout(()=>
       @runScene2()
     FW.beatInterval)
-
-
+    #Reset light so next beat it lights up properly
+    @specialLight.intensity = 0
 
 
   toggleActiveEmitters : ->
@@ -104,16 +113,22 @@ FW.Fireflies = class Fireflies
     #Spawn more flies everytime
   
   enableActiveEmitters : ->
+    @ffToggledOn = true
     for i in [0...@numActiveEmitters]
       emitter = @emitters[i]
       emitter.enable()
    
   disableActiveEmitters : ->
+    @ffToggledOn = false
     for i in [0...@numActiveEmitters]
       @emitters[i].disable()
 
   tick: ->
     @firefliesGroup.tick(@tickTime)
+    if @ffToggledOn
+      @specialLight.intensity += 1
+    else
+      @specialLight.intensity -= .05
 
   initEmitterStats : ->
     #create a mapping of emitter num to stats
@@ -126,11 +141,13 @@ FW.Fireflies = class Fireflies
       colorStart: new THREE.Color 0xdf1ed8
       colorEnd: new THREE.Color 0xdf1ed8
       velocity: new THREE.Vector3 30, 60, 0
-      velocitySpread: new THREE.Vector3 10, 0, 10
-      acceleration: new THREE.Vector3 20, -35, 0
+      velocitySpread: new THREE.Vector3 1, 0, 1
+      acceleration: new THREE.Vector3 20, -50, 0
+      accelerationSpread: new THREE.Vector3 0, 0, 0
       positionSpread: new THREE.Vector3 1, 1, 1
     @emitterStats.push emitterStat
 
+    
     
 
 
