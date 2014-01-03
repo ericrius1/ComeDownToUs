@@ -1,9 +1,9 @@
 FW.Director = class Director
   constructor: ->
-    @scene1TotalTime  = 155500
-    FW.sunsetSpeed = 0.22
-    # @scene1TotalTime = 4000
-    # FW.sunsetSpeed = 10
+    # @scene1TotalTime  = 155500
+    # FW.sunsetSpeed = 0.22
+    @scene1TotalTime = 4000
+    FW.sunsetSpeed = 10
     @skyColor = new THREE.Color()
     @frozen = false
     # CONTROLS
@@ -31,8 +31,8 @@ FW.Director = class Director
       @controls.update()
 
   triggerScene2: ->
-    #TRIGGER SONG JUMP HERE
-    # FW.song.setPosition FW.scene2.songPoint
+    #TRIGGER SONG JUMP HERE ************************
+    FW.song.setPosition FW.scene2.songPoint
     @currentScene = FW.scene2
     FW.fireflies.run()
     FW.scene.remove FW.mySun.sunMesh
@@ -50,18 +50,15 @@ FW.Director = class Director
       startTime: showStartTime
       totalTime: @scene1TotalTime
       endTime: showStartTime + @scene1TotalTime
-    #BEWARE of overwriting total time!!
-    scene2TotalTime = 101000
+    scene2TotalTime = 66260
     FW.scene2 = 
       startTime: FW.scene1.endTime
-      songPoint: 154600
+      songPoint: 154800
       endTime: FW.scene1.endTime + scene2TotalTime
       totalTime: scene2TotalTime
       camSpeed: 0.0
       camAcceleration: 0.00015
       beatInterval: 3540
-    #first beat: 154700
-    #second beat: 158260
 
     FW.scene1.update = =>
       currentTime = Date.now()
