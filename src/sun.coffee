@@ -10,7 +10,7 @@ FW.Sun = class Sun
     @initialScale = 380
     @sunColor = new THREE.Color()
 
-    @startingIntensity = 7
+    @startIntensity = 7
     @endIntensity = 2
     @startHue = 0.08
     @endHue = 0.00
@@ -21,9 +21,9 @@ FW.Sun = class Sun
     @endScale = 600
     
     #LIGHT
-    FW.sunLight = new THREE.PointLight(0xffffff, @startingIntensity, 10000)
-    FW.sunLight.position = new THREE.Vector3 0, FW.sunStartingHeight, FW.width
-    FW.scene.add FW.sunLight
+    @sunLight = new THREE.PointLight(0xffffff, @startingIntensity, 10000)
+    @sunLight.position = new THREE.Vector3 0, FW.sunStartingHeight, FW.width
+    FW.scene.add @sunLight
 
     @sunGeo = new THREE.SphereGeometry(1, 100, 100)
     @material = new THREE.MeshBasicMaterial()
@@ -34,16 +34,17 @@ FW.Sun = class Sun
 
     @sunColor.setHSL @startHue, 0.86, @startLight
     @sunMesh.material.color = @sunColor
-    FW.sunLight.color = @sunColor
+    @sunLight.color = @sunColor
 
 
   update : ->
     currentTime = Date.now()
-    FW.sunLight.position.y -= FW.sunsetSpeed
-    @sunMesh.position.y -=FW.sunsetSpeed
-    sunPosY = FW.sunLight.position.y
+    
     scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startScale, @endScale)
     @sunMesh.scale.set scale, scale, scale
+
+    # @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startIntensity, @endIntensity)
+
 
 
 

@@ -1,10 +1,8 @@
 FW.Director = class Director
   constructor: ->
     # @scene1TotalTime  = 155500
-    # FW.sunsetSpeed = 0.215
     # @setSongPoint = false
     @scene1TotalTime = 10000
-    FW.sunsetSpeed = 1
     @setSongPoint = true
     @skyColor = new THREE.Color()
     @frozen = false

@@ -17,9 +17,7 @@
 
     Camera.prototype.scene1Update = function() {
       var currentTime;
-      currentTime = Date.now();
-      this.camSpeed = FW.sunsetSpeed;
-      return FW.camera.position.z -= this.camSpeed * this.camSpeedupFactor;
+      return currentTime = Date.now();
     };
 
     Camera.prototype.scene2Update = function() {

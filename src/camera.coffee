@@ -19,8 +19,6 @@ FW.Camera = class Camera
 
   scene1Update:->
     currentTime = Date.now()
-    @camSpeed = FW.sunsetSpeed
-    FW.camera.position.z -= @camSpeed * @camSpeedupFactor
 
   scene2Update: ->
     FW.camera.translateZ -FW.scene2.camSpeed
