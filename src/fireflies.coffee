@@ -1,6 +1,6 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 50
+    @distanceFromCam = 100
     @tickTime = .008
     @currentBeatNum = 0
     @totalBeats = 20
@@ -47,8 +47,8 @@ FW.Fireflies = class Fireflies
       size: 10
       sizeEnd: 10
       positionSpread: new THREE.Vector3 10, rnd(2, 5), positionSpreadFactor
-      velocity: new THREE.Vector3 @ffVelocity, 20, 0
-      acceleration: new THREE.Vector3 @ffForwardAccel, -10, 0
+      velocity: new THREE.Vector3 0, 20, -@ffVelocity
+      acceleration: new THREE.Vector3 0, -10, -@ffForwardAccel
       accelerationSpread: new THREE.Vector3 0, 0, 10
       opacityStart: 0.8
       opacityEnd: 0.8
@@ -58,7 +58,7 @@ FW.Fireflies = class Fireflies
     firefliesEmitter.disable()
 
   runScene2 : ->
-    @specialLight.position.x = @distanceFromCam
+    @specialLight.position.z = @emitters[0].position.z - @distanceFromCam
     @specialLightVelocity = @ffVelocity * .01
     #burst of light to get things going
     @specialLight.intensity = @specialLightIntensityStart
@@ -74,7 +74,7 @@ FW.Fireflies = class Fireflies
     for i in [0...@numActiveEmitters]
       emitter = @emitters[i]
       emitter.position = new THREE.Vector3().copy FW.camera.position
-      emitter.position.x += @distanceFromCam
+      emitter.position.z -= @distanceFromCam
       emitter.position.y =  1
     FW.scene2.fireflyInterval = setTimeout(()=>
       @runScene2()
@@ -107,7 +107,7 @@ FW.Fireflies = class Fireflies
 
 
   tick: ->
-    @specialLight.position.x += @specialLightVelocity
+    @specialLight.position.z -= @specialLightVelocity
     @specialLightVelocity += @specialLightAccel 
 
     @firefliesGroup.tick(@tickTime)

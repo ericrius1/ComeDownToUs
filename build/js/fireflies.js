@@ -4,7 +4,7 @@
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
       var i, _i, _ref;
-      this.distanceFromCam = 50;
+      this.distanceFromCam = 100;
       this.tickTime = .008;
       this.currentBeatNum = 0;
       this.totalBeats = 20;
@@ -48,8 +48,8 @@
         size: 10,
         sizeEnd: 10,
         positionSpread: new THREE.Vector3(10, rnd(2, 5), positionSpreadFactor),
-        velocity: new THREE.Vector3(this.ffVelocity, 20, 0),
-        acceleration: new THREE.Vector3(this.ffForwardAccel, -10, 0),
+        velocity: new THREE.Vector3(0, 20, -this.ffVelocity),
+        acceleration: new THREE.Vector3(0, -10, -this.ffForwardAccel),
         accelerationSpread: new THREE.Vector3(0, 0, 10),
         opacityStart: 0.8,
         opacityEnd: 0.8
@@ -62,7 +62,7 @@
     Fireflies.prototype.runScene2 = function() {
       var emitter, i, _i, _ref,
         _this = this;
-      this.specialLight.position.x = this.distanceFromCam;
+      this.specialLight.position.z = this.emitters[0].position.z - this.distanceFromCam;
       this.specialLightVelocity = this.ffVelocity * .01;
       this.specialLight.intensity = this.specialLightIntensityStart;
       this.specialLightGrowing = true;
@@ -78,7 +78,7 @@
       for (i = _i = 0, _ref = this.numActiveEmitters; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
         emitter = this.emitters[i];
         emitter.position = new THREE.Vector3().copy(FW.camera.position);
-        emitter.position.x += this.distanceFromCam;
+        emitter.position.z -= this.distanceFromCam;
         emitter.position.y = 1;
       }
       FW.scene2.fireflyInterval = setTimeout(function() {
@@ -119,7 +119,7 @@
     };
 
     Fireflies.prototype.tick = function() {
-      this.specialLight.position.x += this.specialLightVelocity;
+      this.specialLight.position.z -= this.specialLightVelocity;
       this.specialLightVelocity += this.specialLightAccel;
       this.firefliesGroup.tick(this.tickTime);
       if (this.specialLightGrowing) {

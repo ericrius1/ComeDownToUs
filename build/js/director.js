@@ -3,7 +3,7 @@
 
   FW.Director = Director = (function() {
     function Director() {
-      this.scene1TotalTime = 10000;
+      this.scene1TotalTime = 2000;
       this.setSongPoint = true;
       this.skyColor = new THREE.Color();
       this.frozen = false;
