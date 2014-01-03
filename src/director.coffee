@@ -99,10 +99,10 @@ FW.Director = class Director
     FW.scene.remove FW.mySun.sunMesh
 
   initScene3: ->
+    # FW.song.setPosition FW.scene3.songPoint
     FW.camera.rotation.order = 'YXZ';
     FW.scene3.camRotStartX = FW.camera.rotation.x
     FW.scene3.camRotEndX = Math.PI/8
-    # FW.song.setPosition FW.scene3.songPoint
     FW.scene3.camSpeed = FW.scene2.camSpeed
     clearTimeout FW.scene2.fireflyInterval
     @currentScene = FW.scene3

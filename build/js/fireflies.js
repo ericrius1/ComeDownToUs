@@ -29,8 +29,10 @@
     }
 
     Fireflies.prototype.generateFireflies = function(currentIndex) {
-      var color, colorSpread, firefliesEmitter, pps;
+      var color, colorEnd, colorSpread, firefliesEmitter, pps;
       color = new THREE.Color();
+      colorEnd = new THREE.Color();
+      colorEnd.setRGB(Math.random(), Math.random(), Math.random());
       pps = 10000;
       colorSpread = new THREE.Vector3(0, 0, 0);
       firefliesEmitter = new ShaderParticleEmitter({
@@ -39,6 +41,7 @@
         sizeEnd: 10,
         colorStart: color,
         colorSpread: colorSpread,
+        colorEnd: colorEnd,
         positionSpread: new THREE.Vector3(this.xSpread, 0, this.xSpread),
         velocity: new THREE.Vector3(30, 80, 0),
         velocitySpread: new THREE.Vector3(20, 20, 20),

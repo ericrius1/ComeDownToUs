@@ -24,6 +24,8 @@ FW.Fireflies = class Fireflies
 
   generateFireflies: (currentIndex)->
     color = new THREE.Color()
+    colorEnd = new THREE.Color()
+    colorEnd.setRGB Math.random(), Math.random(), Math.random()
     pps = 10000
     colorSpread = new THREE.Vector3 0, 0, 0
     firefliesEmitter = new ShaderParticleEmitter
@@ -32,7 +34,7 @@ FW.Fireflies = class Fireflies
       sizeEnd: 10
       colorStart: color
       colorSpread: colorSpread
-      # colorEnd: color
+      colorEnd: colorEnd
       positionSpread: new THREE.Vector3 @xSpread, 0, @xSpread
       velocity: new THREE.Vector3 30, 80, 0
       velocitySpread: new THREE.Vector3 20, 20, 20
