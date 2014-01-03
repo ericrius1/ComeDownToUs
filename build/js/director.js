@@ -3,8 +3,9 @@
 
   FW.Director = Director = (function() {
     function Director() {
-      this.scene1TotalTime = 4000;
-      FW.sunsetSpeed = 10;
+      this.scene1TotalTime = 2000;
+      FW.sunsetSpeed = 20;
+      this.setSongPoint = true;
       this.skyColor = new THREE.Color();
       this.frozen = false;
       this.controls = new THREE.OrbitControls(FW.camera);
@@ -97,7 +98,9 @@
     };
 
     Director.prototype.initScene2 = function() {
-      FW.song.setPosition(FW.scene2.songPoint);
+      if (this.setSongPoint === true) {
+        FW.song.setPosition(FW.scene2.songPoint);
+      }
       this.currentScene = FW.scene2;
       FW.fireflies.runScene2();
       return FW.scene.remove(FW.mySun.sunMesh);

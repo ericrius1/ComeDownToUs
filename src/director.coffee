@@ -2,8 +2,10 @@ FW.Director = class Director
   constructor: ->
     # @scene1TotalTime  = 155500
     # FW.sunsetSpeed = 0.22
-    @scene1TotalTime = 4000
-    FW.sunsetSpeed = 10
+    # @setSongPoint = false
+    @scene1TotalTime = 2000
+    FW.sunsetSpeed = 20
+    @setSongPoint = true
     @skyColor = new THREE.Color()
     @frozen = false
     # CONTROLS
@@ -93,7 +95,8 @@ FW.Director = class Director
 
   initScene2: ->
     #TRIGGER SONG JUMP HERE ************************
-    FW.song.setPosition FW.scene2.songPoint
+    if @setSongPoint == true
+      FW.song.setPosition FW.scene2.songPoint
     @currentScene = FW.scene2
     FW.fireflies.runScene2()
     FW.scene.remove FW.mySun.sunMesh
