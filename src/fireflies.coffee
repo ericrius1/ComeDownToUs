@@ -1,6 +1,6 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 130
+    @distanceFromCam = 70
     @timeTillDisabled = 1000
 
     @tickTime = .008
@@ -15,15 +15,15 @@ FW.Fireflies = class Fireflies
       maxAge: 5
     });
 
-    @generateFireflies new THREE.Color()
-    @generateFireflies new THREE.Color 0x25ae1b
+    @generateFireflies new THREE.Color().setRGB Math.random(), Math.random(), Math.random()
+    @generateFireflies new THREE.Color().setRGB Math.random(), Math.random(), Math.random()
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
 
 
   generateFireflies: (colorStart)->
     colorEnd = new THREE.Color(0xcd40c0)
-    @firefliesEmitter = new ShaderParticleEmitter
+    firefliesEmitter = new ShaderParticleEmitter
       particlesPerSecond: 10000
       size: 20
       sizeSpread: 10
@@ -37,18 +37,17 @@ FW.Fireflies = class Fireflies
       opacityStart: 1.0
       opacityEnd: 1.0
 
-    @firefliesGroup.addEmitter @firefliesEmitter
-    @firefliesEmitter.disable()
+    @firefliesGroup.addEmitter firefliesEmitter
+    @emitters.push firefliesEmitter
+    firefliesEmitter.disable()
 
   runScene2 : ->
-    @firefliesEmitter.position = new THREE.Vector3().copy FW.camera.position
-    @firefliesEmitter.position.z -= @distanceFromCam
-    @firefliesEmitter.position.y = @ffHeight
-    @firefliesEmitter.enable()
+ 
+    @enable()
 
     #Disable after specified time
     setTimeout(()=>
-      @firefliesEmitter.disable()
+      @disable()
     @timeTillDisabled)
 
     FW.scene2.fireflyInterval = setTimeout(()=>
@@ -56,7 +55,18 @@ FW.Fireflies = class Fireflies
     FW.beatInterval)
 
     
- 
+  enable : ->
+    position = new THREE.Vector3().copy FW.camera.position
+    for emitter in @emitters
+      emitter.position = position
+      emitter.position.z -= @distanceFromCam
+      emitter.position.y = @ffHeight
+      emitter.enable()
+
+  disable: ->
+    for emitter in @emitters
+      emitter.disable()
+
 
 
   tick: ->
