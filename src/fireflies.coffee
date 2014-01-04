@@ -1,36 +1,39 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 50
-    @timeTillDisabled = 300
+    @distanceFromCam = 130
+    @timeTillDisabled = 1000
 
     @tickTime = .008
     @ffToggledOn = false
     @ffHeight = 8
+    @emitters = []
 
     #For custom emitters each beat!
 
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 10
+      maxAge: 5
     });
 
-    @generateFireflies()
+    @generateFireflies new THREE.Color()
+    @generateFireflies new THREE.Color 0x25ae1b
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
 
 
-  generateFireflies: ->
-    colorStart = new THREE.Color()
-    colorEnd = new THREE.Color()
+  generateFireflies: (colorStart)->
+    colorEnd = new THREE.Color(0xcd40c0)
     @firefliesEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 6000
-      size: 10
-      sizeEnd: 40
-      positionSpread: new THREE.Vector3 200, 5, 40
-      velocity: new THREE.Vector3 0, 0, -50
-      velocitySpread: new THREE.Vector3 10, 7, 10
-      acceleration: new THREE.Vector3 0, 4, -5
-      accelerationSpread: 10, 2, 0
+      particlesPerSecond: 10000
+      size: 20
+      sizeSpread: 10
+      sizeEnd: 5
+      colorStart: colorStart
+      colorEnd: colorEnd
+      positionSpread: new THREE.Vector3 750, 10, 100
+      velocitySpread: new THREE.Vector3 50, 50, 50
+      acceleration: new THREE.Vector3 0, 50, -200
+      accelerationSpread: 10, 50, -100
       opacityStart: 1.0
       opacityEnd: 1.0
 

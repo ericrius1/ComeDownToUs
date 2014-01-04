@@ -1,9 +1,9 @@
 FW.Director = class Director
   constructor: ->
-    @scene1TotalTime  = 155550
-    @setSongPoint = false
-    # @scene1TotalTime = 3000
-    # @setSongPoint = true
+    # @scene1TotalTime  = 155550
+    # @setSongPoint = false
+    @scene1TotalTime = 3000
+    @setSongPoint = true
 
 
     @skyColor = new THREE.Color()

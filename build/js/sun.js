@@ -11,11 +11,11 @@
       this.startIntensity = 4;
       this.endIntensity = 1;
       this.startScale = 300;
-      this.endScale = 600;
+      this.endScale = 700;
       this.startHeight = 1200;
       this.endHeight = -613;
       this.startX = -500;
-      this.endX = 500;
+      this.endX = 200;
       this.sunLight = new THREE.DirectionalLight(0xffffff, this.startingIntensity, 10000);
       this.sunLight.position = new THREE.Vector3(0, this.startHeight, FW.width);
       FW.scene.add(this.sunLight);
@@ -40,6 +40,7 @@
       this.sunMesh.position.x = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startX, this.endX);
       scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startScale, this.endScale);
       this.sunMesh.scale.set(scale, scale, scale);
+      this.sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startIntensity, this.endIntensity);
       hue = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startHue, this.endHue);
       light = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, this.startLight, this.endLight);
       return this.sunColor.setHSL(hue, 0.9, light);

@@ -14,13 +14,13 @@ FW.Sun = class Sun
     @endIntensity = 1
 
     @startScale = 300
-    @endScale = 600
+    @endScale = 700
     
     @startHeight = 1200
     @endHeight = -613
 
     @startX = -500
-    @endX = 500
+    @endX = 200
     #LIGHT
     @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 10000)
     @sunLight.position = new THREE.Vector3 0, @startHeight, FW.width
@@ -52,7 +52,7 @@ FW.Sun = class Sun
     scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startScale, @endScale)
     @sunMesh.scale.set scale, scale, scale
 
-    # @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startIntensity, @endIntensity)
+    @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startIntensity, @endIntensity)
 
     hue = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startHue, @endHue
     light = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startLight, @endLight
