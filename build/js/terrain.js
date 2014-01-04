@@ -3,7 +3,7 @@
 
   FW.Terrain = Terrain = (function() {
     function Terrain() {
-      var leftMountain, mountainGeo, mountainParams, portalGeo, portalMat, portalMesh, rightMountain, terrainMaterial;
+      var leftMountain, mountainGeo, mountainParams, portalGeo, portalMat, portalScale, rightMountain, terrainMaterial;
       this.rotation = Math.PI * .45;
       FW.terrainLength = FW.width * 0.2;
       mountainParams = {
@@ -11,8 +11,8 @@
         generator: PN_GENERATOR,
         width: FW.terrainLength,
         height: FW.width,
-        widthSegments: 200,
-        heightSegments: 200,
+        widthSegments: 150,
+        heightSegments: 150,
         depth: 1100,
         param: 4,
         filterparam: 1,
@@ -37,12 +37,15 @@
       portalGeo = new THREE.IcosahedronGeometry(1, 2);
       portalMat = new THREE.MeshPhongMaterial({
         shading: THREE.FlatShading,
-        side: THREE.DoubleSide
+        side: THREE.DoubleSide,
+        specular: new THREE.Color(),
+        shininess: 4
       });
-      portalMesh = new THREE.Mesh(portalGeo, portalMat);
-      portalMesh.position.set(0, 0, 600);
-      portalMesh.scale.set(100, 100, 100);
-      FW.scene.add(portalMesh);
+      FW.portal = new THREE.Mesh(portalGeo, portalMat);
+      portalScale = 100;
+      FW.portal.scale.set(portalScale, portalScale, portalScale);
+      FW.portal.position.set(0, 0, FW.scene2.endZ + portalScale);
+      FW.scene.add(FW.portal);
     }
 
     return Terrain;

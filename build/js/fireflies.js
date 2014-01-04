@@ -103,7 +103,7 @@
       var colorEnd, colorStart, spiritEmitter;
       colorStart = new THREE.Color();
       colorEnd = new THREE.Color();
-      spiritEmitter = new ShaderParticleEmitter({
+      return spiritEmitter = new ShaderParticleEmitter({
         particlesPerSecond: 1000,
         size: 10,
         sizeEnd: 10,
@@ -113,7 +113,6 @@
         opacityStart: 0.8,
         opacityEnd: 0.8
       });
-      return this.firefliesGroup.addEmitter(spiritEmitter);
     };
 
     return Fireflies;

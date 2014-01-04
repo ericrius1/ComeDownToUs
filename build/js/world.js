@@ -1,16 +1,13 @@
 (function() {
-  var World,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var World;
 
   FW.World = World = (function() {
     function World() {
-      this.animate = __bind(this.animate, this);
       var color,
         _this = this;
       FW.clock = new THREE.Clock();
       FW.SCREEN_WIDTH = window.innerWidth;
       FW.SCREEN_HEIGHT = window.innerHeight;
-      FW.width = 3000;
       this.rippleFactor = 120;
       FW.myCamera = new FW.Camera();
       FW.controls = new THREE.OrbitControls(FW.camera);
@@ -41,16 +38,10 @@
       return FW.myCamera.resize();
     };
 
-    World.prototype.animate = function() {
-      var time;
-      requestAnimationFrame(this.animate);
-      time = Date.now();
-      FW.myDirector.update();
-      this.water.material.uniforms.time.value += 1.0 / this.rippleFactor;
-      return this.render();
-    };
-
     World.prototype.render = function() {
+      var time;
+      time = Date.now();
+      this.water.material.uniforms.time.value += 1.0 / this.rippleFactor;
       this.water.render();
       return FW.renderer.render(FW.scene, FW.camera);
     };

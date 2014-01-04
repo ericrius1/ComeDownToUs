@@ -4,7 +4,6 @@ FW.World = class World
     FW.clock = new THREE.Clock()
     FW.SCREEN_WIDTH = window.innerWidth
     FW.SCREEN_HEIGHT = window.innerHeight
-    FW.width = 3000
     @rippleFactor = 120
 
     # CAMERA
@@ -51,14 +50,9 @@ FW.World = class World
     FW.renderer.setSize FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT
     FW.myCamera.resize()
 
-  animate : =>
-    requestAnimationFrame @animate
-    time = Date.now()
-    FW.myDirector.update()
-    @water.material.uniforms.time.value += 1.0 / @rippleFactor
-    @render()
-
   render : ->
+    time = Date.now()
+    @water.material.uniforms.time.value += 1.0 / @rippleFactor
     @water.render()
     FW.renderer.render( FW.scene, FW.camera );
 

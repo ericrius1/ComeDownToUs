@@ -103,4 +103,4 @@ FW.Fireflies = class Fireflies
       velocitySpread: new THREE.Vector3 10, 10, 10
       opacityStart: 0.8
       opacityEnd: 0.8
-    @firefliesGroup.addEmitter spiritEmitter
+    # @firefliesGroup.addEmitter spiritEmitter

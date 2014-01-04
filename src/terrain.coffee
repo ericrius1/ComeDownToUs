@@ -7,8 +7,8 @@ FW.Terrain = class Terrain
       generator: PN_GENERATOR,
       width: FW.terrainLength
       height: FW.width
-      widthSegments: 200
-      heightSegments: 200
+      widthSegments: 150
+      heightSegments: 150
       depth: 1100
       param: 4,
       filterparam: 1
@@ -35,9 +35,12 @@ FW.Terrain = class Terrain
     portalMat = new THREE.MeshPhongMaterial
       shading: THREE.FlatShading 
       side: THREE.DoubleSide
-    portalMesh = new THREE.Mesh portalGeo, portalMat
-    portalMesh.position.set 0, 0, 600
-    portalMesh.scale.set 100, 100, 100
-    FW.scene.add portalMesh
+      specular: new THREE.Color()
+      shininess: 4
+    FW.portal = new THREE.Mesh portalGeo, portalMat
+    portalScale = 100
+    FW.portal.scale.set portalScale, portalScale, portalScale
+    FW.portal.position.set 0, 0, FW.scene2.endZ + portalScale
+    FW.scene.add FW.portal
 
     

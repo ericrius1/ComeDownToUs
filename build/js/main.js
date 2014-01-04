@@ -1,11 +1,13 @@
 (function() {
   var Main;
 
+  window.FW = {};
+
+  FW.width = 3000;
+
   if (!Detector.webgl) {
     Detector.addGetWebGLMessage();
   }
-
-  window.FW = {};
 
   if (typeof SC !== "undefined" && SC !== null) {
     SC.initialize({
@@ -19,13 +21,10 @@
 
   FW.development = false;
 
-  window.soundOn = !FW.development;
-
   window.onload = function() {
     FW.myDirector = new FW.Director();
     FW.main = new FW.Main();
     FW.myWorld = new FW.World();
-    FW.myWorld.animate();
     return document.addEventListener('keydown', FW.main.onKeyDown, false);
   };
 
@@ -35,7 +34,10 @@
         var songStartTime;
         FW.song = song;
         songStartTime = Date.now();
-        return FW.myDirector.beginShow(songStartTime);
+        FW.myDirector.beginShow(songStartTime);
+        if (!FW.development) {
+          return FW.song.play();
+        }
       });
     }
 

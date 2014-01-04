@@ -1,9 +1,17 @@
 FW.Director = class Director
   constructor: ->
-    # @scene1TotalTime  = 155550
-    # @setSongPoint = false
-    @scene1TotalTime = 2500
-    @setSongPoint = true
+
+    short = false
+
+    @scene1TotalTime  = 155550
+    @scene2TotalTime = 66250
+    @setSongPoint = false
+    
+
+    if short
+      @scene1TotalTime = 2000
+      @setSongPoint = true
+      @scene2TotalTime = 66250
 
 
     @skyColor = new THREE.Color()
@@ -18,48 +26,41 @@ FW.Director = class Director
     @currentScene = FW.scene1
     @skyColor.setHSL @startSkyHue, 0.86, @startSkyLight
     
-    FW.beatInterval = 3540
-    
-  update: ->
-    if !@frozen
-      #only update time if we are running the show!
-      @currentScene?.update()
-    else
-      FW.controls.update()
+    FW.beatInterval = 3530
+
+  #INITIALIZE SCENES
+  FW.scene1 =
+    startZ: FW.width * 0.5
+    endZ: FW.width * 0.2
+  
+  FW.scene2 = 
+    songPoint: 154600
+    startZ: FW.scene1.endZ
+    endZ: -FW.width/2 + 1000
+
+  scene3TotalTime = 33930
+  FW.scene3 = 
+    songPoint: 221760
+    camAcceleration: .0001
 
 
-    
-  freeze : -> 
-    @frozen = !@frozen
-    FW.controls.enabled = !FW.controls.enabled
-    FW.controls.target.z = FW.camera.position.z - 30    
+
+  #Get current time and set up transition points between scenes
+  beginShow : ->
+    startTime = Date.now()
+    FW.scene1.startTime = startTime
+    FW.scene1.totalTime =  @scene1TotalTime
+    FW.scene1.endTime =  startTime + @scene1TotalTime
+
+    FW.scene2.startTime= FW.scene1.endTime
+    FW.scene2.endTime= FW.scene1.endTime + @scene2TotalTime
+    FW.scene2.totalTime= @scene2TotalTime
+
+    FW.scene3.startTime =  FW.scene2.endTime
+    FW.scene3.totalTime = scene3TotalTime
+    FW.scene3.endTime = FW.scene2.endTime + scene3TotalTime
 
 
-  beginShow: (showStartTime)->
-    #Inititalize Scenes
-    FW.scene1 =
-      startTime: showStartTime
-      totalTime: @scene1TotalTime
-      endTime: showStartTime + @scene1TotalTime
-    scene2TotalTime = 101111
-    FW.scene2 = 
-      startTime: FW.scene1.endTime
-      songPoint: 154600
-      endTime: FW.scene1.endTime + scene2TotalTime
-      totalTime: scene2TotalTime
-
-    scene3TotalTime = 33930
-    # 254789 - 66260 - 154600
-
-    FW.scene3 = 
-      startTime: FW.scene2.endTime
-      totalTime: scene3TotalTime
-      endTime: FW.scene2.endTime + scene3TotalTime
-      songPoint: 221760
-      camAcceleration: .0001
-
-    #endTime: songPoint + endTime
-    #221760 + 255440
     FW.scene1.update = =>
       currentTime = Date.now()
       hue = map(currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyHue, @endSkyHue )
@@ -84,6 +85,24 @@ FW.Director = class Director
       FW.myCamera.scene3Update()
 
     @currentScene = FW.scene1
+    @run()
+
+  run: =>
+    requestAnimationFrame @run
+    FW.myWorld.render()
+    if !@frozen
+      #only update time if we are running the show!
+      @currentScene?.update()
+    else
+      FW.controls.update()
+
+
+    
+  freeze : -> 
+    @frozen = !@frozen
+    FW.controls.enabled = !FW.controls.enabled
+    FW.controls.target.z = FW.camera.position.z - 30    
+
 
   initScene2: ->
     #TRIGGER SONG JUMP HERE ************************
@@ -94,10 +113,10 @@ FW.Director = class Director
     FW.scene.remove FW.mySun.sunMesh
 
   initScene3: ->
-    # FW.song.setPosition FW.scene3.songPoint
+    if @setSongPoint == true
+      FW.song.setPosition FW.scene3.songPoint
     FW.camera.rotation.order = 'YXZ';
     clearTimeout FW.scene2.fireflyInterval
     @currentScene = FW.scene3
-
 
 

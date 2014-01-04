@@ -1,10 +1,13 @@
 #Meteors fly over everytime she says "come down to us"
 #When step off cliff, rotate camera facing down and fly downwards (or up?)()
 
+#CONSTANTS
+window.FW = {}
+FW.width = 3000
+
 if !Detector.webgl
    Detector.addGetWebGLMessage()
 
-window.FW = {}
 SC?.initialize({
     client_id: "7da24ca214bf72b66ed2494117d05480",
 });
@@ -12,15 +15,12 @@ SC?.initialize({
 FW.sfxVolume = 0.2
 FW.globalTick = 0.16
 FW.development = false
-window.soundOn = !FW.development
 
 window.onload = ->
   FW.myDirector = new FW.Director()
   FW.main = new FW.Main()
   FW.myWorld = new FW.World()
-  FW.myWorld.animate()
 
-  
   document.addEventListener( 'keydown', FW.main.onKeyDown, false );
 
 FW.Main = class Main
@@ -31,8 +31,8 @@ FW.Main = class Main
       FW.song = song
       songStartTime = Date.now()
       FW.myDirector.beginShow songStartTime
-      # if soundOn
-      #   FW.song.play()
+      if !FW.development
+        FW.song.play()
 
   onKeyDown: (event)->
     if event.keyCode is 32
@@ -42,5 +42,7 @@ FW.Main = class Main
 
 
 #155550
+
+
 
 
