@@ -1,7 +1,7 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 70
-    @timeTillDisabled = 1000
+    @distanceFromCam = 90
+    @ffDisableTime = 1000
     @tickTime = .008
     @ffToggledOn = false
     @ffHeight = 8
@@ -9,9 +9,11 @@ FW.Fireflies = class Fireflies
     @currentPosition = new THREE.Vector3()
 
     #LIGHT
-    @light = new THREE.PointLight 0xffffff, 2, 2000
-    @light.position = @currentPosition
+    @light = new THREE.PointLight 0xffffff, 2, 1700
     FW.scene.add @light
+    @light.color.setRGB Math.random(), Math.random(), Math.random()
+    @startLightIntensity = 7
+    @endLightIntensity = 1
 
     #For custom emitters each beat!
 
@@ -21,7 +23,7 @@ FW.Fireflies = class Fireflies
     });
 
     @generateFireflies new THREE.Color().setRGB Math.random(), Math.random(), Math.random()
-    @generateFireflies new THREE.Color().setRGB Math.random(), Math.random(), Math.random()
+    @generateFireflies @light.color
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
 
@@ -35,7 +37,7 @@ FW.Fireflies = class Fireflies
       sizeEnd: 5
       colorStart: colorStart
       colorEnd: colorEnd
-      positionSpread: new THREE.Vector3 750, 10, 100
+      positionSpread: new THREE.Vector3 750, 10, 50
       velocitySpread: new THREE.Vector3 50, 50, 50
       acceleration: new THREE.Vector3 0, 50, -200
       accelerationSpread: 10, 50, -100
@@ -45,41 +47,45 @@ FW.Fireflies = class Fireflies
     @firefliesGroup.addEmitter firefliesEmitter
     @emitters.push firefliesEmitter
     firefliesEmitter.disable()
-    firefliesEmitter.position = @currentPosition
 
   runScene2 : ->
     @currentPosition = new THREE.Vector3().copy FW.camera.position
     @currentPosition.z -= @distanceFromCam
     @currentPosition.y = @ffHeight
-    @enable()
-    @createLightBurst()
-
-    #Disable after specified time
-    setTimeout(()=>
-      @disable()
-    @timeTillDisabled)
+    @startBeatTime = Date.now()
+    @lightBurst()
+    @ffPulse()
 
     FW.scene2.fireflyInterval = setTimeout(()=>
       @runScene2()
     FW.beatInterval)
 
     
-  enable : ->
-    @position = new THREE.Vector3().copy FW.camera.position
+  ffPulse : ->
     for emitter in @emitters
+      emitter.position = @currentPosition
       emitter.enable()
+
+    #Disable after specified time
+    setTimeout(()=>
+      @disable()
+    @ffDisableTime)
 
   disable: ->
     for emitter in @emitters
       emitter.disable()
 
-  createLightBurst: ->
-    @light.intensity = 10
+  lightBurst: ->
+    @light.position = @currentPosition
 
 
 
   tick: ->
+    currentTime = Date.now()
     @firefliesGroup.tick(@tickTime)
+    intensity = map(currentTime, @startBeatTime, @startBeatTime + FW.beatInterval, @startLightIntensity, @endLightIntensity)
+    console.log 'intensity', intensity
+    @light.intensity = intensity
 
 
     

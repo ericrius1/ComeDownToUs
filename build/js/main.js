@@ -35,10 +35,7 @@
         var songStartTime;
         FW.song = song;
         songStartTime = Date.now();
-        FW.myDirector.beginShow(songStartTime);
-        if (soundOn) {
-          return FW.song.play();
-        }
+        return FW.myDirector.beginShow(songStartTime);
       });
     }
 

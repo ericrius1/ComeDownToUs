@@ -3,22 +3,24 @@
 
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
-      this.distanceFromCam = 70;
-      this.timeTillDisabled = 1000;
+      this.distanceFromCam = 90;
+      this.ffDisableTime = 1000;
       this.tickTime = .008;
       this.ffToggledOn = false;
       this.ffHeight = 8;
       this.emitters = [];
       this.currentPosition = new THREE.Vector3();
-      this.light = new THREE.PointLight(0xffffff, 2, 2000);
-      this.light.position = this.currentPosition;
+      this.light = new THREE.PointLight(0xffffff, 2, 1700);
       FW.scene.add(this.light);
+      this.light.color.setRGB(Math.random(), Math.random(), Math.random());
+      this.startLightIntensity = 7;
+      this.endLightIntensity = 1;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 5
       });
       this.generateFireflies(new THREE.Color().setRGB(Math.random(), Math.random(), Math.random()));
-      this.generateFireflies(new THREE.Color().setRGB(Math.random(), Math.random(), Math.random()));
+      this.generateFireflies(this.light.color);
       this.firefliesGroup.mesh.renderDepth = -3;
       FW.scene.add(this.firefliesGroup.mesh);
     }
@@ -33,7 +35,7 @@
         sizeEnd: 5,
         colorStart: colorStart,
         colorEnd: colorEnd,
-        positionSpread: new THREE.Vector3(750, 10, 100),
+        positionSpread: new THREE.Vector3(750, 10, 50),
         velocitySpread: new THREE.Vector3(50, 50, 50),
         acceleration: new THREE.Vector3(0, 50, -200),
         accelerationSpread: 10
@@ -43,8 +45,7 @@
       });
       this.firefliesGroup.addEmitter(firefliesEmitter);
       this.emitters.push(firefliesEmitter);
-      firefliesEmitter.disable();
-      return firefliesEmitter.position = this.currentPosition;
+      return firefliesEmitter.disable();
     };
 
     Fireflies.prototype.runScene2 = function() {
@@ -52,26 +53,26 @@
       this.currentPosition = new THREE.Vector3().copy(FW.camera.position);
       this.currentPosition.z -= this.distanceFromCam;
       this.currentPosition.y = this.ffHeight;
-      this.enable();
-      this.createLightBurst();
-      setTimeout(function() {
-        return _this.disable();
-      }, this.timeTillDisabled);
+      this.startBeatTime = Date.now();
+      this.lightBurst();
+      this.ffPulse();
       return FW.scene2.fireflyInterval = setTimeout(function() {
         return _this.runScene2();
       }, FW.beatInterval);
     };
 
-    Fireflies.prototype.enable = function() {
-      var emitter, _i, _len, _ref, _results;
-      this.position = new THREE.Vector3().copy(FW.camera.position);
+    Fireflies.prototype.ffPulse = function() {
+      var emitter, _i, _len, _ref,
+        _this = this;
       _ref = this.emitters;
-      _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         emitter = _ref[_i];
-        _results.push(emitter.enable());
+        emitter.position = this.currentPosition;
+        emitter.enable();
       }
-      return _results;
+      return setTimeout(function() {
+        return _this.disable();
+      }, this.ffDisableTime);
     };
 
     Fireflies.prototype.disable = function() {
@@ -85,12 +86,17 @@
       return _results;
     };
 
-    Fireflies.prototype.createLightBurst = function() {
-      return this.light.intensity = 10;
+    Fireflies.prototype.lightBurst = function() {
+      return this.light.position = this.currentPosition;
     };
 
     Fireflies.prototype.tick = function() {
-      return this.firefliesGroup.tick(this.tickTime);
+      var currentTime, intensity;
+      currentTime = Date.now();
+      this.firefliesGroup.tick(this.tickTime);
+      intensity = map(currentTime, this.startBeatTime, this.startBeatTime + FW.beatInterval, this.startLightIntensity, this.endLightIntensity);
+      console.log('intensity', intensity);
+      return this.light.intensity = intensity;
     };
 
     return Fireflies;

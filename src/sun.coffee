@@ -17,10 +17,10 @@ FW.Sun = class Sun
     @endScale = 700
     
     @startHeight = 1200
-    @endHeight = -613
+    @endHeight = -@endScale - 10
 
     @startX = -500
-    @endX = 200
+    @endX = 300
     #LIGHT
     @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 10000)
     @sunLight.position = new THREE.Vector3 0, @startHeight, FW.width

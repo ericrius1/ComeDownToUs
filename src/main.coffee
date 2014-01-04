@@ -31,8 +31,8 @@ FW.Main = class Main
       FW.song = song
       songStartTime = Date.now()
       FW.myDirector.beginShow songStartTime
-      if soundOn
-        FW.song.play()
+      # if soundOn
+      #   FW.song.play()
 
   onKeyDown: (event)->
     if event.keyCode is 32

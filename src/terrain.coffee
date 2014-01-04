@@ -1,5 +1,6 @@
 FW.Terrain = class Terrain
   constructor: ->
+    @rotation = Math.PI * .45
     FW.terrainLength = FW.width * 0.2
     parameters = 
       alea: RAND_MT,
@@ -20,10 +21,10 @@ FW.Terrain = class Terrain
     
     terrain1 = new THREE.Mesh terrainGeo, terrainMaterial
     terrain1.position = new THREE.Vector3 -FW.width * 0.5, -100, -FW.width * .25  
-    terrain1.rotation.y -= Math.PI/3
+    terrain1.rotation.y -= @rotation
     FW.scene.add terrain1
 
     terrain2 = new THREE.Mesh terrainGeo, terrainMaterial
     terrain2.position = new THREE.Vector3 FW.width * 0.5, -100, -FW.width * 0.25
-    terrain2.rotation.y += Math.PI/3
+    terrain2.rotation.y += @rotation
     FW.scene.add terrain2
