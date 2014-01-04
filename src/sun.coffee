@@ -11,7 +11,7 @@ FW.Sun = class Sun
     @endLight = 0.35
 
     @startIntensity = 4
-    @endIntensity = 1
+    @endIntensity = 2
 
     @startScale = 300
     @endScale = 700

@@ -9,7 +9,7 @@
       this.startLight = 0.6;
       this.endLight = 0.35;
       this.startIntensity = 4;
-      this.endIntensity = 1;
+      this.endIntensity = 2;
       this.startScale = 300;
       this.endScale = 700;
       this.startHeight = 1200;
