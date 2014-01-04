@@ -41,7 +41,7 @@
         totalTime: this.scene1TotalTime,
         endTime: showStartTime + this.scene1TotalTime
       };
-      scene2TotalTime = 1004000;
+      scene2TotalTime = 101111;
       FW.scene2 = {
         startTime: FW.scene1.endTime,
         songPoint: 154600,
