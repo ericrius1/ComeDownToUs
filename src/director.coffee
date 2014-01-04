@@ -43,8 +43,7 @@ FW.Director = class Director
       startTime: showStartTime
       totalTime: @scene1TotalTime
       endTime: showStartTime + @scene1TotalTime
-    scene2TotalTime = 66260
-    # scene2TotalTime = 1000
+    scene2TotalTime = 1004000
     FW.scene2 = 
       startTime: FW.scene1.endTime
       songPoint: 154600
