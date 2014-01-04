@@ -2,11 +2,16 @@ FW.Fireflies = class Fireflies
   constructor: ()->
     @distanceFromCam = 70
     @timeTillDisabled = 1000
-
     @tickTime = .008
     @ffToggledOn = false
     @ffHeight = 8
     @emitters = []
+    @currentPosition = new THREE.Vector3()
+
+    #LIGHT
+    @light = new THREE.PointLight 0xffffff, 2, 2000
+    @light.position = @currentPosition
+    FW.scene.add @light
 
     #For custom emitters each beat!
 
@@ -40,10 +45,14 @@ FW.Fireflies = class Fireflies
     @firefliesGroup.addEmitter firefliesEmitter
     @emitters.push firefliesEmitter
     firefliesEmitter.disable()
+    firefliesEmitter.position = @currentPosition
 
   runScene2 : ->
- 
+    @currentPosition = new THREE.Vector3().copy FW.camera.position
+    @currentPosition.z -= @distanceFromCam
+    @currentPosition.y = @ffHeight
     @enable()
+    @createLightBurst()
 
     #Disable after specified time
     setTimeout(()=>
@@ -56,16 +65,16 @@ FW.Fireflies = class Fireflies
 
     
   enable : ->
-    position = new THREE.Vector3().copy FW.camera.position
+    @position = new THREE.Vector3().copy FW.camera.position
     for emitter in @emitters
-      emitter.position = position
-      emitter.position.z -= @distanceFromCam
-      emitter.position.y = @ffHeight
       emitter.enable()
 
   disable: ->
     for emitter in @emitters
       emitter.disable()
+
+  createLightBurst: ->
+    @light.intensity = 10
 
 
 

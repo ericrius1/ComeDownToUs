@@ -9,6 +9,10 @@
       this.ffToggledOn = false;
       this.ffHeight = 8;
       this.emitters = [];
+      this.currentPosition = new THREE.Vector3();
+      this.light = new THREE.PointLight(0xffffff, 2, 2000);
+      this.light.position = this.currentPosition;
+      FW.scene.add(this.light);
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
         maxAge: 5
@@ -39,12 +43,17 @@
       });
       this.firefliesGroup.addEmitter(firefliesEmitter);
       this.emitters.push(firefliesEmitter);
-      return firefliesEmitter.disable();
+      firefliesEmitter.disable();
+      return firefliesEmitter.position = this.currentPosition;
     };
 
     Fireflies.prototype.runScene2 = function() {
       var _this = this;
+      this.currentPosition = new THREE.Vector3().copy(FW.camera.position);
+      this.currentPosition.z -= this.distanceFromCam;
+      this.currentPosition.y = this.ffHeight;
       this.enable();
+      this.createLightBurst();
       setTimeout(function() {
         return _this.disable();
       }, this.timeTillDisabled);
@@ -54,15 +63,12 @@
     };
 
     Fireflies.prototype.enable = function() {
-      var emitter, position, _i, _len, _ref, _results;
-      position = new THREE.Vector3().copy(FW.camera.position);
+      var emitter, _i, _len, _ref, _results;
+      this.position = new THREE.Vector3().copy(FW.camera.position);
       _ref = this.emitters;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         emitter = _ref[_i];
-        emitter.position = position;
-        emitter.position.z -= this.distanceFromCam;
-        emitter.position.y = this.ffHeight;
         _results.push(emitter.enable());
       }
       return _results;
@@ -77,6 +83,10 @@
         _results.push(emitter.disable());
       }
       return _results;
+    };
+
+    Fireflies.prototype.createLightBurst = function() {
+      return this.light.intensity = 10;
     };
 
     Fireflies.prototype.tick = function() {

@@ -13,6 +13,8 @@
       FW.width = 3000;
       this.rippleFactor = 120;
       FW.myCamera = new FW.Camera();
+      FW.controls = new THREE.OrbitControls(FW.camera);
+      FW.controls.enabled = false;
       FW.scene = new THREE.Scene();
       FW.renderer = new THREE.WebGLRenderer({
         antialias: true

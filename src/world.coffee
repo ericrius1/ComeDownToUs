@@ -10,6 +10,10 @@ FW.World = class World
     # CAMERA
     FW.myCamera = new FW.Camera()
 
+    #CONTROLS
+    FW.controls = new THREE.OrbitControls(FW.camera)
+    FW.controls.enabled = false
+
     # SCENE 
     FW.scene = new THREE.Scene()
 
@@ -20,7 +24,6 @@ FW.World = class World
     color = new THREE.Color().setHSL .12, .86, .5
     FW.renderer.setClearColor  color
     
-
     #TERRAIN
     @terrain = new FW.Terrain()
     

@@ -7,8 +7,6 @@
       this.setSongPoint = true;
       this.skyColor = new THREE.Color();
       this.frozen = false;
-      this.controls = new THREE.OrbitControls(FW.camera);
-      this.controls.enabled = false;
       this.startSkyHue = 0.12;
       this.endSkyHue = -0.18;
       this.startSkyLight = 0.5;
@@ -23,14 +21,14 @@
       if (!this.frozen) {
         return (_ref = this.currentScene) != null ? _ref.update() : void 0;
       } else {
-        return this.controls.update();
+        return FW.controls.update();
       }
     };
 
     Director.prototype.freeze = function() {
       this.frozen = !this.frozen;
-      this.controls.enabled = !this.controls.enabled;
-      return this.controls.target.z = FW.camera.position.z - 30;
+      FW.controls.enabled = !FW.controls.enabled;
+      return FW.controls.target.z = FW.camera.position.z - 30;
     };
 
     Director.prototype.beginShow = function(showStartTime) {

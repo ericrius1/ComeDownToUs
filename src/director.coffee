@@ -9,8 +9,6 @@ FW.Director = class Director
     @skyColor = new THREE.Color()
     @frozen = false
     # CONTROLS
-    @controls = new THREE.OrbitControls(FW.camera)
-    @controls.enabled = false
 
     @startSkyHue = 0.12
     @endSkyHue = -0.18
@@ -20,7 +18,6 @@ FW.Director = class Director
     @currentScene = FW.scene1
     @skyColor.setHSL @startSkyHue, 0.86, @startSkyLight
     
-
     FW.beatInterval = 3540
     
   update: ->
@@ -28,14 +25,14 @@ FW.Director = class Director
       #only update time if we are running the show!
       @currentScene?.update()
     else
-      @controls.update()
+      FW.controls.update()
 
 
     
   freeze : -> 
     @frozen = !@frozen
-    @controls.enabled = !@controls.enabled
-    @controls.target.z = FW.camera.position.z - 30    
+    FW.controls.enabled = !FW.controls.enabled
+    FW.controls.target.z = FW.camera.position.z - 30    
 
 
   beginShow: (showStartTime)->
