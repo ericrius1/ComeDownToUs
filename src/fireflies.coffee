@@ -1,6 +1,6 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 30
+    @distanceFromCam = 50
     @timeTillDisabled = 300
 
     @tickTime = .008
@@ -10,12 +10,6 @@ FW.Fireflies = class Fireflies
     @xSpreadFactor = 100
     @emitterStats = []
     @ffToggledOn = false
-    @specialLightIntensityUpChange = 0.0
-    @specialLightIntensityDownChange = 0.0
-    @specialLightIntensityStart = 2.0
-    @specialLightGrowing = false
-    @specialLightDistance = 2500
-    @specialLightColor = 0xffffff
     @ffHeight = 8
 
     #For custom emitters each beat!
@@ -38,14 +32,13 @@ FW.Fireflies = class Fireflies
     colorStart = new THREE.Color()
     colorEnd = new THREE.Color()
     firefliesEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 100
+      particlesPerSecond: 200
       size: 10
       sizeEnd: 10
-      positionSpread: new THREE.Vector3 80, 5, 10
+      positionSpread: new THREE.Vector3 100, 5, 40
       velocity: new THREE.Vector3 0, 0, -50
-      velocitySpread: new THREE.Vector3 1, 1, 1
-      acceleration: new THREE.Vector3 0, 0, -5
-      accelerationSpread: 0, 100, 2
+      acceleration: new THREE.Vector3 0, 3, -5
+      accelerationSpread: new THREE.Vector3 0, 2, 2
       opacityStart: 1.0
       opacityEnd: 1.0
 
@@ -54,9 +47,6 @@ FW.Fireflies = class Fireflies
     firefliesEmitter.disable()
 
   runScene2 : ->
-    #burst of light to get things going
-    @specialLight.intensity = @specialLightIntensityStart
-    @specialLightGrowing = true
     @currentBeatNum++
     if @numActiveEmitters < @emitters.length
       @numActiveEmitters++
@@ -101,14 +91,7 @@ FW.Fireflies = class Fireflies
 
 
   tick: ->
-    @specialLight.position.z -= @specialLightVelocity
-    @specialLightVelocity += @specialLightAccel 
-
     @firefliesGroup.tick(@tickTime)
-    if @specialLightGrowing
-      @specialLight.intensity += @specialLightIntensityUpChange
-    else
-      @specialLight.intensity -= @specialLightIntensityDownChange
 
 
     

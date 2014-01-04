@@ -4,7 +4,7 @@
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
       var i, _i, _ref;
-      this.distanceFromCam = 30;
+      this.distanceFromCam = 50;
       this.timeTillDisabled = 300;
       this.tickTime = .008;
       this.currentBeatNum = 0;
@@ -13,12 +13,6 @@
       this.xSpreadFactor = 100;
       this.emitterStats = [];
       this.ffToggledOn = false;
-      this.specialLightIntensityUpChange = 0.0;
-      this.specialLightIntensityDownChange = 0.0;
-      this.specialLightIntensityStart = 2.0;
-      this.specialLightGrowing = false;
-      this.specialLightDistance = 2500;
-      this.specialLightColor = 0xffffff;
       this.ffHeight = 8;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
@@ -40,15 +34,13 @@
       colorStart = new THREE.Color();
       colorEnd = new THREE.Color();
       firefliesEmitter = new ShaderParticleEmitter({
-        particlesPerSecond: 100,
+        particlesPerSecond: 200,
         size: 10,
         sizeEnd: 10,
-        positionSpread: new THREE.Vector3(80, 5, 10),
+        positionSpread: new THREE.Vector3(100, 5, 40),
         velocity: new THREE.Vector3(0, 0, -50),
-        velocitySpread: new THREE.Vector3(1, 1, 1),
-        acceleration: new THREE.Vector3(0, 0, -5),
-        accelerationSpread: 0
-      }, 100, 2, {
+        acceleration: new THREE.Vector3(0, 3, -5),
+        accelerationSpread: new THREE.Vector3(0, 2, 2),
         opacityStart: 1.0,
         opacityEnd: 1.0
       });
@@ -60,8 +52,6 @@
     Fireflies.prototype.runScene2 = function() {
       var emitter, i, _i, _ref,
         _this = this;
-      this.specialLight.intensity = this.specialLightIntensityStart;
-      this.specialLightGrowing = true;
       this.currentBeatNum++;
       if (this.numActiveEmitters < this.emitters.length) {
         this.numActiveEmitters++;
@@ -115,14 +105,7 @@
     };
 
     Fireflies.prototype.tick = function() {
-      this.specialLight.position.z -= this.specialLightVelocity;
-      this.specialLightVelocity += this.specialLightAccel;
-      this.firefliesGroup.tick(this.tickTime);
-      if (this.specialLightGrowing) {
-        return this.specialLight.intensity += this.specialLightIntensityUpChange;
-      } else {
-        return this.specialLight.intensity -= this.specialLightIntensityDownChange;
-      }
+      return this.firefliesGroup.tick(this.tickTime);
     };
 
     return Fireflies;
