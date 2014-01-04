@@ -8,8 +8,8 @@
       this.camStartingY = 8;
       FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
       FW.camera.position.set(0, this.camStartingY, FW.width / 2);
-      this.scene1StartZ = FW.width / 2;
-      this.scene1EndZ = 0;
+      this.scene1StartZ = FW.width * 0.5;
+      this.scene1EndZ = FW.width * 0.2;
       this.rotStartX = 0;
       this.rotEndX = Math.PI / 20;
       this.scene2StartZ = this.scene1EndZ;

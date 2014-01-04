@@ -8,8 +8,8 @@ FW.Camera = class Camera
     FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
     FW.camera.position.set  0, @camStartingY, FW.width/2
 
-    @scene1StartZ = FW.width/2
-    @scene1EndZ = 0
+    @scene1StartZ = FW.width * 0.5
+    @scene1EndZ = FW.width * 0.2
 
     @rotStartX = 0
     @rotEndX = Math.PI / 20

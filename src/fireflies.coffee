@@ -9,10 +9,10 @@ FW.Fireflies = class Fireflies
     @currentPosition = new THREE.Vector3()
 
     #LIGHT
-    @light = new THREE.PointLight 0xffffff, 2, 1700
+    @light = new THREE.PointLight 0xffffff, 2, 2000
     FW.scene.add @light
     @light.color.setRGB Math.random(), Math.random(), Math.random()
-    @startLightIntensity = 7
+    @startLightIntensity = 5
     @endLightIntensity = 1
 
     #For custom emitters each beat!
@@ -83,7 +83,7 @@ FW.Fireflies = class Fireflies
   tick: ->
     currentTime = Date.now()
     @firefliesGroup.tick(@tickTime)
-    intensity = map(currentTime, @startBeatTime, @startBeatTime + FW.beatInterval, @startLightIntensity, @endLightIntensity)
+    intensity = map(currentTime, @startBeatTime, @startBeatTime + FW.beatInterval * 0.8, @startLightIntensity, @endLightIntensity)
     console.log 'intensity', intensity
     @light.intensity = intensity
 

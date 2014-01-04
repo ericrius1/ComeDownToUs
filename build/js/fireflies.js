@@ -10,10 +10,10 @@
       this.ffHeight = 8;
       this.emitters = [];
       this.currentPosition = new THREE.Vector3();
-      this.light = new THREE.PointLight(0xffffff, 2, 1700);
+      this.light = new THREE.PointLight(0xffffff, 2, 2000);
       FW.scene.add(this.light);
       this.light.color.setRGB(Math.random(), Math.random(), Math.random());
-      this.startLightIntensity = 7;
+      this.startLightIntensity = 5;
       this.endLightIntensity = 1;
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
@@ -94,7 +94,7 @@
       var currentTime, intensity;
       currentTime = Date.now();
       this.firefliesGroup.tick(this.tickTime);
-      intensity = map(currentTime, this.startBeatTime, this.startBeatTime + FW.beatInterval, this.startLightIntensity, this.endLightIntensity);
+      intensity = map(currentTime, this.startBeatTime, this.startBeatTime + FW.beatInterval * 0.8, this.startLightIntensity, this.endLightIntensity);
       console.log('intensity', intensity);
       return this.light.intensity = intensity;
     };

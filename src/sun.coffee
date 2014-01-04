@@ -22,7 +22,7 @@ FW.Sun = class Sun
     @startX = -500
     @endX = 300
     #LIGHT
-    @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 10000)
+    @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 7000)
     @sunLight.position = new THREE.Vector3 0, @startHeight, FW.width
     FW.scene.add @sunLight
 
