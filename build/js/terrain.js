@@ -3,7 +3,7 @@
 
   FW.Terrain = Terrain = (function() {
     function Terrain() {
-      var cavern, cavernGeo, cavernParams, leftMountain, mountainGeo, mountainParams, rightMountain, terrainMaterial;
+      var leftMountain, mountainGeo, mountainParams, portalGeo, portalMat, portalMesh, rightMountain, terrainMaterial;
       this.rotation = Math.PI * .45;
       FW.terrainLength = FW.width * 0.2;
       mountainParams = {
@@ -14,20 +14,6 @@
         widthSegments: 200,
         heightSegments: 200,
         depth: 1100,
-        param: 4,
-        filterparam: 1,
-        filter: [CIRCLE_FILTER],
-        postgen: [MOUNTAINS_COLORS],
-        effect: [DESTRUCTURE_EFFECT]
-      };
-      cavernParams = {
-        alea: RAND_MT,
-        generator: PN_GENERATOR,
-        width: 250,
-        height: 350,
-        widthSegments: 10,
-        heightSegments: 10,
-        depth: 150,
         param: 4,
         filterparam: 1,
         filter: [CIRCLE_FILTER],
@@ -48,10 +34,15 @@
       rightMountain.position = new THREE.Vector3(FW.width * 0.5, -100, -FW.width * 0.25);
       rightMountain.rotation.y += this.rotation;
       FW.scene.add(rightMountain);
-      cavernGeo = TERRAINGEN.Get(cavernParams);
-      cavern = new THREE.Mesh(cavernGeo, terrainMaterial);
-      cavern.position.set(0, -0, 500);
-      FW.scene.add(cavern);
+      portalGeo = new THREE.IcosahedronGeometry(1, 2);
+      portalMat = new THREE.MeshPhongMaterial({
+        shading: THREE.FlatShading,
+        side: THREE.DoubleSide
+      });
+      portalMesh = new THREE.Mesh(portalGeo, portalMat);
+      portalMesh.position.set(0, 0, 600);
+      portalMesh.scale.set(100, 100, 100);
+      FW.scene.add(portalMesh);
     }
 
     return Terrain;

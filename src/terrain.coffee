@@ -16,20 +16,6 @@ FW.Terrain = class Terrain
       postgen: [ MOUNTAINS_COLORS ]
       effect: [ DESTRUCTURE_EFFECT ]
 
-     cavernParams = 
-      alea: RAND_MT,
-      generator: PN_GENERATOR,
-      width: 250
-      height: 350
-      widthSegments: 10
-      heightSegments: 10
-      depth: 150
-      param: 4,
-      filterparam: 1
-      filter: [ CIRCLE_FILTER ]
-      postgen: [ MOUNTAINS_COLORS ]
-      effect: [ DESTRUCTURE_EFFECT ]
-
     mountainGeo = TERRAINGEN.Get(mountainParams)
     terrainMaterial = new THREE.MeshPhongMaterial vertexColors: THREE.VertexColors, shading: THREE.FlatShading, side: THREE.DoubleSide 
     
@@ -43,8 +29,15 @@ FW.Terrain = class Terrain
     rightMountain.rotation.y += @rotation
     FW.scene.add rightMountain
 
-    cavernGeo = TERRAINGEN.Get(cavernParams)
-    cavern = new THREE.Mesh cavernGeo, terrainMaterial
-    cavern.position.set 0, -0, 500
-    FW.scene.add cavern
+    #GEODESIC
+
+    portalGeo = new THREE.IcosahedronGeometry(1, 2)
+    portalMat = new THREE.MeshPhongMaterial
+      shading: THREE.FlatShading 
+      side: THREE.DoubleSide
+    portalMesh = new THREE.Mesh portalGeo, portalMat
+    portalMesh.position.set 0, 0, 600
+    portalMesh.scale.set 100, 100, 100
+    FW.scene.add portalMesh
+
     

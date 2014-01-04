@@ -2,7 +2,7 @@ FW.Director = class Director
   constructor: ->
     # @scene1TotalTime  = 155550
     # @setSongPoint = false
-    @scene1TotalTime = 5000
+    @scene1TotalTime = 2500
     @setSongPoint = true
 
 

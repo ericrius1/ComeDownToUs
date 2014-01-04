@@ -27,6 +27,9 @@ FW.Fireflies = class Fireflies
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
 
+    #Spirit being
+    @generateSpiritBeing()
+
 
   generateFireflies: (colorStart)->
     colorEnd = new THREE.Color(0xcd40c0)
@@ -84,23 +87,20 @@ FW.Fireflies = class Fireflies
     currentTime = Date.now()
     @firefliesGroup.tick(@tickTime)
     intensity = map(currentTime, @startBeatTime, @startBeatTime + FW.beatInterval * 0.8, @startLightIntensity, @endLightIntensity)
-    console.log 'intensity', intensity
     @light.intensity = intensity
 
 
     
-    
-
-#SPIRIT BEING IN CAVERN
- # positionSpreadFactor = map currentIndex, 0, @numEmitters, 0, 1000
- #    colorStart = new THREE.Color()
- #    colorEnd = new THREE.Color()
- #    firefliesEmitter = new ShaderParticleEmitter
- #      particlesPerSecond: 1000
- #      size: 10
- #      sizeEnd: 10
- #      # positionSpread: new THREE.Vector3 positionSpreadFactor, rnd(1, 2), 1
- #      positionSpread: new THREE.Vector3 10, 10, 10
- #      velocitySpread: new THREE.Vector3 10, 10, 10
- #      opacityStart: 0.8
- #      opacityEnd: 0.8
+  generateSpiritBeing : ->
+    colorStart = new THREE.Color()
+    colorEnd = new THREE.Color()
+    spiritEmitter = new ShaderParticleEmitter
+      particlesPerSecond: 1000
+      size: 10
+      sizeEnd: 10
+      position: new THREE.Vector3 0, 0, 500
+      positionSpread: new THREE.Vector3 10, 10, 10
+      velocitySpread: new THREE.Vector3 10, 10, 10
+      opacityStart: 0.8
+      opacityEnd: 0.8
+    @firefliesGroup.addEmitter spiritEmitter
