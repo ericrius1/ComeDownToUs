@@ -18,7 +18,7 @@ FW.World = class World
     FW.scene = new THREE.Scene()
 
     # RENDERER
-    FW.renderer = new THREE.WebGLRenderer(antialias: true)
+    FW.renderer = new THREE.WebGLRenderer()
     FW.renderer.setSize FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT
     document.body.appendChild FW.renderer.domElement
     color = new THREE.Color().setHSL .12, .86, .5

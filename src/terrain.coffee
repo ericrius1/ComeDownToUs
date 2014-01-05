@@ -32,19 +32,19 @@ FW.Terrain = class Terrain
 
 
   createBridge: ->
-    numPillarPairs = 10
+    numPillarPairs = 25
     
     startPairPosZ = FW.scene2.startZ - 200
-    endPairPosZ = FW.scene3.startZ - 100
+    endPairPosZ = FW.scene3.startZ - 1000
 
-    pillarScale = 2
-    startHeightScale = 0
-    endHeightScale = 100
+    pillarScale = 1
+    startHeightScale = 1
+    endHeightScale = 2000
 
-    pillarGeo = new THREE.CylinderGeometry(1, 1)
+    #CylinderGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded)
+    pillarGeo = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true)#radiusTop, #radiusBottom, @height
     pillarMat = new THREE.MeshPhongMaterial
       shading: THREE.FlatShading 
-      side: THREE.DoubleSide
       specular: new THREE.Color()
       shininess: 20
     FW.pillarPairDistance = 400
@@ -52,8 +52,6 @@ FW.Terrain = class Terrain
 
     for pillarPairIndex in [1..numPillarPairs]
       pillar1 = new THREE.Mesh pillarGeo, pillarMat
-      zPillarPos = map(pillarPairIndex, 1, numPillarPairs, startPairPosZ, endPairPosZ )
-      pillar1.position.set -FW.pillarPairDistance/2, 0, zPillarPos
 
       #If we're in first half of bridge, then scale up, otherwise scale down
       if pillarPairIndex < numPillarPairs/2
@@ -65,10 +63,12 @@ FW.Terrain = class Terrain
       pillar1.scale.set pillarScale, heightScale, pillarScale
 
 
+      zPillarPos = map(pillarPairIndex, 1, numPillarPairs, startPairPosZ, endPairPosZ )
+      pillar1.position.set -FW.pillarPairDistance/2, heightScale/2, zPillarPos
       FW.scene.add pillar1
 
       pillar2 = pillar1.clone()
-      pillar2.position.set FW.pillarPairDistance/2, 0, zPillarPos
+      pillar2.position.set FW.pillarPairDistance/2, heightScale/2, zPillarPos
       FW.scene.add pillar2
 
 

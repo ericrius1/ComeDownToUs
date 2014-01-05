@@ -14,9 +14,7 @@
       FW.controls = new THREE.OrbitControls(FW.camera);
       FW.controls.enabled = false;
       FW.scene = new THREE.Scene();
-      FW.renderer = new THREE.WebGLRenderer({
-        antialias: true
-      });
+      FW.renderer = new THREE.WebGLRenderer();
       FW.renderer.setSize(FW.SCREEN_WIDTH, FW.SCREEN_HEIGHT);
       document.body.appendChild(FW.renderer.domElement);
       color = new THREE.Color().setHSL(.12, .86, .5);

@@ -30,7 +30,7 @@ FW.Fireflies = class Fireflies
 
     @firefliesGroup = new ShaderParticleGroup({
       texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
-      maxAge: 5
+      maxAge: 1
     });
 
     @generateFireflies new THREE.Color().setRGB Math.random(), Math.random(), Math.random()
@@ -45,10 +45,10 @@ FW.Fireflies = class Fireflies
       particlesPerSecond: 5000
       size: 30
       sizeSpread: 20
-      sizeEnd: 30
+      sizeEnd: 60
       colorStart: colorStart
       colorEnd: colorEnd
-      positionSpread: new THREE.Vector3 FW.coilPairDistance, 10, 10
+      positionSpread: new THREE.Vector3 FW.pillarPairDistance, 10, 10
       velocity: new THREE.Vector3 0, 0, @ffVelocityZ
       velocitySpread: new THREE.Vector3 100, 0, 0
       acceleration: new THREE.Vector3 0, 100, @ffAccelZ
