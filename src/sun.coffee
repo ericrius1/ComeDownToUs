@@ -3,7 +3,6 @@
 FW.Sun = class Sun
   constructor: ()->
 
-
     @sunColor = new THREE.Color()
     @startHue = 0.08
     @endHue = 0.00
@@ -13,7 +12,7 @@ FW.Sun = class Sun
     @scene1StartIntensity = 4
     @scene1EndIntensity = 1
     @scene2StartIntensity = @scene1EndIntensity
-    @scene2EndIntensity = 0.01
+    @scene2EndIntensity = .5
 
 
 
@@ -26,14 +25,14 @@ FW.Sun = class Sun
     @startX = -500
     @endX = 300
     #LIGHT
-    @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, 7000)
-    @sunLight.position = new THREE.Vector3 0, @startHeight, FW.width
+    @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, FW.height * 2)
+    @sunLight.position = new THREE.Vector3 0, @startHeight, FW.height/2
     FW.scene.add @sunLight
 
     @sunGeo = new THREE.SphereGeometry(1, 100, 100)
     @material = new THREE.MeshBasicMaterial()
     @sunMesh = new THREE.Mesh @sunGeo, @material
-    @sunMesh.position = new THREE.Vector3 @startX, @startHeight, -FW.width
+    @sunMesh.position = new THREE.Vector3 @startX, @startHeight, -FW.height/2
     @sunMesh.scale.set @startScale, @startScale, @startScale
     FW.scene.add @sunMesh
 

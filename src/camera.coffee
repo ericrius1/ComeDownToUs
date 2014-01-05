@@ -13,7 +13,8 @@ FW.Camera = class Camera
     @scene3Acceleration = -.0015
 
     
-    @scene4Acceleration = -.01
+    @scene4Acceleration = -.05
+    @maxFinalVelocity = -10
 
 
 
@@ -33,8 +34,7 @@ FW.Camera = class Camera
     FW.camera.position.z = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, FW.scene2.startZ, FW.scene2.endZ)
 
   #Immediately following fireflies
-  #Rs eup
-  #END: "Dont be afraid to step intp the unkown"
+  #END: "Dont be afraid to step intp the unknown"
   scene3Update: ->
     currentTime = Date.now()
     FW.camera.translateZ @scene3Velocity
@@ -45,8 +45,9 @@ FW.Camera = class Camera
   #Go to hyperspace!
   scene4Update: ->
     FW.camera.position.z += FW.scene4.startVelocity
-    FW.scene4.startVelocity += @scene4Acceleration
+    console.log "VELOCITY", FW.scene4.startVelocity
+    FW.scene4.startVelocity =  Math.max(@maxFinalVelocity, (FW.scene4.startVelocity + @scene4Acceleration))
 
   #Finish fading music, The End
   scene5Update: ->
-    FW.camera.position.z += @scene4Velocity
+    FW.camera.position.z += FW.scene4.startVelocity

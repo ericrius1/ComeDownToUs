@@ -15,8 +15,8 @@ FW.Director = class Director
     if short
       @setSongPoint = true
       @scene1TotalTime = 3000
-      @scene2TotalTime = 67000
-      @scene3TotalTime = 33930
+      @scene2TotalTime = 3000
+      @scene3TotalTime = 3000
       @scene4TotalTime = 20000
       @scene5TotalTime = 2000
       @raiseBridgeTime = 5000
@@ -64,6 +64,7 @@ FW.Director = class Director
     startVolume: FW.scene4.endVolume
     endVolume: 0
     totalTime: @scene5TotalTime
+  FW.scene6 = {}
 
 
 
@@ -145,8 +146,13 @@ FW.Director = class Director
       currentTime = Date.now()
       volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene5.startVolume, FW.scene5.endVolume)
       FW.song.setVolume volume
-      FW.wormHole.tick()
-
+      FW.wormHole.tick() 
+      if currentTime > FW.scene5.endTime
+        FW.wormHole.disperse()
+        @currentScene = FW.scene6
+        
+      FW.scene6.update = =>
+        FW.myCamera.scene5Update()
 
 
     @currentScene = FW.scene1
@@ -188,8 +194,6 @@ FW.Director = class Director
     @currentScene = FW.scene4
 
   initScene5: ->
-    
-    # FW.wormHole.disperse()
     @currentScene = FW.scene5
 
 

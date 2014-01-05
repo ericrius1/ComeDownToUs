@@ -39,9 +39,9 @@
 
     Terrain.prototype.createBridge = function() {
       var endHeightScale, endPairPosZ, heightScale, numPillarPairs, pillar1, pillar2, pillarGeo, pillarMat, pillarPairIndex, pillarScale, startHeightScale, startPairPosZ, zPillarPos, _i, _results;
-      numPillarPairs = 25;
+      numPillarPairs = 40;
       startPairPosZ = FW.scene2.startZ - 200;
-      endPairPosZ = FW.scene3.startZ - 1000;
+      endPairPosZ = FW.scene3.startZ - 2000;
       pillarScale = 1;
       startHeightScale = 1;
       endHeightScale = 2000;

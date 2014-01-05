@@ -32,10 +32,10 @@ FW.Terrain = class Terrain
 
 
   createBridge: ->
-    numPillarPairs = 25
+    numPillarPairs = 40
     
     startPairPosZ = FW.scene2.startZ - 200
-    endPairPosZ = FW.scene3.startZ - 1000
+    endPairPosZ = FW.scene3.startZ - 2000
 
     pillarScale = 1
     startHeightScale = 1

@@ -18,8 +18,8 @@
       if (short) {
         this.setSongPoint = true;
         this.scene1TotalTime = 3000;
-        this.scene2TotalTime = 67000;
-        this.scene3TotalTime = 33930;
+        this.scene2TotalTime = 3000;
+        this.scene3TotalTime = 3000;
         this.scene4TotalTime = 20000;
         this.scene5TotalTime = 2000;
         this.raiseBridgeTime = 5000;
@@ -67,6 +67,8 @@
       endVolume: 0,
       totalTime: Director.scene5TotalTime
     };
+
+    FW.scene6 = {};
 
     Director.prototype.run = function() {
       var _ref;
@@ -153,7 +155,14 @@
         currentTime = Date.now();
         volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene5.startVolume, FW.scene5.endVolume);
         FW.song.setVolume(volume);
-        return FW.wormHole.tick();
+        FW.wormHole.tick();
+        if (currentTime > FW.scene5.endTime) {
+          FW.wormHole.disperse();
+          _this.currentScene = FW.scene6;
+        }
+        return FW.scene6.update = function() {
+          return FW.myCamera.scene5Update();
+        };
       };
       this.currentScene = FW.scene1;
       return this.run();

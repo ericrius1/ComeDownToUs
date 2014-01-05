@@ -13,7 +13,7 @@
       this.currentPosition = new THREE.Vector3();
       this.ffVelocityZ = 0;
       this.lightVelocityZ = this.ffVelocityZ;
-      this.ffAccelZ = -5000;
+      this.ffAccelZ = -2500;
       this.light = new THREE.PointLight(0xffffff, 2, 2000);
       FW.scene.add(this.light);
       this.light.color.setRGB(Math.random(), Math.random(), Math.random());
@@ -43,9 +43,9 @@
         colorEnd: colorEnd,
         positionSpread: new THREE.Vector3(FW.pillarPairDistance, 10, 10),
         velocity: new THREE.Vector3(0, 0, this.ffVelocityZ),
-        velocitySpread: new THREE.Vector3(100, 0, 0),
-        acceleration: new THREE.Vector3(0, 100, this.ffAccelZ),
-        accelerationSpread: new THREE.Vector3(200, 200, 0),
+        velocitySpread: new THREE.Vector3(10, 0, 0),
+        acceleration: new THREE.Vector3(0, 0, this.ffAccelZ),
+        accelerationSpread: new THREE.Vector3(10, 10, 0),
         opacityStart: 1.0,
         opacityEnd: 1.0
       });

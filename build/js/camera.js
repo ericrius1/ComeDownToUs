@@ -10,7 +10,8 @@
       FW.camera.position.set(0, this.startCamHeight, FW.height);
       this.scene3Velocity = -1;
       this.scene3Acceleration = -.0015;
-      this.scene4Acceleration = -.01;
+      this.scene4Acceleration = -.05;
+      this.maxFinalVelocity = -10;
     }
 
     Camera.prototype.resize = function() {
@@ -40,11 +41,12 @@
 
     Camera.prototype.scene4Update = function() {
       FW.camera.position.z += FW.scene4.startVelocity;
-      return FW.scene4.startVelocity += this.scene4Acceleration;
+      console.log("VELOCITY", FW.scene4.startVelocity);
+      return FW.scene4.startVelocity = Math.max(this.maxFinalVelocity, FW.scene4.startVelocity + this.scene4Acceleration);
     };
 
     Camera.prototype.scene5Update = function() {
-      return FW.camera.position.z += this.scene4Velocity;
+      return FW.camera.position.z += FW.scene4.startVelocity;
     };
 
     return Camera;

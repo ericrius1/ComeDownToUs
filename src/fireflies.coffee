@@ -11,7 +11,7 @@ FW.Fireflies = class Fireflies
 
     @ffVelocityZ = 0
     @lightVelocityZ = @ffVelocityZ
-    @ffAccelZ = -5000
+    @ffAccelZ = -2500
 
 
 
@@ -50,9 +50,9 @@ FW.Fireflies = class Fireflies
       colorEnd: colorEnd
       positionSpread: new THREE.Vector3 FW.pillarPairDistance, 10, 10
       velocity: new THREE.Vector3 0, 0, @ffVelocityZ
-      velocitySpread: new THREE.Vector3 100, 0, 0
-      acceleration: new THREE.Vector3 0, 100, @ffAccelZ
-      accelerationSpread: new THREE.Vector3 200, 200, 0 
+      velocitySpread: new THREE.Vector3 10, 0, 0
+      acceleration: new THREE.Vector3 0, 0, @ffAccelZ
+      accelerationSpread: new THREE.Vector3 10, 10, 0 
       opacityStart: 1.0
       opacityEnd: 1.0
 

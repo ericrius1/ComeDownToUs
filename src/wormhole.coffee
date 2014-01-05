@@ -7,7 +7,7 @@ FW.WormHole = class WormHole
     @zDistanceFromCam = @zSpread/2
 
     @wormHoleGroup = new ShaderParticleGroup({
-      texture: THREE.ImageUtils.loadTexture('assets/firefly.png')
+      texture: THREE.ImageUtils.loadTexture('assets/star.png')
       maxAge: 10
       blending: THREE.AdditiveBlending
     });
@@ -42,6 +42,7 @@ FW.WormHole = class WormHole
     @wormHoleEmitter.enable()
 
   disperse: ->
+    console.log "DISPERSE"
     @wormHoleEmitter.disable()
 
   tick: ->

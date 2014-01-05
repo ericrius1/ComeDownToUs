@@ -9,7 +9,7 @@
       this.zSpread = FW.height / 2;
       this.zDistanceFromCam = this.zSpread / 2;
       this.wormHoleGroup = new ShaderParticleGroup({
-        texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
+        texture: THREE.ImageUtils.loadTexture('assets/star.png'),
         maxAge: 10,
         blending: THREE.AdditiveBlending
       });
@@ -45,6 +45,7 @@
     };
 
     WormHole.prototype.disperse = function() {
+      console.log("DISPERSE");
       return this.wormHoleEmitter.disable();
     };
 
