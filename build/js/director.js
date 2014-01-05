@@ -3,20 +3,23 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   FW.Director = Director = (function() {
-    var scene3TotalTime, scene4TotalTime;
-
     function Director() {
       this.run = __bind(this.run, this);
       var short;
-      this.music = false;
-      short = true;
+      this.music = true;
+      short = false;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 64450;
+      this.scene3TotalTime = 33930;
+      this.scene4TotalTime = 20000;
+      this.scene5TotalTime = 2000;
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
-        this.scene1TotalTime = 1000;
-        this.scene2TotalTime = 1000;
+        this.scene1TotalTime = 2000;
+        this.scene2TotalTime = 64450;
+        this.scene3TotalTime = 1000;
+        this.scene4TotalTime = 20000;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -31,28 +34,35 @@
 
     FW.scene1 = {
       startZ: FW.height * 0.5,
-      endZ: FW.height * 0.2
+      endZ: FW.height * 0.2,
+      totalTime: Director.scene1TotalTime
     };
 
     FW.scene2 = {
       songPoint: 154600,
       startZ: FW.scene1.endZ,
-      endZ: -FW.width / 2 + 1000
+      endZ: -FW.width / 2 + 1000,
+      totalTime: Director.scene2TotalTime
     };
-
-    scene3TotalTime = 33930;
 
     FW.scene3 = {
       songPoint: 220000,
       startZ: FW.scene2.endZ,
-      endZ: -FW.height / 2 + 100,
-      camAcceleration: .0001
+      endZ: -FW.height / 2 + 200,
+      totalTime: Director.scene3TotalTime
     };
 
-    scene4TotalTime = 10000;
-
     FW.scene4 = {
-      songPoint: 255100
+      songPoint: 253930,
+      startVolume: 100,
+      endVolume: 20,
+      totalTime: Director.scene4TotalTime
+    };
+
+    FW.scene5 = {
+      startVolume: FW.scene4.volumeStart,
+      endVolume: 0,
+      totalTime: Director.scene5TotalTime
     };
 
     Director.prototype.run = function() {
@@ -80,8 +90,13 @@
       FW.scene2.endTime = FW.scene1.endTime + this.scene2TotalTime;
       FW.scene2.totalTime = this.scene2TotalTime;
       FW.scene3.startTime = FW.scene2.endTime;
-      FW.scene3.totalTime = scene3TotalTime;
-      FW.scene3.endTime = FW.scene2.endTime + scene3TotalTime;
+      FW.scene3.totalTime = this.scene3TotalTime;
+      FW.scene3.endTime = FW.scene2.endTime + this.scene3TotalTime;
+      FW.scene4.startTime = FW.scene3.endTime;
+      FW.scene4.totalTime = this.scene4TotalTime;
+      FW.scene4.endTime = FW.scene3.endTime + this.scene4TotalTime;
+      FW.scene5.startTime = FW.scene4.endTime;
+      FW.scene5.endTime = FW.scene4.endTime + FW.scene5.totalTime;
       FW.scene1.update = function() {
         var currentTime, hue, light;
         currentTime = Date.now();
@@ -109,8 +124,31 @@
         }
       };
       FW.scene3.update = function() {
+        var currentTime;
+        currentTime = Date.now();
         FW.myCamera.scene3Update();
-        return FW.wormHole.tick();
+        FW.wormHole.tick();
+        if (currentTime > FW.scene3.endTime) {
+          return _this.initScene4();
+        }
+      };
+      FW.scene4.update = function() {
+        var currentTime, volume;
+        currentTime = Date.now();
+        FW.wormHole.tick();
+        FW.myCamera.scene4Update();
+        volume = map(currentTime, FW.scene4.startTime, FW.scene4.endTime, 100, 0);
+        FW.song.setVolume(volume);
+        if (currentTime > FW.scene4.endTime) {
+          return _this.initScene5();
+        }
+      };
+      FW.scene5.update = function() {
+        var currentTime, volume;
+        FW.myCamera.scene5Update();
+        currentTime = Date.now();
+        volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene4.endVolume);
+        return FW.song.setVolume(volume);
       };
       this.currentScene = FW.scene1;
       return this.run();
@@ -140,6 +178,18 @@
       FW.fireflies.disable();
       FW.wormHole.activate();
       return this.currentScene = FW.scene3;
+    };
+
+    Director.prototype.initScene4 = function() {
+      if (this.setSongPoint === true) {
+        FW.song.setPosition(FW.scene4.songPoint);
+      }
+      return this.currentScene = FW.scene4;
+    };
+
+    Director.prototype.initScene5 = function() {
+      FW.wormHole.disperse();
+      return this.currentScene = FW.scene5;
     };
 
     return Director;

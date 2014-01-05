@@ -15,6 +15,7 @@ FW.Fireflies = class Fireflies
 
 
 
+
     #LIGHT
     @light = new THREE.PointLight 0xffffff, 2, 2000
     FW.scene.add @light
@@ -51,7 +52,7 @@ FW.Fireflies = class Fireflies
       velocity: new THREE.Vector3 0, 0, @ffVelocityZ
       velocitySpread: new THREE.Vector3 100, 0, 0
       acceleration: new THREE.Vector3 0, 100, @ffAccelZ
-      accelerationSpread: new THREE.Vector3 200, 200, 200  
+      accelerationSpread: new THREE.Vector3 200, 200, 0 
       opacityStart: 1.0
       opacityEnd: 1.0
 
@@ -90,6 +91,9 @@ FW.Fireflies = class Fireflies
     @light.position.z = @currentPosition.z
     @lightVelocityZ = @ffVelocityZ
     @light.position = @currentPosition
+
+    #Hack for decreasing light accel as we ge closer to mountains so the lighting stays in sync
+    @lightAccelZ *= 0.99
 
 
   tick: ->

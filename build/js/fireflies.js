@@ -45,7 +45,7 @@
         velocity: new THREE.Vector3(0, 0, this.ffVelocityZ),
         velocitySpread: new THREE.Vector3(100, 0, 0),
         acceleration: new THREE.Vector3(0, 100, this.ffAccelZ),
-        accelerationSpread: new THREE.Vector3(200, 200, 200),
+        accelerationSpread: new THREE.Vector3(200, 200, 0),
         opacityStart: 1.0,
         opacityEnd: 1.0
       });
@@ -95,7 +95,8 @@
     Fireflies.prototype.lightBurst = function() {
       this.light.position.z = this.currentPosition.z;
       this.lightVelocityZ = this.ffVelocityZ;
-      return this.light.position = this.currentPosition;
+      this.light.position = this.currentPosition;
+      return this.lightAccelZ *= 0.99;
     };
 
     Fireflies.prototype.tick = function() {

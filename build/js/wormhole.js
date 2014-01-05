@@ -3,11 +3,11 @@
 
   FW.WormHole = WormHole = (function() {
     function WormHole() {
-      this.tickTime = 0.001;
+      this.tickTime = 0.01;
       this.distanceFromCam = 50;
       this.wormHoleGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 1
+        maxAge: 2
       });
       this.generateWormHole();
       this.wormHoleGroup.mesh.renderDepth = -3;
@@ -16,10 +16,11 @@
 
     WormHole.prototype.generateWormHole = function() {
       this.wormHoleEmitter = new ShaderParticleEmitter({
-        particlesPerSecond: 5000,
-        size: 20,
+        particlesPerSecond: 10000,
         position: new THREE.Vector3(0, 10, FW.scene3.startZ),
-        positionSpread: new THREE.Vector3(1000, 10, 1000)
+        positionSpread: new THREE.Vector3(1000, 100, 1000),
+        velocity: new THREE.Vector3(0, 0, -200),
+        acceleration: new THREE.Vector3(0, 0, 100)
       });
       this.wormHoleGroup.addEmitter(this.wormHoleEmitter);
       return this.wormHoleEmitter.disable();
@@ -27,6 +28,10 @@
 
     WormHole.prototype.activate = function() {
       return this.wormHoleEmitter.enable();
+    };
+
+    WormHole.prototype.disperse = function() {
+      return this.wormHoleEmitter.disable();
     };
 
     WormHole.prototype.tick = function() {

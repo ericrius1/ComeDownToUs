@@ -1,17 +1,22 @@
 FW.Director = class Director
   constructor: ->
-    @music = false
-    short = true
+    @music = true
+    short = false
     
     @scene1TotalTime  = 155550
     @scene2TotalTime = 64450
+    @scene3TotalTime = 33930
+    @scene4TotalTime = 20000
+    @scene5TotalTime = 2000
     @setSongPoint = false
     
 
     if short
       @setSongPoint = true
-      @scene1TotalTime = 1000
-      @scene2TotalTime = 1000
+      @scene1TotalTime = 2000
+      @scene2TotalTime = 64450
+      @scene3TotalTime = 1000
+      @scene4TotalTime = 20000
 
 
     @skyColor = new THREE.Color()
@@ -32,22 +37,32 @@ FW.Director = class Director
   FW.scene1 =
     startZ: FW.height * 0.5
     endZ: FW.height * 0.2
+    totalTime: @scene1TotalTime
   
   FW.scene2 = 
     songPoint: 154600
     startZ: FW.scene1.endZ
     endZ: -FW.width/2 + 1000
+    totalTime: @scene2TotalTime
 
-  scene3TotalTime = 33930
   FW.scene3 = 
     songPoint: 220000
     startZ: FW.scene2.endZ
-    endZ: -FW.height/2 + 100
-    camAcceleration: .0001
+    endZ: -FW.height/2 +200
+    totalTime: @scene3TotalTime
 
-  scene4TotalTime = 10000
   FW.scene4 = 
-    songPoint: 255100
+    songPoint: 253930
+    startVolume: 100
+    endVolume: 20
+    totalTime: @scene4TotalTime
+
+  FW.scene5 =
+    startVolume: FW.scene4.volumeStart
+    endVolume: 0
+    totalTime: @scene5TotalTime
+
+
 
   run: =>
     requestAnimationFrame @run
@@ -72,8 +87,15 @@ FW.Director = class Director
     FW.scene2.totalTime= @scene2TotalTime
 
     FW.scene3.startTime =  FW.scene2.endTime
-    FW.scene3.totalTime = scene3TotalTime
-    FW.scene3.endTime = FW.scene2.endTime + scene3TotalTime
+    FW.scene3.totalTime = @scene3TotalTime
+    FW.scene3.endTime = FW.scene2.endTime + @scene3TotalTime
+
+    FW.scene4.startTime = FW.scene3.endTime
+    FW.scene4.totalTime = @scene4TotalTime
+    FW.scene4.endTime = FW.scene3.endTime + @scene4TotalTime
+
+    FW.scene5.startTime = FW.scene4.endTime
+    FW.scene5.endTime = FW.scene4.endTime + FW.scene5.totalTime 
 
 
     FW.scene1.update = =>
@@ -97,8 +119,26 @@ FW.Director = class Director
       if currentTime > FW.scene2.endTime
         @initScene3()
     FW.scene3.update = =>
+      currentTime = Date.now()
       FW.myCamera.scene3Update()
       FW.wormHole.tick()
+      if currentTime > FW.scene3.endTime
+        @initScene4()
+    FW.scene4.update = =>
+      currentTime = Date.now()
+      FW.wormHole.tick()
+      FW.myCamera.scene4Update()
+      volume = map(currentTime, FW.scene4.startTime, FW.scene4.endTime, 100, 0)
+      FW.song.setVolume volume
+      if currentTime > FW.scene4.endTime
+        @initScene5()
+    FW.scene5.update = =>
+      FW.myCamera.scene5Update()
+      currentTime = Date.now()
+      volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene4.endVolume)
+      FW.song.setVolume volume
+
+
 
     @currentScene = FW.scene1
     @run()
@@ -126,5 +166,15 @@ FW.Director = class Director
     FW.fireflies.disable()
     FW.wormHole.activate()
     @currentScene = FW.scene3
+
+  initScene4: ->
+    if @setSongPoint == true
+      FW.song.setPosition FW.scene4.songPoint
+    @currentScene = FW.scene4
+
+  initScene5: ->
+    
+    FW.wormHole.disperse()
+    @currentScene = FW.scene5
 
 
