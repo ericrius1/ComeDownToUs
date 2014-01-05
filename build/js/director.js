@@ -15,7 +15,7 @@
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
-        this.scene1TotalTime = 3000;
+        this.scene1TotalTime = 1000;
         this.scene2TotalTime = 1000;
       }
       this.skyColor = new THREE.Color();
@@ -138,6 +138,7 @@
       FW.camera.rotation.order = 'YXZ';
       clearTimeout(FW.scene2.fireflyInterval);
       FW.fireflies.disable();
+      FW.wormHole.activate();
       return this.currentScene = FW.scene3;
     };
 

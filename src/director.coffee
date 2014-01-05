@@ -10,7 +10,7 @@ FW.Director = class Director
 
     if short
       @setSongPoint = true
-      @scene1TotalTime = 3000
+      @scene1TotalTime = 1000
       @scene2TotalTime = 1000
 
 
@@ -124,6 +124,7 @@ FW.Director = class Director
     FW.camera.rotation.order = 'YXZ';
     clearTimeout FW.scene2.fireflyInterval
     FW.fireflies.disable()
+    FW.wormHole.activate()
     @currentScene = FW.scene3
 
 
