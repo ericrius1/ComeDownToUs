@@ -7,20 +7,22 @@
       this.run = __bind(this.run, this);
       var short;
       this.music = true;
-      short = false;
+      short = true;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 67000;
       this.scene3TotalTime = 33930;
       this.scene4TotalTime = 20000;
       this.scene5TotalTime = 10000;
+      this.raiseBridgeTime = 126200;
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
-        this.scene1TotalTime = 2000;
+        this.scene1TotalTime = 155550;
         this.scene2TotalTime = 2000;
         this.scene3TotalTime = 33930;
         this.scene4TotalTime = 20000;
         this.scene5TotalTime = 2000;
+        this.raiseBridgeTime = 5000;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -87,6 +89,7 @@
       FW.scene1.startTime = startTime;
       FW.scene1.totalTime = this.scene1TotalTime;
       FW.scene1.endTime = startTime + this.scene1TotalTime;
+      FW.scene1.raiseBridgeTime = startTime + this.raiseBridgeTime;
       FW.scene2.startTime = FW.scene1.endTime;
       FW.scene2.endTime = FW.scene1.endTime + this.scene2TotalTime;
       FW.scene2.totalTime = this.scene2TotalTime;
@@ -107,6 +110,9 @@
         FW.renderer.setClearColor(_this.skyColor);
         FW.mySun.scene1Update();
         FW.myCamera.scene1Update();
+        if (currentTime > FW.scene1.raiseBridgeTime) {
+          FW.myTerrain.createCoils();
+        }
         if (currentTime > FW.scene1.endTime) {
           return _this.initScene2();
         }

@@ -21,7 +21,7 @@
       document.body.appendChild(FW.renderer.domElement);
       color = new THREE.Color().setHSL(.12, .86, .5);
       FW.renderer.setClearColor(color);
-      this.terrain = new FW.Terrain();
+      FW.myTerrain = new FW.Terrain();
       FW.mySun = new FW.Sun();
       FW.fireflies = new FW.Fireflies();
       FW.wormHole = new FW.WormHole();

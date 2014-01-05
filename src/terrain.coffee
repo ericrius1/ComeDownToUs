@@ -28,7 +28,6 @@ FW.Terrain = class Terrain
     rightMountain.position = new THREE.Vector3 FW.width * 0.5, -100, -FW.width * 0.25
     rightMountain.rotation.y += @rotation
     FW.scene.add rightMountain
-    @createCoils()  
 
 
   createCoils: ->

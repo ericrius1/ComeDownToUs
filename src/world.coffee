@@ -25,7 +25,7 @@ FW.World = class World
     FW.renderer.setClearColor  color
     
     #TERRAIN
-    @terrain = new FW.Terrain()
+    FW.myTerrain = new FW.Terrain()
     
     #SUN
     FW.mySun = new FW.Sun()

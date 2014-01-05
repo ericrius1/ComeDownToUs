@@ -1,23 +1,25 @@
 FW.Director = class Director
   constructor: ->
     @music = true
-    short = false
+    short = true
     
     @scene1TotalTime  = 155550
     @scene2TotalTime = 67000
     @scene3TotalTime = 33930
     @scene4TotalTime = 20000
     @scene5TotalTime = 10000
+    @raiseBridgeTime = 126200
     @setSongPoint = false
     
 
     if short
       @setSongPoint = true
-      @scene1TotalTime = 2000
+      @scene1TotalTime = 155550
       @scene2TotalTime = 2000
       @scene3TotalTime = 33930
       @scene4TotalTime = 20000
       @scene5TotalTime = 2000
+      @raiseBridgeTime = 5000
 
 
     @skyColor = new THREE.Color()
@@ -39,7 +41,7 @@ FW.Director = class Director
     startZ: FW.height * 0.35
     endZ: FW.height * 0.2
     totalTime: @scene1TotalTime
-  
+
   FW.scene2 = 
     songPoint: 155550
     startZ: FW.scene1.endZ
@@ -82,6 +84,7 @@ FW.Director = class Director
     FW.scene1.startTime = startTime
     FW.scene1.totalTime =  @scene1TotalTime
     FW.scene1.endTime =  startTime + @scene1TotalTime
+    FW.scene1.raiseBridgeTime = startTime + @raiseBridgeTime
 
     FW.scene2.startTime= FW.scene1.endTime
     FW.scene2.endTime= FW.scene1.endTime + @scene2TotalTime
@@ -107,6 +110,10 @@ FW.Director = class Director
       FW.renderer.setClearColor @skyColor
       FW.mySun.scene1Update()  
       FW.myCamera.scene1Update()
+
+      #Raise bridge
+      if currentTime > FW.scene1.raiseBridgeTime
+        FW.myTerrain.createCoils()
       if currentTime > FW.scene1.endTime
         @initScene2()
     FW.scene2.update = =>

@@ -34,7 +34,6 @@
       rightMountain.position = new THREE.Vector3(FW.width * 0.5, -100, -FW.width * 0.25);
       rightMountain.rotation.y += this.rotation;
       FW.scene.add(rightMountain);
-      this.createCoils();
     }
 
     Terrain.prototype.createCoils = function() {
