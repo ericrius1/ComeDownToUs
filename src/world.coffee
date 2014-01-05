@@ -32,6 +32,9 @@ FW.World = class World
     #FIREFLIES
     FW.fireflies = new FW.Fireflies()
 
+    #WORMHOLE
+    FW.wormHole = new FW.WormHole()
+
     #LIGHT
     FW.moonLight = new THREE.DirectionalLight 0xffffff, 0.2
     FW.scene.add FW.moonLight

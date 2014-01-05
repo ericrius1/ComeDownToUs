@@ -8,6 +8,7 @@
     function Director() {
       this.run = __bind(this.run, this);
       var short;
+      this.music = false;
       short = true;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 64450;
@@ -15,7 +16,7 @@
       if (short) {
         this.setSongPoint = true;
         this.scene1TotalTime = 3000;
-        this.scene2TotalTime = 10000;
+        this.scene2TotalTime = 1000;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -44,20 +45,33 @@
     FW.scene3 = {
       songPoint: 220000,
       startZ: FW.scene2.endZ,
-      endZ: -FW.width / 2 + 100,
+      endZ: -FW.height / 2 + 100,
       camAcceleration: .0001
     };
 
     scene4TotalTime = 10000;
 
-    FW.scene3 = {
+    FW.scene4 = {
       songPoint: 255100
+    };
+
+    Director.prototype.run = function() {
+      var _ref;
+      requestAnimationFrame(this.run);
+      FW.myWorld.render();
+      if (!this.frozen) {
+        return (_ref = this.currentScene) != null ? _ref.update() : void 0;
+      } else {
+        return FW.controls.update();
+      }
     };
 
     Director.prototype.beginShow = function() {
       var startTime,
         _this = this;
-      FW.song.stop();
+      if (!this.music) {
+        FW.song.pause();
+      }
       startTime = Date.now();
       FW.scene1.startTime = startTime;
       FW.scene1.totalTime = this.scene1TotalTime;
@@ -95,21 +109,11 @@
         }
       };
       FW.scene3.update = function() {
-        return FW.myCamera.scene3Update();
+        FW.myCamera.scene3Update();
+        return FW.wormHole.tick();
       };
       this.currentScene = FW.scene1;
       return this.run();
-    };
-
-    Director.prototype.run = function() {
-      var _ref;
-      requestAnimationFrame(this.run);
-      FW.myWorld.render();
-      if (!this.frozen) {
-        return (_ref = this.currentScene) != null ? _ref.update() : void 0;
-      } else {
-        return FW.controls.update();
-      }
     };
 
     Director.prototype.freeze = function() {
@@ -133,6 +137,7 @@
       }
       FW.camera.rotation.order = 'YXZ';
       clearTimeout(FW.scene2.fireflyInterval);
+      FW.fireflies.disable();
       return this.currentScene = FW.scene3;
     };
 

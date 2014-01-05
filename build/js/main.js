@@ -17,11 +17,7 @@
     });
   }
 
-  FW.sfxVolume = 0.2;
-
   FW.globalTick = 0.16;
-
-  FW.development = false;
 
   window.onload = function() {
     FW.myDirector = new FW.Director();
@@ -33,14 +29,11 @@
   FW.Main = Main = (function() {
     function Main() {
       SC.stream("/tracks/come-down-to-us", function(song) {
-        var songStartTime, x;
+        var songStartTime;
         FW.song = song;
         songStartTime = Date.now();
-        FW.myDirector.beginShow(songStartTime);
-        if (!FW.development) {
-          FW.song.play();
-          return x = 5;
-        }
+        FW.song.play();
+        return FW.myDirector.beginShow(songStartTime);
       });
     }
 

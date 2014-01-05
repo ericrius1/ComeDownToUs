@@ -13,9 +13,7 @@ SC?.initialize({
     client_id: "7da24ca214bf72b66ed2494117d05480",
 });
 
-FW.sfxVolume = 0.2
 FW.globalTick = 0.16
-FW.development = false
 
 window.onload = ->
   FW.myDirector = new FW.Director()
@@ -31,10 +29,8 @@ FW.Main = class Main
     SC.stream "/tracks/come-down-to-us", (song)->
       FW.song = song
       songStartTime = Date.now()
+      FW.song.play()
       FW.myDirector.beginShow songStartTime
-      if !FW.development
-        FW.song.play()
-        x = 5
 
   onKeyDown: (event)->
     if event.keyCode is 32

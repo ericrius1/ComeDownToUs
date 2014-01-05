@@ -29,8 +29,7 @@
 
     Camera.prototype.scene3Update = function() {
       var currentTime;
-      currentTime = Date.now();
-      return FW.camera.position.z = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, FW.scene3.startZ, FW.scene3.endZ);
+      return currentTime = Date.now();
     };
 
     return Camera;

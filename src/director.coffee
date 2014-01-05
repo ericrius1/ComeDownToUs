@@ -1,7 +1,8 @@
 FW.Director = class Director
   constructor: ->
-
+    @music = false
     short = true
+    
     @scene1TotalTime  = 155550
     @scene2TotalTime = 64450
     @setSongPoint = false
@@ -10,7 +11,7 @@ FW.Director = class Director
     if short
       @setSongPoint = true
       @scene1TotalTime = 3000
-      @scene2TotalTime = 10000
+      @scene2TotalTime = 1000
 
 
     @skyColor = new THREE.Color()
@@ -41,16 +42,26 @@ FW.Director = class Director
   FW.scene3 = 
     songPoint: 220000
     startZ: FW.scene2.endZ
-    endZ: -FW.width/2 + 100
+    endZ: -FW.height/2 + 100
     camAcceleration: .0001
 
   scene4TotalTime = 10000
-  FW.scene3 = 
+  FW.scene4 = 
     songPoint: 255100
+
+  run: =>
+    requestAnimationFrame @run
+    FW.myWorld.render()
+    if !@frozen
+      #only update time if we are running the show!
+      @currentScene?.update()
+    else
+      FW.controls.update()
 
   #SET UP SCENE TIMES
   beginShow : ->
-    FW.song.stop()
+    if !@music
+      FW.song.pause()
     startTime = Date.now()
     FW.scene1.startTime = startTime
     FW.scene1.totalTime =  @scene1TotalTime
@@ -87,19 +98,10 @@ FW.Director = class Director
         @initScene3()
     FW.scene3.update = =>
       FW.myCamera.scene3Update()
+      FW.wormHole.tick()
 
     @currentScene = FW.scene1
     @run()
-
-  run: =>
-    requestAnimationFrame @run
-    FW.myWorld.render()
-    if !@frozen
-      #only update time if we are running the show!
-      @currentScene?.update()
-    else
-      FW.controls.update()
-
 
     
   freeze : -> 
@@ -121,6 +123,7 @@ FW.Director = class Director
       FW.song.setPosition FW.scene3.songPoint
     FW.camera.rotation.order = 'YXZ';
     clearTimeout FW.scene2.fireflyInterval
+    FW.fireflies.disable()
     @currentScene = FW.scene3
 
 
