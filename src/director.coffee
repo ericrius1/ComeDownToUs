@@ -1,7 +1,7 @@
 FW.Director = class Director
   constructor: ->
 
-    short = true
+    short = false
     @scene1TotalTime  = 155550
     @scene2TotalTime = 64450
     @setSongPoint = false
@@ -11,6 +11,7 @@ FW.Director = class Director
       @scene1TotalTime = 3000
       @setSongPoint = true
       @scene2TotalTime = 64450
+      FW.song.stop()
 
 
     @skyColor = new THREE.Color()

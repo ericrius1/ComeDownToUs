@@ -38,29 +38,29 @@
     }
 
     Terrain.prototype.createCoils = function() {
-      var coilNum, endPairPosZ, numCoils, portal1, portal2, portalGeo, portalMat, portalScale, startPairPosZ, zPortalPos, _i, _results;
+      var coil1, coil2, coilGeo, coilMat, coilNum, coilScale, endPairPosZ, numCoils, startPairPosZ, zCoilPos, _i, _results;
       numCoils = 3;
       startPairPosZ = FW.scene2.startZ - 500;
       endPairPosZ = FW.scene2.endZ;
-      portalGeo = new THREE.IcosahedronGeometry(1, 2);
-      portalMat = new THREE.MeshPhongMaterial({
+      coilGeo = new THREE.IcosahedronGeometry(1, 2);
+      coilMat = new THREE.MeshPhongMaterial({
         shading: THREE.FlatShading,
         side: THREE.DoubleSide,
         specular: new THREE.Color(),
         shininess: 20
       });
-      portalScale = 30;
+      coilScale = 50;
+      FW.coilPairDistance = 400;
       _results = [];
       for (coilNum = _i = 1; 1 <= numCoils ? _i <= numCoils : _i >= numCoils; coilNum = 1 <= numCoils ? ++_i : --_i) {
-        portal1 = new THREE.Mesh(portalGeo, portalMat);
-        portal1.scale.set(portalScale / 2, portalScale * 4, portalScale);
-        zPortalPos = map(coilNum, 1, numCoils, startPairPosZ, endPairPosZ);
-        console.log(zPortalPos);
-        portal1.position.set(-100, portalScale, zPortalPos);
-        FW.scene.add(portal1);
-        portal2 = portal1.clone();
-        portal2.position.set(100, portalScale, zPortalPos);
-        _results.push(FW.scene.add(portal2));
+        zCoilPos = map(coilNum, 1, numCoils, startPairPosZ, endPairPosZ);
+        coil1 = new THREE.Mesh(coilGeo, coilMat);
+        coil1.position.set(-FW.coilPairDistance / 2, coilScale, zCoilPos);
+        coil1.scale.set(coilScale / 10, coilScale * 4, coilScale / 10);
+        FW.scene.add(coil1);
+        coil2 = coil1.clone();
+        coil2.position.set(FW.coilPairDistance / 2, coilScale, zCoilPos);
+        _results.push(FW.scene.add(coil2));
       }
       return _results;
     };

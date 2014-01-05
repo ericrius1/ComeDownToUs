@@ -8,7 +8,7 @@
     function Director() {
       this.run = __bind(this.run, this);
       var short;
-      short = true;
+      short = false;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 64450;
       this.setSongPoint = false;
@@ -16,6 +16,7 @@
         this.scene1TotalTime = 3000;
         this.setSongPoint = true;
         this.scene2TotalTime = 64450;
+        FW.song.stop();
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;

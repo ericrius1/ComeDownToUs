@@ -2,19 +2,29 @@ FW.Fireflies = class Fireflies
   constructor: ()->
     @distanceFromCam = 120
     @ffDisableTime = 1000
-    @tickTime = .008
+    @slowDownFactor = 0.05
+    @tickTime = .16 * @slowDownFactor
     @ffToggledOn = false
     @ffHeight = 10
     @emitters = []
     @currentPosition = new THREE.Vector3()
+
+    @ffVelocityZ = 0
+    @lightVelocityZ = @ffVelocityZ
+    @ffAccelZ = -1700
+
+
 
     #LIGHT
     @light = new THREE.PointLight 0xffffff, 2, 2000
     FW.scene.add @light
     @light.color.setRGB Math.random(), Math.random(), Math.random()
     @startLightIntensity = 5
-    @endLightIntensity = 1
+    @endLightIntensity = 5
+    @lightAccelZ = @ffAccelZ/10000
 
+    @testMesh = new THREE.Mesh new THREE.SphereGeometry(5), new THREE.MeshBasicMaterial()
+    # FW.scene.add @testMesh
     #For custom emitters each beat!
 
     @firefliesGroup = new ShaderParticleGroup({
@@ -31,16 +41,17 @@ FW.Fireflies = class Fireflies
   generateFireflies: (colorStart)->
     colorEnd = new THREE.Color(0xcd40c0)
     firefliesEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 10000
+      particlesPerSecond: 5000
       size: 20
       sizeSpread: 10
       sizeEnd: 5
       colorStart: colorStart
       colorEnd: colorEnd
-      positionSpread: new THREE.Vector3 750, 10, 50
-      velocity: new THREE.Vector3 0, 0, 0
+      positionSpread: new THREE.Vector3 FW.coilPairDistance, 10, 10
+      velocity: new THREE.Vector3 0, 0, @ffVelocityZ
       velocitySpread: new THREE.Vector3 100, 0, 0
-      acceleration: new THREE.Vector3 0, 0, -1000
+      acceleration: new THREE.Vector3 0, 100, @ffAccelZ
+      accelerationSpread: new THREE.Vector3 200, 200, 200  
       opacityStart: 1.0
       opacityEnd: 1.0
 
@@ -76,11 +87,16 @@ FW.Fireflies = class Fireflies
       emitter.disable()
 
   lightBurst: ->
+    @light.position.z = @currentPosition.z
+    @lightVelocityZ = @ffVelocityZ
     @light.position = @currentPosition
+
 
   tick: ->
     currentTime = Date.now()
     @firefliesGroup.tick(@tickTime)
     intensity = map(currentTime, @startBeatTime, @startBeatTime + FW.beatInterval * 0.8, @startLightIntensity, @endLightIntensity)
     @light.intensity = intensity
-
+    @lightVelocityZ -= @lightAccelZ
+    @light.position.z -= @lightVelocityZ
+    @testMesh.position = @light.position
