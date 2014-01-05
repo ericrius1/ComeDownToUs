@@ -33,12 +33,12 @@
   FW.Main = Main = (function() {
     function Main() {
       SC.stream("/tracks/come-down-to-us", function(song) {
-        var songStartTime;
+        var songStartTime, x;
         FW.song = song;
         songStartTime = Date.now();
         FW.myDirector.beginShow(songStartTime);
         if (!FW.development) {
-          return FW.song.play();
+          return x = 5;
         }
       });
     }

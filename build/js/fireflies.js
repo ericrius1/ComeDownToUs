@@ -23,7 +23,6 @@
       this.generateFireflies(this.light.color);
       this.firefliesGroup.mesh.renderDepth = -3;
       FW.scene.add(this.firefliesGroup.mesh);
-      this.generateSpiritBeing();
     }
 
     Fireflies.prototype.generateFireflies = function(colorStart) {
@@ -97,23 +96,6 @@
       this.firefliesGroup.tick(this.tickTime);
       intensity = map(currentTime, this.startBeatTime, this.startBeatTime + FW.beatInterval * 0.8, this.startLightIntensity, this.endLightIntensity);
       return this.light.intensity = intensity;
-    };
-
-    Fireflies.prototype.generateSpiritBeing = function() {
-      var colorEnd, colorStart, spiritEmitter;
-      colorStart = new THREE.Color();
-      colorEnd = new THREE.Color();
-      spiritEmitter = new ShaderParticleEmitter({
-        particlesPerSecond: 1000,
-        size: 10,
-        sizeEnd: 10,
-        position: new THREE.Vector3(0, 0, 500),
-        positionSpread: new THREE.Vector3(10, 10, 10),
-        velocitySpread: new THREE.Vector3(10, 10, 10),
-        opacityStart: 0.8,
-        opacityEnd: 0.8
-      });
-      return this.firefliesGroup.addEmitter(spiritEmitter);
     };
 
     return Fireflies;

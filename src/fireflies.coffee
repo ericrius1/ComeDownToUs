@@ -27,8 +27,6 @@ FW.Fireflies = class Fireflies
     @firefliesGroup.mesh.renderDepth = -3
     FW.scene.add(@firefliesGroup.mesh)
 
-    #Spirit being
-    @generateSpiritBeing()
 
 
   generateFireflies: (colorStart)->
@@ -91,16 +89,16 @@ FW.Fireflies = class Fireflies
 
 
     
-  generateSpiritBeing : ->
-    colorStart = new THREE.Color()
-    colorEnd = new THREE.Color()
-    spiritEmitter = new ShaderParticleEmitter
-      particlesPerSecond: 1000
-      size: 10
-      sizeEnd: 10
-      position: new THREE.Vector3 0, 0, 500
-      positionSpread: new THREE.Vector3 10, 10, 10
-      velocitySpread: new THREE.Vector3 10, 10, 10
-      opacityStart: 0.8
-      opacityEnd: 0.8
-    @firefliesGroup.addEmitter spiritEmitter
+  # generateSpiritBeing : ->
+  #   colorStart = new THREE.Color()
+  #   colorEnd = new THREE.Color()
+  #   spiritEmitter = new ShaderParticleEmitter
+  #     particlesPerSecond: 1000
+  #     size: 10
+  #     sizeEnd: 10
+  #     position: new THREE.Vector3 0, 0, 500
+  #     positionSpread: new THREE.Vector3 10, 10, 10
+  #     velocitySpread: new THREE.Vector3 10, 10, 10
+  #     opacityStart: 0.8
+  #     opacityEnd: 0.8
+  #   @firefliesGroup.addEmitter spiritEmitter

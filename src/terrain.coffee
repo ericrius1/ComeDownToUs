@@ -28,8 +28,13 @@ FW.Terrain = class Terrain
     rightMountain.position = new THREE.Vector3 FW.width * 0.5, -100, -FW.width * 0.25
     rightMountain.rotation.y += @rotation
     FW.scene.add rightMountain
+    @createCoils()  
 
-    #GEODESIC
+
+  createCoils: ->
+    numCoils = 3
+    startPairPosZ = FW.scene2.startZ - 500
+    endPairPosZ = FW.scene2.endZ
 
     portalGeo = new THREE.IcosahedronGeometry(1, 2)
     portalMat = new THREE.MeshPhongMaterial
@@ -37,14 +42,21 @@ FW.Terrain = class Terrain
       side: THREE.DoubleSide
       specular: new THREE.Color()
       shininess: 20
-    @portal1 = new THREE.Mesh portalGeo, portalMat
     portalScale = 30
-    zPortalPos =  FW.scene2.endZ - portalScale * 10
-    @portal1.scale.set portalScale, portalScale*4, portalScale
-    @portal1.position.set -100, portalScale, zPortalPos
-    FW.scene.add @portal1
-    @portal2 = @portal1.clone()
-    @portal2.position.set 100, portalScale, zPortalPos
-    FW.scene.add @portal2
+
+
+
+    for coilNum in [1..numCoils]
+      portal1 = new THREE.Mesh portalGeo, portalMat
+      portal1.scale.set portalScale/2, portalScale*4, portalScale
+
+      zPortalPos = map(coilNum, 1, numCoils, startPairPosZ, endPairPosZ )
+      console.log zPortalPos
+
+      portal1.position.set -100, portalScale, zPortalPos
+      FW.scene.add portal1
+      portal2 = portal1.clone()
+      portal2.position.set 100, portalScale, zPortalPos
+      FW.scene.add portal2
 
     

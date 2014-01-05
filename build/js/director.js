@@ -13,7 +13,7 @@
       this.scene2TotalTime = 64450;
       this.setSongPoint = false;
       if (short) {
-        this.scene1TotalTime = 10000;
+        this.scene1TotalTime = 3000;
         this.setSongPoint = true;
         this.scene2TotalTime = 64450;
       }
