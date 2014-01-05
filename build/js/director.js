@@ -7,9 +7,9 @@
       this.run = __bind(this.run, this);
       var short;
       this.music = true;
-      short = false;
+      short = true;
       this.scene1TotalTime = 155550;
-      this.scene2TotalTime = 64450;
+      this.scene2TotalTime = 67000;
       this.scene3TotalTime = 33930;
       this.scene4TotalTime = 20000;
       this.scene5TotalTime = 2000;
@@ -17,9 +17,10 @@
       if (short) {
         this.setSongPoint = true;
         this.scene1TotalTime = 2000;
-        this.scene2TotalTime = 64450;
-        this.scene3TotalTime = 1000;
+        this.scene2TotalTime = 2000;
+        this.scene3TotalTime = 33930;
         this.scene4TotalTime = 20000;
+        this.scene5TotalTime = 2000;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -39,14 +40,14 @@
     };
 
     FW.scene2 = {
-      songPoint: 154600,
+      songPoint: 155550,
       startZ: FW.scene1.endZ,
       endZ: -FW.width / 2 + 1000,
       totalTime: Director.scene2TotalTime
     };
 
     FW.scene3 = {
-      songPoint: 220000,
+      songPoint: 221600,
       startZ: FW.scene2.endZ,
       endZ: -FW.height / 2 + 200,
       totalTime: Director.scene3TotalTime
@@ -148,7 +149,8 @@
         FW.myCamera.scene5Update();
         currentTime = Date.now();
         volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene4.endVolume);
-        return FW.song.setVolume(volume);
+        FW.song.setVolume(volume);
+        return FW.wormHole.tick();
       };
       this.currentScene = FW.scene1;
       return this.run();
@@ -175,7 +177,7 @@
       }
       FW.camera.rotation.order = 'YXZ';
       clearTimeout(FW.scene2.fireflyInterval);
-      FW.fireflies.disable();
+      FW.fireflies.erase();
       FW.wormHole.activate();
       return this.currentScene = FW.scene3;
     };
@@ -188,7 +190,6 @@
     };
 
     Director.prototype.initScene5 = function() {
-      FW.wormHole.disperse();
       return this.currentScene = FW.scene5;
     };
 

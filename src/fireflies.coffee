@@ -1,6 +1,6 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 120
+    @distanceFromCam = 160
     @ffDisableTime = 1000
     @slowDownFactor = 0.05
     @tickTime = .16 * @slowDownFactor
@@ -43,9 +43,9 @@ FW.Fireflies = class Fireflies
     colorEnd = new THREE.Color(0xcd40c0)
     firefliesEmitter = new ShaderParticleEmitter
       particlesPerSecond: 5000
-      size: 20
-      sizeSpread: 10
-      sizeEnd: 5
+      size: 30
+      sizeSpread: 20
+      sizeEnd: 30
       colorStart: colorStart
       colorEnd: colorEnd
       positionSpread: new THREE.Vector3 FW.coilPairDistance, 10, 10
@@ -94,6 +94,10 @@ FW.Fireflies = class Fireflies
 
     #Hack for decreasing light accel as we ge closer to mountains so the lighting stays in sync
     @lightAccelZ *= 0.99
+
+  erase: ->
+    @disable()
+    FW.scene.remove @firefliesGroup.mesh
 
 
   tick: ->

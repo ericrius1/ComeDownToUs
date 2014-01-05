@@ -3,7 +3,7 @@
 
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
-      this.distanceFromCam = 120;
+      this.distanceFromCam = 160;
       this.ffDisableTime = 1000;
       this.slowDownFactor = 0.05;
       this.tickTime = .16 * this.slowDownFactor;
@@ -36,9 +36,9 @@
       colorEnd = new THREE.Color(0xcd40c0);
       firefliesEmitter = new ShaderParticleEmitter({
         particlesPerSecond: 5000,
-        size: 20,
-        sizeSpread: 10,
-        sizeEnd: 5,
+        size: 30,
+        sizeSpread: 20,
+        sizeEnd: 30,
         colorStart: colorStart,
         colorEnd: colorEnd,
         positionSpread: new THREE.Vector3(FW.coilPairDistance, 10, 10),
@@ -97,6 +97,11 @@
       this.lightVelocityZ = this.ffVelocityZ;
       this.light.position = this.currentPosition;
       return this.lightAccelZ *= 0.99;
+    };
+
+    Fireflies.prototype.erase = function() {
+      this.disable();
+      return FW.scene.remove(this.firefliesGroup.mesh);
     };
 
     Fireflies.prototype.tick = function() {

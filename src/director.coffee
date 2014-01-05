@@ -1,10 +1,10 @@
 FW.Director = class Director
   constructor: ->
     @music = true
-    short = false
+    short = true
     
     @scene1TotalTime  = 155550
-    @scene2TotalTime = 64450
+    @scene2TotalTime = 67000
     @scene3TotalTime = 33930
     @scene4TotalTime = 20000
     @scene5TotalTime = 2000
@@ -14,9 +14,10 @@ FW.Director = class Director
     if short
       @setSongPoint = true
       @scene1TotalTime = 2000
-      @scene2TotalTime = 64450
-      @scene3TotalTime = 1000
+      @scene2TotalTime = 2000
+      @scene3TotalTime = 33930
       @scene4TotalTime = 20000
+      @scene5TotalTime = 2000
 
 
     @skyColor = new THREE.Color()
@@ -40,13 +41,13 @@ FW.Director = class Director
     totalTime: @scene1TotalTime
   
   FW.scene2 = 
-    songPoint: 154600
+    songPoint: 155550
     startZ: FW.scene1.endZ
     endZ: -FW.width/2 + 1000
     totalTime: @scene2TotalTime
 
   FW.scene3 = 
-    songPoint: 220000
+    songPoint: 221600
     startZ: FW.scene2.endZ
     endZ: -FW.height/2 +200
     totalTime: @scene3TotalTime
@@ -137,6 +138,7 @@ FW.Director = class Director
       currentTime = Date.now()
       volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene4.endVolume)
       FW.song.setVolume volume
+      FW.wormHole.tick()
 
 
 
@@ -163,7 +165,7 @@ FW.Director = class Director
       FW.song.setPosition FW.scene3.songPoint
     FW.camera.rotation.order = 'YXZ';
     clearTimeout FW.scene2.fireflyInterval
-    FW.fireflies.disable()
+    FW.fireflies.erase()
     FW.wormHole.activate()
     @currentScene = FW.scene3
 
@@ -174,7 +176,7 @@ FW.Director = class Director
 
   initScene5: ->
     
-    FW.wormHole.disperse()
+    # FW.wormHole.disperse()
     @currentScene = FW.scene5
 
 
