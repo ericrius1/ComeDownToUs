@@ -3,13 +3,12 @@ FW.Camera = class Camera
     @camSpeedupFactor = 1.001
 
     @camFar = 2000000
-    @camStartingY = 8
+    @startCamHeight = 8
     
     FW.camera = new THREE.PerspectiveCamera(45.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
-    FW.camera.position.set  0, @camStartingY, FW.height
+    FW.camera.position.set  0, @startCamHeight, FW.height
 
-    @scene3StartRotation = 0
-    @scene3EndRotation = Math.PI/128
+
     @scene3Velocity = -1
     @scene3Acceleration = -.0001
     
@@ -33,14 +32,14 @@ FW.Camera = class Camera
     currentTime = Date.now()
     FW.camera.position.z = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, FW.scene2.startZ, FW.scene2.endZ)
 
+  #Immediately following fireflies
   scene3Update: ->
     currentTime = Date.now()
     # FW.camera.position.z = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, FW.scene3.startZ, FW.scene3.endZ)
     FW.camera.translateZ @scene3Velocity
     @scene3Velocity += @scene3Acceleration
-    FW.camera.rotation.x = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, @scene3StartRotation, @scene3EndRotation)
 
-  #GOing towards edge
+  #Towards Edge
   scene4Update: ->
     FW.camera.position.z += @scene4Velocity
     @scene4Velocity += @scene4Acceleration
