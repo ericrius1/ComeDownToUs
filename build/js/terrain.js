@@ -3,7 +3,7 @@
 
   FW.Terrain = Terrain = (function() {
     function Terrain() {
-      var leftMountain, mountainGeo, mountainParams, portalGeo, portalMat, portalScale, rightMountain, terrainMaterial;
+      var leftMountain, mountainGeo, mountainParams, portalGeo, portalMat, portalScale, rightMountain, terrainMaterial, zPortalPos;
       this.rotation = Math.PI * .45;
       FW.terrainLength = FW.width * 0.2;
       mountainParams = {
@@ -41,11 +41,15 @@
         specular: new THREE.Color(),
         shininess: 20
       });
-      FW.portal = new THREE.Mesh(portalGeo, portalMat);
-      portalScale = 20;
-      FW.portal.scale.set(portalScale, portalScale, portalScale);
-      FW.portal.position.set(0, 0, FW.scene2.endZ - portalScale * 3);
-      FW.scene.add(FW.portal);
+      this.portal1 = new THREE.Mesh(portalGeo, portalMat);
+      portalScale = 30;
+      zPortalPos = FW.scene2.endZ - portalScale * 10;
+      this.portal1.scale.set(portalScale, portalScale * 4, portalScale);
+      this.portal1.position.set(-100, portalScale, zPortalPos);
+      FW.scene.add(this.portal1);
+      this.portal2 = this.portal1.clone();
+      this.portal2.position.set(100, portalScale, zPortalPos);
+      FW.scene.add(this.portal2);
     }
 
     return Terrain;

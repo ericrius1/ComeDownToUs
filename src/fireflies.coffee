@@ -1,10 +1,10 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 90
+    @distanceFromCam = 120
     @ffDisableTime = 1000
     @tickTime = .008
     @ffToggledOn = false
-    @ffHeight = 20
+    @ffHeight = 10
     @emitters = []
     @currentPosition = new THREE.Vector3()
 
@@ -41,7 +41,7 @@ FW.Fireflies = class Fireflies
       colorStart: colorStart
       colorEnd: colorEnd
       positionSpread: new THREE.Vector3 750, 10, 50
-      velocitySpread: new THREE.Vector3 50, 50, 50
+      velocitySpread: new THREE.Vector3 25, 25, 25
       acceleration: new THREE.Vector3 0, 50, -200
       accelerationSpread: 10, 50, -100
       opacityStart: 1.0

@@ -3,11 +3,11 @@
 
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
-      this.distanceFromCam = 90;
+      this.distanceFromCam = 120;
       this.ffDisableTime = 1000;
       this.tickTime = .008;
       this.ffToggledOn = false;
-      this.ffHeight = 20;
+      this.ffHeight = 10;
       this.emitters = [];
       this.currentPosition = new THREE.Vector3();
       this.light = new THREE.PointLight(0xffffff, 2, 2000);
@@ -37,7 +37,7 @@
         colorStart: colorStart,
         colorEnd: colorEnd,
         positionSpread: new THREE.Vector3(750, 10, 50),
-        velocitySpread: new THREE.Vector3(50, 50, 50),
+        velocitySpread: new THREE.Vector3(25, 25, 25),
         acceleration: new THREE.Vector3(0, 50, -200),
         accelerationSpread: 10
       }, 50, -100, {

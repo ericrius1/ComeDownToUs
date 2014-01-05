@@ -9,9 +9,9 @@
       this.startLight = 0.6;
       this.endLight = 0.35;
       this.scene1StartIntensity = 4;
-      this.scene1EndIntensity = 2;
+      this.scene1EndIntensity = 1;
       this.scene2StartIntensity = this.scene1EndIntensity;
-      this.scene2EndIntensity = 0.1;
+      this.scene2EndIntensity = 0.01;
       this.startScale = 300;
       this.endScale = 700;
       this.startHeight = 1200;

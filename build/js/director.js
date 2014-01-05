@@ -8,12 +8,12 @@
     function Director() {
       this.run = __bind(this.run, this);
       var short;
-      short = false;
+      short = true;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 64450;
       this.setSongPoint = false;
       if (short) {
-        this.scene1TotalTime = 2000;
+        this.scene1TotalTime = 10000;
         this.setSongPoint = true;
         this.scene2TotalTime = 64450;
       }
@@ -29,8 +29,8 @@
     }
 
     FW.scene1 = {
-      startZ: FW.width * 0.5,
-      endZ: FW.width * 0.1
+      startZ: FW.height * 0.5,
+      endZ: FW.height * 0.2
     };
 
     FW.scene2 = {

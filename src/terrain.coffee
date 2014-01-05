@@ -37,10 +37,14 @@ FW.Terrain = class Terrain
       side: THREE.DoubleSide
       specular: new THREE.Color()
       shininess: 20
-    FW.portal = new THREE.Mesh portalGeo, portalMat
-    portalScale = 20
-    FW.portal.scale.set portalScale, portalScale, portalScale
-    FW.portal.position.set 0, 0, FW.scene2.endZ - portalScale * 3
-    FW.scene.add FW.portal
+    @portal1 = new THREE.Mesh portalGeo, portalMat
+    portalScale = 30
+    zPortalPos =  FW.scene2.endZ - portalScale * 10
+    @portal1.scale.set portalScale, portalScale*4, portalScale
+    @portal1.position.set -100, portalScale, zPortalPos
+    FW.scene.add @portal1
+    @portal2 = @portal1.clone()
+    @portal2.position.set 100, portalScale, zPortalPos
+    FW.scene.add @portal2
 
     

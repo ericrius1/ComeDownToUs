@@ -11,9 +11,9 @@ FW.Sun = class Sun
     @endLight = 0.35
 
     @scene1StartIntensity = 4
-    @scene1EndIntensity = 2
+    @scene1EndIntensity = 1
     @scene2StartIntensity = @scene1EndIntensity
-    @scene2EndIntensity = 0.1
+    @scene2EndIntensity = 0.01
 
 
 

@@ -1,14 +1,14 @@
 FW.Director = class Director
   constructor: ->
 
-    short = false
+    short = true
     @scene1TotalTime  = 155550
     @scene2TotalTime = 64450
     @setSongPoint = false
     
 
     if short
-      @scene1TotalTime = 2000
+      @scene1TotalTime = 10000
       @setSongPoint = true
       @scene2TotalTime = 64450
 
@@ -29,8 +29,8 @@ FW.Director = class Director
 
   #INITIALIZE SCENES
   FW.scene1 =
-    startZ: FW.width * 0.5
-    endZ: FW.width * 0.1
+    startZ: FW.height * 0.5
+    endZ: FW.height * 0.2
   
   FW.scene2 = 
     songPoint: 154600
