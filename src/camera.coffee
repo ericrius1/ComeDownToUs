@@ -26,4 +26,4 @@ FW.Camera = class Camera
 
   scene3Update: ->
     currentTime = Date.now()
-    # FW.camera.rotation.x = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, @rotStartX, @rotEndX)
+    FW.camera.position.z = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, FW.scene3.startZ, FW.scene3.endZ)

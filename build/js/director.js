@@ -3,20 +3,19 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   FW.Director = Director = (function() {
-    var scene3TotalTime;
+    var scene3TotalTime, scene4TotalTime;
 
     function Director() {
       this.run = __bind(this.run, this);
       var short;
-      short = false;
+      short = true;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 64450;
       this.setSongPoint = false;
       if (short) {
-        this.scene1TotalTime = 3000;
         this.setSongPoint = true;
-        this.scene2TotalTime = 64450;
-        FW.song.stop();
+        this.scene1TotalTime = 3000;
+        this.scene2TotalTime = 10000;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -44,12 +43,21 @@
 
     FW.scene3 = {
       songPoint: 220000,
+      startZ: FW.scene2.endZ,
+      endZ: -FW.width / 2 + 100,
       camAcceleration: .0001
+    };
+
+    scene4TotalTime = 10000;
+
+    FW.scene3 = {
+      songPoint: 255100
     };
 
     Director.prototype.beginShow = function() {
       var startTime,
         _this = this;
+      FW.song.stop();
       startTime = Date.now();
       FW.scene1.startTime = startTime;
       FW.scene1.totalTime = this.scene1TotalTime;
@@ -87,7 +95,6 @@
         }
       };
       FW.scene3.update = function() {
-        FW.fireflies.tick();
         return FW.myCamera.scene3Update();
       };
       this.currentScene = FW.scene1;

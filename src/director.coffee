@@ -1,17 +1,16 @@
 FW.Director = class Director
   constructor: ->
 
-    short = false
+    short = true
     @scene1TotalTime  = 155550
     @scene2TotalTime = 64450
     @setSongPoint = false
     
 
     if short
-      @scene1TotalTime = 3000
       @setSongPoint = true
-      @scene2TotalTime = 64450
-      FW.song.stop()
+      @scene1TotalTime = 3000
+      @scene2TotalTime = 10000
 
 
     @skyColor = new THREE.Color()
@@ -41,12 +40,17 @@ FW.Director = class Director
   scene3TotalTime = 33930
   FW.scene3 = 
     songPoint: 220000
+    startZ: FW.scene2.endZ
+    endZ: -FW.width/2 + 100
     camAcceleration: .0001
 
+  scene4TotalTime = 10000
+  FW.scene3 = 
+    songPoint: 255100
 
-
-  #Get current time and set up transition points between scenes
+  #SET UP SCENE TIMES
   beginShow : ->
+    FW.song.stop()
     startTime = Date.now()
     FW.scene1.startTime = startTime
     FW.scene1.totalTime =  @scene1TotalTime
@@ -82,7 +86,6 @@ FW.Director = class Director
       if currentTime > FW.scene2.endTime
         @initScene3()
     FW.scene3.update = =>
-      FW.fireflies.tick()
       FW.myCamera.scene3Update()
 
     @currentScene = FW.scene1
