@@ -3,15 +3,15 @@
 
   FW.WormHole = WormHole = (function() {
     function WormHole() {
-      this.tickTime = 0.005;
-      this.heightAboveSurface = 75;
-      this.zSpread = 5000;
-      this.zDistanceFromCam = this.zSpread / 2;
+      this.tickTime = 0.08;
+      this.height = 75;
       this.ySpread = 50;
-      this.zAcceleration = -10;
+      this.zSpread = FW.height / 2;
+      this.zDistanceFromCam = this.zSpread / 2;
       this.wormHoleGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 5
+        maxAge: 10,
+        blending: THREE.AdditiveBlending
       });
       this.generateWormHole();
       this.wormHoleGroup.mesh.renderDepth = -3;
@@ -23,15 +23,17 @@
       colorStart = new THREE.Color().setRGB(Math.random(), Math.random(), Math.random());
       colorEnd = new THREE.Color().setRGB(Math.random(), Math.random(), Math.random());
       this.wormHoleEmitter = new ShaderParticleEmitter({
-        particlesPerSecond: 40000,
-        size: 20,
-        sizeSpread: 20,
+        particlesPerSecond: 10000,
+        size: 10,
+        sizeSpread: 10,
+        sizeEnd: 1,
         colorStart: colorStart,
         colorSpread: new THREE.Vector3(Math.random(), Math.random(), Math.random()),
         colorEnd: colorEnd,
-        position: new THREE.Vector3(0, this.heightAboveSurface, FW.scene3.startZ + this.zSpread / 2),
-        positionSpread: new THREE.Vector3(300, this.ySpread, this.zSpread),
-        acceleration: new THREE.Vector3(0, 0, this.zAcceleration)
+        position: new THREE.Vector3(0, this.height, FW.scene3.startZ + this.zSpread / 2),
+        positionSpread: new THREE.Vector3(200, this.ySpread, this.zSpread),
+        acceleration: new THREE.Vector3(0, 0, -5),
+        opacityEnd: 1
       });
       this.wormHoleGroup.addEmitter(this.wormHoleEmitter);
       return this.wormHoleEmitter.disable();

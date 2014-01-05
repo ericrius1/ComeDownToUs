@@ -159,7 +159,12 @@
     Director.prototype.freeze = function() {
       this.frozen = !this.frozen;
       FW.controls.enabled = !FW.controls.enabled;
-      return FW.controls.target.z = FW.camera.position.z - 30;
+      FW.controls.target.z = FW.camera.position.z - 30;
+      if (this.frozen) {
+        return FW.song.pause();
+      } else {
+        return FW.song.play();
+      }
     };
 
     Director.prototype.initScene2 = function() {
@@ -186,6 +191,7 @@
       if (this.setSongPoint === true) {
         FW.song.setPosition(FW.scene4.songPoint);
       }
+      FW.scene4.startVelocity = FW.myCamera.scene3Velocity;
       return this.currentScene = FW.scene4;
     };
 

@@ -19,6 +19,7 @@ window.onload = ->
   FW.myDirector = new FW.Director()
   FW.main = new FW.Main()
   FW.myWorld = new FW.World()
+  
 
   document.addEventListener( 'keydown', FW.main.onKeyDown, false );
 

@@ -10,10 +10,10 @@ FW.Camera = class Camera
 
 
     @scene3Velocity = -1
-    @scene3Acceleration = -.0001
+    @scene3Acceleration = -.0015
+
     
-    @scene4Velocity = -2.2
-    @scene4Acceleration = -.005
+    @scene4Acceleration = -.01
 
 
 
@@ -35,14 +35,15 @@ FW.Camera = class Camera
   #Immediately following fireflies
   scene3Update: ->
     currentTime = Date.now()
-    # FW.camera.position.z = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, FW.scene3.startZ, FW.scene3.endZ)
     FW.camera.translateZ @scene3Velocity
     @scene3Velocity += @scene3Acceleration
 
+    FW.camera.position.y = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, @startCamHeight, FW.wormHole.height)
+
   #Towards Edge
   scene4Update: ->
-    FW.camera.position.z += @scene4Velocity
-    @scene4Velocity += @scene4Acceleration
+    FW.camera.position.z += FW.scene4.startVelocity
+    FW.scene4.startVelocity += @scene4Acceleration
 
   scene5Update: ->
     FW.camera.position.z += @scene4Velocity

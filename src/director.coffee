@@ -147,9 +147,14 @@ FW.Director = class Director
 
     
   freeze : -> 
+
     @frozen = !@frozen
     FW.controls.enabled = !FW.controls.enabled
     FW.controls.target.z = FW.camera.position.z - 30    
+    if @frozen
+      FW.song.pause()
+    else
+      FW.song.play()
 
 
   initScene2: ->
@@ -172,6 +177,7 @@ FW.Director = class Director
   initScene4: ->
     if @setSongPoint == true
       FW.song.setPosition FW.scene4.songPoint
+    FW.scene4.startVelocity = FW.myCamera.scene3Velocity
     @currentScene = FW.scene4
 
   initScene5: ->
