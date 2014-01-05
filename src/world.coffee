@@ -67,7 +67,7 @@ FW.World = class World
       distortionScale: 20
 
     aMeshMirror = new THREE.Mesh(
-      new THREE.PlaneGeometry FW.width, FW.width, 50, 50
+      new THREE.PlaneGeometry FW.width, FW.height, 50, 50
       @water.material
     )
     aMeshMirror.add @water

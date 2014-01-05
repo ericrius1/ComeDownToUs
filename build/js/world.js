@@ -57,7 +57,7 @@
         alpha: 1.0,
         distortionScale: 20
       });
-      aMeshMirror = new THREE.Mesh(new THREE.PlaneGeometry(FW.width, FW.width, 50, 50), this.water.material);
+      aMeshMirror = new THREE.Mesh(new THREE.PlaneGeometry(FW.width, FW.height, 50, 50), this.water.material);
       aMeshMirror.add(this.water);
       aMeshMirror.rotation.x = -Math.PI * 0.5;
       return FW.scene.add(aMeshMirror);

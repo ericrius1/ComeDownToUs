@@ -7,7 +7,7 @@
       this.ffDisableTime = 1000;
       this.tickTime = .008;
       this.ffToggledOn = false;
-      this.ffHeight = 8;
+      this.ffHeight = 20;
       this.emitters = [];
       this.currentPosition = new THREE.Vector3();
       this.light = new THREE.PointLight(0xffffff, 2, 2000);
@@ -103,7 +103,7 @@
       var colorEnd, colorStart, spiritEmitter;
       colorStart = new THREE.Color();
       colorEnd = new THREE.Color();
-      return spiritEmitter = new ShaderParticleEmitter({
+      spiritEmitter = new ShaderParticleEmitter({
         particlesPerSecond: 1000,
         size: 10,
         sizeEnd: 10,
@@ -113,6 +113,7 @@
         opacityStart: 0.8,
         opacityEnd: 0.8
       });
+      return this.firefliesGroup.addEmitter(spiritEmitter);
     };
 
     return Fireflies;

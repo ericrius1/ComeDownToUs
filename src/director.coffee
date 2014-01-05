@@ -2,16 +2,15 @@ FW.Director = class Director
   constructor: ->
 
     short = false
-
     @scene1TotalTime  = 155550
-    @scene2TotalTime = 66250
+    @scene2TotalTime = 64450
     @setSongPoint = false
     
 
     if short
       @scene1TotalTime = 2000
       @setSongPoint = true
-      @scene2TotalTime = 66250
+      @scene2TotalTime = 64450
 
 
     @skyColor = new THREE.Color()
@@ -31,7 +30,7 @@ FW.Director = class Director
   #INITIALIZE SCENES
   FW.scene1 =
     startZ: FW.width * 0.5
-    endZ: FW.width * 0.2
+    endZ: FW.width * 0.1
   
   FW.scene2 = 
     songPoint: 154600
@@ -40,7 +39,7 @@ FW.Director = class Director
 
   scene3TotalTime = 33930
   FW.scene3 = 
-    songPoint: 221760
+    songPoint: 220000
     camAcceleration: .0001
 
 
@@ -67,13 +66,14 @@ FW.Director = class Director
       light = map(currentTime, FW.scene1.startTime, FW.scene1.endTime,  @startSkyLight, @endSkyLight )
       @skyColor.setHSL hue, 0.86, light
       FW.renderer.setClearColor @skyColor
-      FW.mySun.update()  
+      FW.mySun.scene1Update()  
       FW.myCamera.scene1Update()
       if currentTime > FW.scene1.endTime
         @initScene2()
     FW.scene2.update = =>
       currentTime = Date.now()
       FW.fireflies.tick()
+      FW.mySun.scene2Update()
       FW.myCamera.scene2Update()
       light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime,  @endSkyLight, 0 )
       @skyColor.setHSL @endSkyHue, 0.86, light

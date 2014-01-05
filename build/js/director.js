@@ -10,12 +10,12 @@
       var short;
       short = false;
       this.scene1TotalTime = 155550;
-      this.scene2TotalTime = 66250;
+      this.scene2TotalTime = 64450;
       this.setSongPoint = false;
       if (short) {
         this.scene1TotalTime = 2000;
         this.setSongPoint = true;
-        this.scene2TotalTime = 66250;
+        this.scene2TotalTime = 64450;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -30,7 +30,7 @@
 
     FW.scene1 = {
       startZ: FW.width * 0.5,
-      endZ: FW.width * 0.2
+      endZ: FW.width * 0.1
     };
 
     FW.scene2 = {
@@ -42,7 +42,7 @@
     scene3TotalTime = 33930;
 
     FW.scene3 = {
-      songPoint: 221760,
+      songPoint: 220000,
       camAcceleration: .0001
     };
 
@@ -66,7 +66,7 @@
         light = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, _this.startSkyLight, _this.endSkyLight);
         _this.skyColor.setHSL(hue, 0.86, light);
         FW.renderer.setClearColor(_this.skyColor);
-        FW.mySun.update();
+        FW.mySun.scene1Update();
         FW.myCamera.scene1Update();
         if (currentTime > FW.scene1.endTime) {
           return _this.initScene2();
@@ -76,6 +76,7 @@
         var currentTime, light;
         currentTime = Date.now();
         FW.fireflies.tick();
+        FW.mySun.scene2Update();
         FW.myCamera.scene2Update();
         light = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, _this.endSkyLight, 0);
         _this.skyColor.setHSL(_this.endSkyHue, 0.86, light);

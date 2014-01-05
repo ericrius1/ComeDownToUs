@@ -6,8 +6,8 @@
       this.camSpeedupFactor = 1.001;
       this.camFar = 2000000;
       this.camStartingY = 8;
-      FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
-      FW.camera.position.set(0, this.camStartingY, FW.width / 2);
+      FW.camera = new THREE.PerspectiveCamera(45.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
+      FW.camera.position.set(0, this.camStartingY, FW.height);
     }
 
     Camera.prototype.resize = function() {

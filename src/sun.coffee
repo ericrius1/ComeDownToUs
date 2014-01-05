@@ -10,8 +10,12 @@ FW.Sun = class Sun
     @startLight = 0.6
     @endLight = 0.35
 
-    @startIntensity = 4
-    @endIntensity = 2
+    @scene1StartIntensity = 4
+    @scene1EndIntensity = 2
+    @scene2StartIntensity = @scene1EndIntensity
+    @scene2EndIntensity = 0.1
+
+
 
     @startScale = 300
     @endScale = 700
@@ -36,12 +40,12 @@ FW.Sun = class Sun
     @sunColor.setHSL @startHue, 0.86, @startLight
     @sunMesh.material.color = @sunColor
     @sunLight.color = @sunColor
-    @sunLight.intensity = @startIntensity
+    @sunLight.intensity = @scene1StartIntensity
 
 
 
 
-  update : ->
+  scene1Update : ->
     currentTime = Date.now()
     yPos =  map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startHeight, @endHeight
     @sunMesh.position.y = yPos
@@ -52,11 +56,15 @@ FW.Sun = class Sun
     scale = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startScale, @endScale)
     @sunMesh.scale.set scale, scale, scale
 
-    @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @startIntensity, @endIntensity)
+    @sunLight.intensity = map(currentTime, FW.scene1.startTime, FW.scene1.endTime, @scene1StartIntensity, @scene1EndIntensity)
 
     hue = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startHue, @endHue
     light = map currentTime, FW.scene1.startTime, FW.scene1.endTime, @startLight, @endLight
     @sunColor.setHSL hue, 0.9, light
+
+  scene2Update: ->
+    currentTime = Date.now()
+    @sunLight.intensity = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, @scene2StartIntensity, @scene2EndIntensity)
 
 
 

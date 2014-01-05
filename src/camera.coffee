@@ -5,8 +5,8 @@ FW.Camera = class Camera
     @camFar = 2000000
     @camStartingY = 8
     
-    FW.camera = new THREE.PerspectiveCamera(55.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
-    FW.camera.position.set  0, @camStartingY, FW.width/2
+    FW.camera = new THREE.PerspectiveCamera(45.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
+    FW.camera.position.set  0, @camStartingY, FW.height
 
 
 

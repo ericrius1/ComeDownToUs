@@ -5,6 +5,8 @@
 
   FW.width = 3000;
 
+  FW.height = 12000;
+
   if (!Detector.webgl) {
     Detector.addGetWebGLMessage();
   }

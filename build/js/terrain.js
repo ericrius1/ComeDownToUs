@@ -39,12 +39,12 @@
         shading: THREE.FlatShading,
         side: THREE.DoubleSide,
         specular: new THREE.Color(),
-        shininess: 4
+        shininess: 20
       });
       FW.portal = new THREE.Mesh(portalGeo, portalMat);
-      portalScale = 100;
+      portalScale = 20;
       FW.portal.scale.set(portalScale, portalScale, portalScale);
-      FW.portal.position.set(0, 0, FW.scene2.endZ + portalScale);
+      FW.portal.position.set(0, 0, FW.scene2.endZ - portalScale * 3);
       FW.scene.add(FW.portal);
     }
 
