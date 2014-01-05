@@ -13,7 +13,7 @@
       this.currentPosition = new THREE.Vector3();
       this.ffVelocityZ = 0;
       this.lightVelocityZ = this.ffVelocityZ;
-      this.ffAccelZ = -1700;
+      this.ffAccelZ = -5000;
       this.light = new THREE.PointLight(0xffffff, 2, 2000);
       FW.scene.add(this.light);
       this.light.color.setRGB(Math.random(), Math.random(), Math.random());

@@ -11,7 +11,7 @@ FW.Fireflies = class Fireflies
 
     @ffVelocityZ = 0
     @lightVelocityZ = @ffVelocityZ
-    @ffAccelZ = -1700
+    @ffAccelZ = -5000
 
 
 

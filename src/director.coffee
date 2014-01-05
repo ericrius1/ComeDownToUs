@@ -14,8 +14,8 @@ FW.Director = class Director
 
     if short
       @setSongPoint = true
-      @scene1TotalTime = 155550
-      @scene2TotalTime = 2000
+      @scene1TotalTime = 3000
+      @scene2TotalTime = 67000
       @scene3TotalTime = 33930
       @scene4TotalTime = 20000
       @scene5TotalTime = 2000
@@ -43,7 +43,7 @@ FW.Director = class Director
     totalTime: @scene1TotalTime
 
   FW.scene2 = 
-    songPoint: 155550
+    songPoint: 154550
     startZ: FW.scene1.endZ
     endZ: -FW.width/2 + 1000
     totalTime: @scene2TotalTime
@@ -112,8 +112,8 @@ FW.Director = class Director
       FW.myCamera.scene1Update()
 
       #Raise bridge
-      if currentTime > FW.scene1.raiseBridgeTime
-        FW.myTerrain.createCoils()
+      # if currentTime > FW.scene1.raiseBridgeTime
+      #   FW.myTerrain.createCoils()
       if currentTime > FW.scene1.endTime
         @initScene2()
     FW.scene2.update = =>

@@ -17,8 +17,8 @@
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
-        this.scene1TotalTime = 155550;
-        this.scene2TotalTime = 2000;
+        this.scene1TotalTime = 3000;
+        this.scene2TotalTime = 67000;
         this.scene3TotalTime = 33930;
         this.scene4TotalTime = 20000;
         this.scene5TotalTime = 2000;
@@ -42,7 +42,7 @@
     };
 
     FW.scene2 = {
-      songPoint: 155550,
+      songPoint: 154550,
       startZ: FW.scene1.endZ,
       endZ: -FW.width / 2 + 1000,
       totalTime: Director.scene2TotalTime
@@ -110,9 +110,6 @@
         FW.renderer.setClearColor(_this.skyColor);
         FW.mySun.scene1Update();
         FW.myCamera.scene1Update();
-        if (currentTime > FW.scene1.raiseBridgeTime) {
-          FW.myTerrain.createCoils();
-        }
         if (currentTime > FW.scene1.endTime) {
           return _this.initScene2();
         }
