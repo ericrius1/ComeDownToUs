@@ -8,7 +8,8 @@
       FW.clock = new THREE.Clock();
       FW.SCREEN_WIDTH = window.innerWidth;
       FW.SCREEN_HEIGHT = window.innerHeight;
-      this.rippleFactor = 120;
+      this.rippleFactor = 90;
+      this.waterDistortion = 20;
       FW.myCamera = new FW.Camera();
       FW.controls = new THREE.OrbitControls(FW.camera);
       FW.controls.enabled = false;
@@ -56,7 +57,7 @@
         textureHeight: 512,
         waterNormals: waterNormals,
         alpha: 1.0,
-        distortionScale: 20
+        distortionScale: this.waterDistortion
       });
       aMeshMirror = new THREE.Mesh(new THREE.PlaneGeometry(FW.width, FW.height, 50, 50), this.water.material);
       aMeshMirror.add(this.water);

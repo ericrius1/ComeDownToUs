@@ -33,6 +33,8 @@ FW.Camera = class Camera
     FW.camera.position.z = map(currentTime, FW.scene2.startTime, FW.scene2.endTime, FW.scene2.startZ, FW.scene2.endZ)
 
   #Immediately following fireflies
+  #Rs eup
+  #END: "Dont be afraid to step intp the unkown"
   scene3Update: ->
     currentTime = Date.now()
     FW.camera.translateZ @scene3Velocity
@@ -40,10 +42,11 @@ FW.Camera = class Camera
 
     FW.camera.position.y = map(currentTime, FW.scene3.startTime, FW.scene3.endTime, @startCamHeight, FW.wormHole.height)
 
-  #Towards Edge
+  #Go to hyperspace!
   scene4Update: ->
     FW.camera.position.z += FW.scene4.startVelocity
     FW.scene4.startVelocity += @scene4Acceleration
 
+  #Finish fading music, The End
   scene5Update: ->
     FW.camera.position.z += @scene4Velocity

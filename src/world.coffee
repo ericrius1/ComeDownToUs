@@ -4,7 +4,8 @@ FW.World = class World
     FW.clock = new THREE.Clock()
     FW.SCREEN_WIDTH = window.innerWidth
     FW.SCREEN_HEIGHT = window.innerHeight
-    @rippleFactor = 120
+    @rippleFactor = 90
+    @waterDistortion = 20
 
     # CAMERA
     FW.myCamera = new FW.Camera()
@@ -67,7 +68,7 @@ FW.World = class World
       textureHeight: 512
       waterNormals: waterNormals
       alpha: 1.0
-      distortionScale: 20
+      distortionScale: @waterDistortion
 
     aMeshMirror = new THREE.Mesh(
       new THREE.PlaneGeometry FW.width, FW.height, 50, 50

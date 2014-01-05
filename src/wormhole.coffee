@@ -30,7 +30,8 @@ FW.WormHole = class WormHole
       colorEnd: colorEnd
       position: new THREE.Vector3 0, @height, FW.scene3.startZ + @zSpread/2
       positionSpread: new THREE.Vector3 200, @ySpread, @zSpread
-      acceleration: new THREE.Vector3 0, 0, -5
+      velocity: new THREE.Vector3 0, 0, -50
+      acceleration: new THREE.Vector3 0, 0, 0
       opacityEnd: 1
 
     @wormHoleGroup.addEmitter @wormHoleEmitter

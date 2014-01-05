@@ -1,13 +1,13 @@
 FW.Director = class Director
   constructor: ->
     @music = true
-    short = true
+    short = false
     
     @scene1TotalTime  = 155550
     @scene2TotalTime = 67000
     @scene3TotalTime = 33930
     @scene4TotalTime = 20000
-    @scene5TotalTime = 2000
+    @scene5TotalTime = 10000
     @setSongPoint = false
     
 
@@ -36,7 +36,7 @@ FW.Director = class Director
 
   #INITIALIZE SCENES
   FW.scene1 =
-    startZ: FW.height * 0.5
+    startZ: FW.height * 0.35
     endZ: FW.height * 0.2
     totalTime: @scene1TotalTime
   
@@ -59,7 +59,7 @@ FW.Director = class Director
     totalTime: @scene4TotalTime
 
   FW.scene5 =
-    startVolume: FW.scene4.volumeStart
+    startVolume: FW.scene4.endVolume
     endVolume: 0
     totalTime: @scene5TotalTime
 
@@ -136,7 +136,7 @@ FW.Director = class Director
     FW.scene5.update = =>
       FW.myCamera.scene5Update()
       currentTime = Date.now()
-      volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene4.endVolume)
+      volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene5.startVolume, FW.scene5.endVolume)
       FW.song.setVolume volume
       FW.wormHole.tick()
 

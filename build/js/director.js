@@ -7,12 +7,12 @@
       this.run = __bind(this.run, this);
       var short;
       this.music = true;
-      short = true;
+      short = false;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 67000;
       this.scene3TotalTime = 33930;
       this.scene4TotalTime = 20000;
-      this.scene5TotalTime = 2000;
+      this.scene5TotalTime = 10000;
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
@@ -34,7 +34,7 @@
     }
 
     FW.scene1 = {
-      startZ: FW.height * 0.5,
+      startZ: FW.height * 0.35,
       endZ: FW.height * 0.2,
       totalTime: Director.scene1TotalTime
     };
@@ -61,7 +61,7 @@
     };
 
     FW.scene5 = {
-      startVolume: FW.scene4.volumeStart,
+      startVolume: FW.scene4.endVolume,
       endVolume: 0,
       totalTime: Director.scene5TotalTime
     };
@@ -148,7 +148,7 @@
         var currentTime, volume;
         FW.myCamera.scene5Update();
         currentTime = Date.now();
-        volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene4.endVolume);
+        volume = map(currentTime, FW.scene5.startTime, FW.scene5.endTime, FW.scene5.startVolume, FW.scene5.endVolume);
         FW.song.setVolume(volume);
         return FW.wormHole.tick();
       };

@@ -32,7 +32,8 @@
         colorEnd: colorEnd,
         position: new THREE.Vector3(0, this.height, FW.scene3.startZ + this.zSpread / 2),
         positionSpread: new THREE.Vector3(200, this.ySpread, this.zSpread),
-        acceleration: new THREE.Vector3(0, 0, -5),
+        velocity: new THREE.Vector3(0, 0, -50),
+        acceleration: new THREE.Vector3(0, 0, 0),
         opacityEnd: 1
       });
       this.wormHoleGroup.addEmitter(this.wormHoleEmitter);
