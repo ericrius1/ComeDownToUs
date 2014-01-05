@@ -33,7 +33,7 @@ FW.Main = class Main
       songStartTime = Date.now()
       FW.myDirector.beginShow songStartTime
       if !FW.development
-        # FW.song.play()
+        FW.song.play()
         x = 5
 
   onKeyDown: (event)->

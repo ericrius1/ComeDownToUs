@@ -36,10 +36,9 @@
         colorStart: colorStart,
         colorEnd: colorEnd,
         positionSpread: new THREE.Vector3(750, 10, 50),
-        velocitySpread: new THREE.Vector3(25, 25, 25),
-        acceleration: new THREE.Vector3(0, 50, -200),
-        accelerationSpread: 10
-      }, 50, -100, {
+        velocity: new THREE.Vector3(0, 0, 0),
+        velocitySpread: new THREE.Vector3(100, 0, 0),
+        acceleration: new THREE.Vector3(0, 0, -1000),
         opacityStart: 1.0,
         opacityEnd: 1.0
       });

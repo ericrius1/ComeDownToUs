@@ -38,6 +38,7 @@
         songStartTime = Date.now();
         FW.myDirector.beginShow(songStartTime);
         if (!FW.development) {
+          FW.song.play();
           return x = 5;
         }
       });

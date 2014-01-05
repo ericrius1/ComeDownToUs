@@ -28,7 +28,6 @@ FW.Fireflies = class Fireflies
     FW.scene.add(@firefliesGroup.mesh)
 
 
-
   generateFireflies: (colorStart)->
     colorEnd = new THREE.Color(0xcd40c0)
     firefliesEmitter = new ShaderParticleEmitter
@@ -39,9 +38,9 @@ FW.Fireflies = class Fireflies
       colorStart: colorStart
       colorEnd: colorEnd
       positionSpread: new THREE.Vector3 750, 10, 50
-      velocitySpread: new THREE.Vector3 25, 25, 25
-      acceleration: new THREE.Vector3 0, 50, -200
-      accelerationSpread: 10, 50, -100
+      velocity: new THREE.Vector3 0, 0, 0
+      velocitySpread: new THREE.Vector3 100, 0, 0
+      acceleration: new THREE.Vector3 0, 0, -1000
       opacityStart: 1.0
       opacityEnd: 1.0
 
@@ -79,26 +78,9 @@ FW.Fireflies = class Fireflies
   lightBurst: ->
     @light.position = @currentPosition
 
-
-
   tick: ->
     currentTime = Date.now()
     @firefliesGroup.tick(@tickTime)
     intensity = map(currentTime, @startBeatTime, @startBeatTime + FW.beatInterval * 0.8, @startLightIntensity, @endLightIntensity)
     @light.intensity = intensity
 
-
-    
-  # generateSpiritBeing : ->
-  #   colorStart = new THREE.Color()
-  #   colorEnd = new THREE.Color()
-  #   spiritEmitter = new ShaderParticleEmitter
-  #     particlesPerSecond: 1000
-  #     size: 10
-  #     sizeEnd: 10
-  #     position: new THREE.Vector3 0, 0, 500
-  #     positionSpread: new THREE.Vector3 10, 10, 10
-  #     velocitySpread: new THREE.Vector3 10, 10, 10
-  #     opacityStart: 0.8
-  #     opacityEnd: 0.8
-  #   @firefliesGroup.addEmitter spiritEmitter
