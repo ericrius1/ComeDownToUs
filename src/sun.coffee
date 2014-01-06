@@ -14,16 +14,14 @@ FW.Sun = class Sun
     @scene2StartIntensity = @scene1EndIntensity
     @scene2EndIntensity = .5
 
-
-
-    @startScale = 300
-    @endScale = 700
+    @startScale = 600
+    @endScale = 1200
     
     @startHeight = 1200
     @endHeight = -@endScale - 10
 
-    @startX = -500
-    @endX = 300
+    @startX = -300
+    @endX = 0
     #LIGHT
     @sunLight = new THREE.DirectionalLight(0xffffff, @startingIntensity, FW.height * 2)
     @sunLight.position = new THREE.Vector3 0, @startHeight, FW.height/2

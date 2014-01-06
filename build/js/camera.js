@@ -7,7 +7,7 @@
       this.camFar = 2000000;
       this.startCamHeight = 8;
       FW.camera = new THREE.PerspectiveCamera(45.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, this.camFar);
-      FW.camera.position.set(0, this.startCamHeight, FW.height);
+      FW.camera.position.set(0, this.startCamHeight, FW.scene1.startZ);
       this.scene3Velocity = -1;
       this.scene3Acceleration = -.0015;
       this.scene4Acceleration = -.05;
@@ -41,7 +41,6 @@
 
     Camera.prototype.scene4Update = function() {
       FW.camera.position.z += FW.scene4.startVelocity;
-      console.log("VELOCITY", FW.scene4.startVelocity);
       return FW.scene4.startVelocity = Math.max(this.maxFinalVelocity, FW.scene4.startVelocity + this.scene4Acceleration);
     };
 

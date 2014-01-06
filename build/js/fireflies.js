@@ -3,16 +3,16 @@
 
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
-      this.distanceFromCam = 160;
+      this.distanceFromCam = 111;
       this.ffDisableTime = 1000;
       this.slowDownFactor = 0.05;
       this.tickTime = .16 * this.slowDownFactor;
       this.ffToggledOn = false;
-      this.ffHeight = 10;
+      this.ffHeight = 11;
       this.emitters = [];
       this.currentPosition = new THREE.Vector3();
-      this.ffVelocityZ = 0;
-      this.lightVelocityZ = this.ffVelocityZ;
+      this.ffVelocityZ = 450;
+      this.lightVelocityZ = 0;
       this.ffAccelZ = -2500;
       this.light = new THREE.PointLight(0xffffff, 2, 2000);
       FW.scene.add(this.light);
@@ -23,7 +23,7 @@
       this.testMesh = new THREE.Mesh(new THREE.SphereGeometry(5), new THREE.MeshBasicMaterial());
       this.firefliesGroup = new ShaderParticleGroup({
         texture: THREE.ImageUtils.loadTexture('assets/firefly.png'),
-        maxAge: 1
+        maxAge: 1.5
       });
       this.generateFireflies(new THREE.Color().setRGB(Math.random(), Math.random(), Math.random()));
       this.generateFireflies(this.light.color);
@@ -38,14 +38,14 @@
         particlesPerSecond: 5000,
         size: 30,
         sizeSpread: 20,
-        sizeEnd: 60,
+        sizeEnd: 30,
         colorStart: colorStart,
         colorEnd: colorEnd,
         positionSpread: new THREE.Vector3(FW.pillarPairDistance, 10, 10),
         velocity: new THREE.Vector3(0, 0, this.ffVelocityZ),
-        velocitySpread: new THREE.Vector3(10, 0, 0),
+        velocitySpread: new THREE.Vector3(10, 30, 0),
         acceleration: new THREE.Vector3(0, 0, this.ffAccelZ),
-        accelerationSpread: new THREE.Vector3(10, 10, 0),
+        accelerationSpread: new THREE.Vector3(10, 0, 0),
         opacityStart: 1.0,
         opacityEnd: 1.0
       });
@@ -94,7 +94,7 @@
 
     Fireflies.prototype.lightBurst = function() {
       this.light.position.z = this.currentPosition.z;
-      this.lightVelocityZ = this.ffVelocityZ;
+      this.lightVelocityZ = 0;
       this.light.position = this.currentPosition;
       return this.lightAccelZ *= 0.99;
     };
@@ -110,8 +110,8 @@
       this.firefliesGroup.tick(this.tickTime);
       intensity = map(currentTime, this.startBeatTime, this.startBeatTime + FW.beatInterval * 0.8, this.startLightIntensity, this.endLightIntensity);
       this.light.intensity = intensity;
-      this.lightVelocityZ -= this.lightAccelZ;
       this.light.position.z -= this.lightVelocityZ;
+      this.lightVelocityZ -= this.lightAccelZ;
       return this.testMesh.position = this.light.position;
     };
 

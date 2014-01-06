@@ -6,7 +6,7 @@ FW.Camera = class Camera
     @startCamHeight = 8
     
     FW.camera = new THREE.PerspectiveCamera(45.0, FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT, 1, @camFar)
-    FW.camera.position.set  0, @startCamHeight, FW.height
+    FW.camera.position.set  0, @startCamHeight, FW.scene1.startZ
 
 
     @scene3Velocity = -1
@@ -15,11 +15,6 @@ FW.Camera = class Camera
     
     @scene4Acceleration = -.05
     @maxFinalVelocity = -10
-
-
-
-
- 
 
   resize: ->
     FW.camera.aspect = FW.SCREEN_WIDTH / FW.SCREEN_HEIGHT
@@ -45,7 +40,6 @@ FW.Camera = class Camera
   #Go to hyperspace!
   scene4Update: ->
     FW.camera.position.z += FW.scene4.startVelocity
-    console.log "VELOCITY", FW.scene4.startVelocity
     FW.scene4.startVelocity =  Math.max(@maxFinalVelocity, (FW.scene4.startVelocity + @scene4Acceleration))
 
   #Finish fading music, The End

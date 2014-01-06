@@ -11,8 +11,8 @@
         generator: PN_GENERATOR,
         width: FW.terrainLength,
         height: FW.width,
-        widthSegments: 250,
-        heightSegments: 250,
+        widthSegments: 150,
+        heightSegments: 150,
         depth: 900,
         param: 4,
         filterparam: 1,
@@ -39,7 +39,8 @@
 
     Terrain.prototype.createBridge = function() {
       var endHeightScale, endPairPosZ, heightScale, numPillarPairs, pillar1, pillar2, pillarGeo, pillarMat, pillarPairIndex, pillarScale, startHeightScale, startPairPosZ, zPillarPos, _i, _results;
-      numPillarPairs = 40;
+      numPillarPairs = 50;
+      this.pillars = [];
       startPairPosZ = FW.scene2.startZ - 200;
       endPairPosZ = FW.scene3.startZ - 2000;
       pillarScale = 1;
@@ -49,7 +50,7 @@
       pillarMat = new THREE.MeshPhongMaterial({
         shading: THREE.FlatShading,
         specular: new THREE.Color(),
-        shininess: 20
+        shininess: 1
       });
       FW.pillarPairDistance = 400;
       _results = [];
@@ -62,11 +63,29 @@
         }
         pillar1.scale.set(pillarScale, heightScale, pillarScale);
         zPillarPos = map(pillarPairIndex, 1, numPillarPairs, startPairPosZ, endPairPosZ);
-        pillar1.position.set(-FW.pillarPairDistance / 2, heightScale / 2, zPillarPos);
+        pillar1.startY = -heightScale / 2;
+        pillar1.finalY = heightScale / 2;
+        pillar1.position.set(-FW.pillarPairDistance / 2, pillar1.startY, zPillarPos);
         FW.scene.add(pillar1);
+        this.pillars.push(pillar1);
         pillar2 = pillar1.clone();
-        pillar2.position.set(FW.pillarPairDistance / 2, heightScale / 2, zPillarPos);
-        _results.push(FW.scene.add(pillar2));
+        pillar2.startY = -heightScale / 2;
+        pillar2.finalY = heightScale / 2;
+        pillar2.position.set(FW.pillarPairDistance / 2, pillar2.startY, zPillarPos);
+        FW.scene.add(pillar2);
+        _results.push(this.pillars.push(pillar2));
+      }
+      return _results;
+    };
+
+    Terrain.prototype.raiseBridge = function(currentTime) {
+      var newYPos, pillar, _i, _len, _ref, _results;
+      _ref = this.pillars;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        pillar = _ref[_i];
+        newYPos = map(currentTime, FW.scene1.startRaiseBridgeTime, FW.scene1.endRaiseBridgeTime, pillar.startY, pillar.finalY);
+        _results.push(pillar.position.y = newYPos);
       }
       return _results;
     };

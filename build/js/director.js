@@ -7,22 +7,23 @@
       this.run = __bind(this.run, this);
       var short;
       this.music = true;
-      short = true;
+      short = false;
       this.scene1TotalTime = 155550;
       this.scene2TotalTime = 67000;
       this.scene3TotalTime = 33930;
       this.scene4TotalTime = 20000;
       this.scene5TotalTime = 10000;
-      this.raiseBridgeTime = 126200;
+      this.startRaiseBridgeTime = 127500;
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
-        this.scene1TotalTime = 3000;
-        this.scene2TotalTime = 3000;
+        this.scene1TotalTime = 10000;
+        this.scene2TotalTime = 67000;
         this.scene3TotalTime = 3000;
         this.scene4TotalTime = 20000;
         this.scene5TotalTime = 2000;
-        this.raiseBridgeTime = 5000;
+        this.startRaiseBridgeTime = 2000;
+        this.endRaiseBridgeTime = 10000;
       }
       this.skyColor = new THREE.Color();
       this.frozen = false;
@@ -36,7 +37,7 @@
     }
 
     FW.scene1 = {
-      startZ: FW.height * 0.35,
+      startZ: FW.height * 0.3,
       endZ: FW.height * 0.2,
       totalTime: Director.scene1TotalTime
     };
@@ -91,7 +92,8 @@
       FW.scene1.startTime = startTime;
       FW.scene1.totalTime = this.scene1TotalTime;
       FW.scene1.endTime = startTime + this.scene1TotalTime;
-      FW.scene1.raiseBridgeTime = startTime + this.raiseBridgeTime;
+      FW.scene1.startRaiseBridgeTime = startTime + this.startRaiseBridgeTime;
+      FW.scene1.endRaiseBridgeTime = FW.scene1.endTime;
       FW.scene2.startTime = FW.scene1.endTime;
       FW.scene2.endTime = FW.scene1.endTime + this.scene2TotalTime;
       FW.scene2.totalTime = this.scene2TotalTime;
@@ -112,6 +114,9 @@
         FW.renderer.setClearColor(_this.skyColor);
         FW.mySun.scene1Update();
         FW.myCamera.scene1Update();
+        if (currentTime > FW.scene1.startRaiseBridgeTime) {
+          FW.myTerrain.raiseBridge(currentTime);
+        }
         if (currentTime > FW.scene1.endTime) {
           return _this.initScene2();
         }

@@ -12,12 +12,12 @@
       this.scene1EndIntensity = 1;
       this.scene2StartIntensity = this.scene1EndIntensity;
       this.scene2EndIntensity = .5;
-      this.startScale = 300;
-      this.endScale = 700;
+      this.startScale = 600;
+      this.endScale = 1200;
       this.startHeight = 1200;
       this.endHeight = -this.endScale - 10;
-      this.startX = -500;
-      this.endX = 300;
+      this.startX = -300;
+      this.endX = 0;
       this.sunLight = new THREE.DirectionalLight(0xffffff, this.startingIntensity, FW.height * 2);
       this.sunLight.position = new THREE.Vector3(0, this.startHeight, FW.height / 2);
       FW.scene.add(this.sunLight);

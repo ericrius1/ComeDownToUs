@@ -1,25 +1,26 @@
 FW.Director = class Director
   constructor: ->
     @music = true
-    short = true
+    short = false
     
     @scene1TotalTime  = 155550
     @scene2TotalTime = 67000
     @scene3TotalTime = 33930
     @scene4TotalTime = 20000
     @scene5TotalTime = 10000
-    @raiseBridgeTime = 126200
+    @startRaiseBridgeTime = 127500
     @setSongPoint = false
     
 
     if short
       @setSongPoint = true
-      @scene1TotalTime = 3000
-      @scene2TotalTime = 3000
+      @scene1TotalTime = 10000
+      @scene2TotalTime = 67000
       @scene3TotalTime = 3000
       @scene4TotalTime = 20000
       @scene5TotalTime = 2000
-      @raiseBridgeTime = 5000
+      @startRaiseBridgeTime = 2000
+      @endRaiseBridgeTime = 10000
 
 
     @skyColor = new THREE.Color()
@@ -38,7 +39,7 @@ FW.Director = class Director
 
   #INITIALIZE SCENES
   FW.scene1 =
-    startZ: FW.height * 0.35
+    startZ: FW.height * 0.3
     endZ: FW.height * 0.2
     totalTime: @scene1TotalTime
 
@@ -77,7 +78,7 @@ FW.Director = class Director
     else
       FW.controls.update()
 
-  #SET UP SCENE TIMES
+  #SET UP SCENE TIMES #############################################
   beginShow : ->
     if !@music
       FW.song.pause()
@@ -85,7 +86,9 @@ FW.Director = class Director
     FW.scene1.startTime = startTime
     FW.scene1.totalTime =  @scene1TotalTime
     FW.scene1.endTime =  startTime + @scene1TotalTime
-    FW.scene1.raiseBridgeTime = startTime + @raiseBridgeTime
+
+    FW.scene1.startRaiseBridgeTime = startTime + @startRaiseBridgeTime
+    FW.scene1.endRaiseBridgeTime = FW.scene1.endTime
 
     FW.scene2.startTime= FW.scene1.endTime
     FW.scene2.endTime= FW.scene1.endTime + @scene2TotalTime
@@ -113,8 +116,8 @@ FW.Director = class Director
       FW.myCamera.scene1Update()
 
       #Raise bridge
-      # if currentTime > FW.scene1.raiseBridgeTime
-      #   FW.myTerrain.createCoils()
+      if currentTime > FW.scene1.startRaiseBridgeTime
+        FW.myTerrain.raiseBridge(currentTime)
       if currentTime > FW.scene1.endTime
         @initScene2()
     FW.scene2.update = =>
