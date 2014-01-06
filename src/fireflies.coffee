@@ -1,6 +1,7 @@
 FW.Fireflies = class Fireflies
   constructor: ()->
-    @distanceFromCam = 111
+    @ffDistanceFromCam = 160
+    @lightZOffsetFromFireFlies = 1000
     @ffDisableTime = 1000
     @slowDownFactor = 0.05
     @tickTime = .16 * @slowDownFactor
@@ -14,14 +15,13 @@ FW.Fireflies = class Fireflies
     @ffAccelZ = -2500
 
 
-
-
     #LIGHT
-    @light = new THREE.PointLight 0xffffff, 2, 2000
+    @lightDistance = 2000
+    @light = new THREE.PointLight 0xffffff, 0, @lightDistance
     FW.scene.add @light
     @light.color.setRGB Math.random(), Math.random(), Math.random()
     @startLightIntensity = 5
-    @endLightIntensity = 5
+    @endLightIntensity = 2
     @lightAccelZ = @ffAccelZ/10000
 
     @testMesh = new THREE.Mesh new THREE.SphereGeometry(5), new THREE.MeshBasicMaterial()
@@ -44,7 +44,7 @@ FW.Fireflies = class Fireflies
     firefliesEmitter = new ShaderParticleEmitter
       particlesPerSecond: 5000
       size: 30
-      sizeSpread: 20
+      sizeSpread: 30
       sizeEnd: 30
       colorStart: colorStart
       colorEnd: colorEnd
@@ -62,7 +62,7 @@ FW.Fireflies = class Fireflies
 
   runScene2 : ->
     @currentPosition = new THREE.Vector3().copy FW.camera.position
-    @currentPosition.z -= @distanceFromCam
+    @currentPosition.z -= @ffDistanceFromCam
     @currentPosition.y = @ffHeight
     @startBeatTime = Date.now()
     @lightBurst()
@@ -88,9 +88,8 @@ FW.Fireflies = class Fireflies
       emitter.disable()
 
   lightBurst: ->
-    @light.position.z = @currentPosition.z
+    @light.position.z = @currentPosition.z  + @lightZOffsetFromFireFlies
     @lightVelocityZ = 0
-    @light.position = @currentPosition
 
     #Hack for decreasing light accel as we ge closer to mountains so the lighting stays in sync
     @lightAccelZ *= 0.99

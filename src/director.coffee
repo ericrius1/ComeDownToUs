@@ -14,7 +14,7 @@ FW.Director = class Director
 
     if short
       @setSongPoint = true
-      @scene1TotalTime = 10000
+      @scene1TotalTime = 3000
       @scene2TotalTime = 67000
       @scene3TotalTime = 3000
       @scene4TotalTime = 20000

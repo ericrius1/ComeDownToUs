@@ -3,7 +3,8 @@
 
   FW.Fireflies = Fireflies = (function() {
     function Fireflies() {
-      this.distanceFromCam = 111;
+      this.ffDistanceFromCam = 160;
+      this.lightZOffsetFromFireFlies = 1000;
       this.ffDisableTime = 1000;
       this.slowDownFactor = 0.05;
       this.tickTime = .16 * this.slowDownFactor;
@@ -14,11 +15,12 @@
       this.ffVelocityZ = 450;
       this.lightVelocityZ = 0;
       this.ffAccelZ = -2500;
-      this.light = new THREE.PointLight(0xffffff, 2, 2000);
+      this.lightDistance = 2000;
+      this.light = new THREE.PointLight(0xffffff, 0, this.lightDistance);
       FW.scene.add(this.light);
       this.light.color.setRGB(Math.random(), Math.random(), Math.random());
       this.startLightIntensity = 5;
-      this.endLightIntensity = 5;
+      this.endLightIntensity = 2;
       this.lightAccelZ = this.ffAccelZ / 10000;
       this.testMesh = new THREE.Mesh(new THREE.SphereGeometry(5), new THREE.MeshBasicMaterial());
       this.firefliesGroup = new ShaderParticleGroup({
@@ -37,7 +39,7 @@
       firefliesEmitter = new ShaderParticleEmitter({
         particlesPerSecond: 5000,
         size: 30,
-        sizeSpread: 20,
+        sizeSpread: 30,
         sizeEnd: 30,
         colorStart: colorStart,
         colorEnd: colorEnd,
@@ -57,7 +59,7 @@
     Fireflies.prototype.runScene2 = function() {
       var _this = this;
       this.currentPosition = new THREE.Vector3().copy(FW.camera.position);
-      this.currentPosition.z -= this.distanceFromCam;
+      this.currentPosition.z -= this.ffDistanceFromCam;
       this.currentPosition.y = this.ffHeight;
       this.startBeatTime = Date.now();
       this.lightBurst();
@@ -93,9 +95,8 @@
     };
 
     Fireflies.prototype.lightBurst = function() {
-      this.light.position.z = this.currentPosition.z;
+      this.light.position.z = this.currentPosition.z + this.lightZOffsetFromFireFlies;
       this.lightVelocityZ = 0;
-      this.light.position = this.currentPosition;
       return this.lightAccelZ *= 0.99;
     };
 

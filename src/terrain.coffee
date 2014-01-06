@@ -40,13 +40,14 @@ FW.Terrain = class Terrain
     pillarScale = 1
     startHeightScale = 1
     endHeightScale = 2000
+    pillarHeightOffset = 20
 
     #CylinderGeometry(radiusTop, radiusBottom, height, radiusSegments, heightSegments, openEnded)
     pillarGeo = new THREE.CylinderGeometry(1, 1, 1, 8, 1, true)#radiusTop, #radiusBottom, @height
     pillarMat = new THREE.MeshPhongMaterial
       shading: THREE.FlatShading 
       specular: new THREE.Color()
-      shininess: 1
+      shininess: 10
     FW.pillarPairDistance = 400
 
 
@@ -65,14 +66,14 @@ FW.Terrain = class Terrain
 
       zPillarPos = map(pillarPairIndex, 1, numPillarPairs, startPairPosZ, endPairPosZ )
       pillar1.startY = -heightScale/2
-      pillar1.finalY = heightScale/2
+      pillar1.finalY = heightScale/2 - pillarHeightOffset
       pillar1.position.set -FW.pillarPairDistance/2, pillar1.startY, zPillarPos
       FW.scene.add pillar1
       @pillars.push pillar1
 
       pillar2 = pillar1.clone()
       pillar2.startY = -heightScale/2 
-      pillar2.finalY = heightScale/2 
+      pillar2.finalY = heightScale/2 - pillarHeightOffset
       pillar2.position.set FW.pillarPairDistance/2, pillar2.startY, zPillarPos
       FW.scene.add pillar2
       @pillars.push pillar2
