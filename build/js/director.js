@@ -37,7 +37,7 @@
     }
 
     FW.scene1 = {
-      startZ: FW.height * 0.2,
+      startZ: FW.height * 0.23,
       endZ: FW.height * 0.2,
       totalTime: Director.scene1TotalTime
     };
