@@ -19,8 +19,8 @@
       this.light = new THREE.PointLight(0xffffff, 0, this.lightDistance);
       FW.scene.add(this.light);
       this.light.color.setRGB(Math.random(), Math.random(), Math.random());
-      this.startLightIntensity = 5;
-      this.endLightIntensity = 2;
+      this.startLightIntensity = 6;
+      this.endLightIntensity = 4;
       this.lightAccelZ = this.ffAccelZ / 10000;
       this.testMesh = new THREE.Mesh(new THREE.SphereGeometry(5), new THREE.MeshBasicMaterial());
       this.firefliesGroup = new ShaderParticleGroup({

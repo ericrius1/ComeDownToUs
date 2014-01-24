@@ -17,7 +17,7 @@
       this.setSongPoint = false;
       if (short) {
         this.setSongPoint = true;
-        this.scene1TotalTime = 3000;
+        this.scene1TotalTime = 10000;
         this.scene2TotalTime = 67000;
         this.scene3TotalTime = 3000;
         this.scene4TotalTime = 20000;
@@ -37,8 +37,8 @@
     }
 
     FW.scene1 = {
-      startZ: FW.height * 0.25,
-      endZ: FW.height * 0.2,
+      startZ: FW.height * 0.4,
+      endZ: FW.height * 0,
       totalTime: Director.scene1TotalTime
     };
 

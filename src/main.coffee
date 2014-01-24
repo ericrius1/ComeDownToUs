@@ -10,7 +10,7 @@ if !Detector.webgl
    Detector.addGetWebGLMessage()
 
 SC?.initialize({
-    client_id: "7da24ca214bf72b66ed2494117d05480",
+    client_id: "7265905d50a4ae541fd4219bc9b2b0db",
 });
 
 FW.globalTick = 0.16
@@ -27,7 +27,7 @@ FW.Main = class Main
   constructor: ->
     #Put a sound you want from soundcloud here
     # FW.myDirector.beginShow Date.now()
-    SC.stream "/tracks/come-down-to-us", (song)->
+    SC.stream "/tracks/burial-come-down-to-us", (song)->
       FW.song = song
       songStartTime = Date.now()
       FW.song.play()

@@ -20,8 +20,8 @@ FW.Fireflies = class Fireflies
     @light = new THREE.PointLight 0xffffff, 0, @lightDistance
     FW.scene.add @light
     @light.color.setRGB Math.random(), Math.random(), Math.random()
-    @startLightIntensity = 5
-    @endLightIntensity = 2
+    @startLightIntensity = 6
+    @endLightIntensity = 4
     @lightAccelZ = @ffAccelZ/10000
 
     @testMesh = new THREE.Mesh new THREE.SphereGeometry(5), new THREE.MeshBasicMaterial()
