@@ -11,31 +11,25 @@
     Detector.addGetWebGLMessage();
   }
 
-  if (typeof SC !== "undefined" && SC !== null) {
-    SC.initialize({
-      client_id: "7265905d50a4ae541fd4219bc9b2b0db"
-    });
-  }
-
   FW.globalTick = 0.16;
 
   window.onload = function() {
+    var _this = this;
+    FW.song = document.getElementById('song');
+    FW.song.play();
     FW.myDirector = new FW.Director();
     FW.main = new FW.Main();
     FW.myWorld = new FW.World();
-    return document.addEventListener('keydown', FW.main.onKeyDown, false);
+    return FW.song.addEventListener('canplaythrough', function() {
+      var songStartTime;
+      console.log('PLAY');
+      songStartTime = Date.now();
+      return FW.myDirector.beginShow(songStartTime);
+    });
   };
 
   FW.Main = Main = (function() {
-    function Main() {
-      SC.stream("/tracks/burial-come-down-to-us", function(song) {
-        var songStartTime;
-        FW.song = song;
-        songStartTime = Date.now();
-        FW.song.play();
-        return FW.myDirector.beginShow(songStartTime);
-      });
-    }
+    function Main() {}
 
     Main.prototype.onKeyDown = function(event) {
       if (event.keyCode === 32) {

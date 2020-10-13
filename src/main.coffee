@@ -9,38 +9,33 @@ FW.height = 12000
 if !Detector.webgl
    Detector.addGetWebGLMessage()
 
-SC?.initialize({
-    client_id: "7265905d50a4ae541fd4219bc9b2b0db",
-});
+
 
 FW.globalTick = 0.16
 
 window.onload = ->
+  FW.song = document.getElementById('song')
+  FW.song.play()
   FW.myDirector = new FW.Director()
   FW.main = new FW.Main()
   FW.myWorld = new FW.World()
+  FW.song.addEventListener('canplaythrough', ()=>
+    console.log 'PLAY'
+    songStartTime = Date.now()
+    FW.myDirector.beginShow songStartTime
+  )
+  
   
 
-  document.addEventListener( 'keydown', FW.main.onKeyDown, false );
+  #document.addEventListener( 'keydown', FW.main.onKeyDown, false );
 
 FW.Main = class Main
   constructor: ->
-    #Put a sound you want from soundcloud here
-    # FW.myDirector.beginShow Date.now()
-    SC.stream "/tracks/burial-come-down-to-us", (song)->
-      FW.song = song
-      songStartTime = Date.now()
-      FW.song.play()
-      FW.myDirector.beginShow songStartTime
-
   onKeyDown: (event)->
     if event.keyCode is 32
       FW.myDirector.freeze()
 
    
-
-
-#155550
 
 
 
